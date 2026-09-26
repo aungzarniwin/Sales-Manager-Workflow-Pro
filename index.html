@@ -4,116 +4,170 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
-<title>Sales Manager Workflow Pro V3</title>
+<title>Sales Manager Workflow Pro</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 :root{
-  --bg:#f4f6f9;
-  --card:#fff;
-  --text:#172033;
-  --muted:#667085;
-  --line:#e5e7eb;
-  --dark:#0f172a;
-  --dark2:#172033;
-  --red:#dc2626;
+  --navy:#0f172a;
+  --navy2:#111827;
+  --navy3:#1e293b;
+  --red:#d71920;
   --red2:#b91c1c;
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --text:#172033;
+  --muted:#64748b;
+  --line:#e5e7eb;
   --green:#16a34a;
   --orange:#f59e0b;
   --blue:#2563eb;
   --purple:#7c3aed;
-  --shadow:0 10px 30px rgba(15,23,42,.07);
+  --danger:#dc2626;
+  --shadow:0 8px 28px rgba(15,23,42,.08);
   --radius:16px;
 }
 
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Myanmar",
-  "Myanmar Text",Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
+html,body{
+  min-height:100%;
 }
 
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
+body{
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans Myanmar",
+    "Myanmar Text",
+    Arial,
+    sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* =========================
+   APP SHELL
+========================= */
 
 .app{
   min-height:100vh;
   display:flex;
 }
 
-/* SIDEBAR */
 .sidebar{
-  width:260px;
-  background:var(--dark);
-  color:#fff;
   position:fixed;
-  inset:0 auto 0 0;
+  left:0;
+  top:0;
+  bottom:0;
+  width:270px;
+  background:linear-gradient(180deg,#0b1220 0%,#111827 100%);
+  color:#fff;
   z-index:1000;
   display:flex;
   flex-direction:column;
-  transition:.25s;
+  overflow-y:auto;
 }
 
 .brand{
-  padding:20px 18px;
+  padding:18px 18px 16px;
   border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.brand-logo{
+.brand-logo-wrap{
   background:#fff;
-  border-radius:10px;
-  height:52px;
+  border-radius:12px;
+  height:62px;
   display:flex;
   align-items:center;
   justify-content:center;
+  overflow:hidden;
   margin-bottom:12px;
 }
 
-.brand-logo svg{
-  width:105px;
-  height:auto;
+/* Stable ISUZU-style wordmark.
+   No external image dependency */
+.isuzu-logo{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:100%;
+  background:#fff;
+}
+
+.isuzu-word{
+  font-family:Arial,Helvetica,sans-serif;
+  font-weight:900;
+  font-style:italic;
+  font-size:35px;
+  letter-spacing:-2px;
+  color:#d71920;
+  transform:skew(-8deg);
+  line-height:1;
 }
 
 .brand-title{
-  font-weight:800;
   font-size:16px;
+  font-weight:800;
+  letter-spacing:.2px;
 }
 
 .brand-sub{
-  color:#94a3b8;
+  margin-top:4px;
   font-size:11px;
-  margin-top:3px;
+  color:#94a3b8;
 }
 
 .workspace{
   display:inline-flex;
-  margin-top:10px;
-  background:#7f1d1d;
-  color:#fecaca;
-  padding:5px 9px;
-  border-radius:7px;
+  margin-top:11px;
+  padding:6px 9px;
+  border-radius:999px;
+  background:rgba(215,25,32,.14);
+  color:#fca5a5;
+  border:1px solid rgba(215,25,32,.3);
   font-size:10px;
   font-weight:800;
+  letter-spacing:.5px;
 }
 
 .nav{
   padding:14px 10px;
-  overflow:auto;
   flex:1;
 }
 
 .nav-section{
-  color:#64748b;
+  padding:12px 10px 7px;
   font-size:10px;
   font-weight:800;
+  color:#64748b;
   text-transform:uppercase;
-  padding:12px 10px 7px;
+  letter-spacing:.9px;
 }
 
-.nav button{
+.nav-btn{
   width:100%;
   border:0;
   background:transparent;
@@ -123,49 +177,50 @@ button{cursor:pointer}
   text-align:left;
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:11px;
   margin-bottom:3px;
-  font-size:13px;
+  transition:.18s;
 }
 
-.nav button:hover,
-.nav button.active{
-  background:#1e293b;
+.nav-btn:hover{
+  background:rgba(255,255,255,.06);
   color:#fff;
 }
 
-.nav button.active{
-  box-shadow:inset 3px 0 var(--red);
+.nav-btn.active{
+  background:linear-gradient(90deg,rgba(215,25,32,.22),rgba(215,25,32,.08));
+  color:#fff;
+  box-shadow:inset 3px 0 0 var(--red);
 }
 
 .nav-icon{
-  width:24px;
+  width:23px;
   text-align:center;
-  font-size:15px;
+  font-size:16px;
 }
 
 .sidebar-footer{
-  padding:14px;
+  padding:13px;
   border-top:1px solid rgba(255,255,255,.08);
   color:#64748b;
   font-size:10px;
+  line-height:1.5;
 }
 
-/* MAIN */
 .main{
-  margin-left:260px;
-  width:calc(100% - 260px);
+  margin-left:270px;
+  width:calc(100% - 270px);
   min-width:0;
 }
 
 .topbar{
-  height:68px;
+  height:70px;
   background:#fff;
   border-bottom:1px solid var(--line);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 22px;
+  padding:0 24px;
   position:sticky;
   top:0;
   z-index:500;
@@ -177,53 +232,83 @@ button{cursor:pointer}
   gap:12px;
 }
 
+.menu-mobile{
+  display:none;
+  width:40px;
+  height:40px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+}
+
 .page-title{
   font-size:19px;
   font-weight:800;
 }
 
-.page-sub{
+.page-subtitle{
   font-size:11px;
   color:var(--muted);
-  margin-top:2px;
+  margin-top:3px;
 }
 
 .top-actions{
   display:flex;
+  align-items:center;
   gap:8px;
 }
 
 .btn{
-  border:0;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--text);
+  padding:10px 13px;
   border-radius:10px;
-  padding:10px 14px;
   font-weight:700;
   font-size:12px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap:7px;
-  transition:.15s;
+  min-height:40px;
 }
 
-.btn:hover{transform:translateY(-1px)}
-.btn-primary{background:var(--red);color:#fff}
-.btn-primary:hover{background:var(--red2)}
-.btn-dark{background:var(--dark);color:#fff}
-.btn-light{background:#f1f5f9;color:#334155}
-.btn-green{background:#dcfce7;color:#166534}
-.btn-orange{background:#fef3c7;color:#92400e}
-.btn-blue{background:#dbeafe;color:#1d4ed8}
-.btn-danger{background:#fee2e2;color:#b91c1c}
-.btn-sm{padding:7px 9px;font-size:11px}
+.btn:hover{
+  background:#f8fafc;
+}
 
-.menu-btn{
-  display:none;
-  border:0;
-  background:#f1f5f9;
-  border-radius:9px;
-  width:38px;
-  height:38px;
+.btn-primary{
+  background:var(--red);
+  border-color:var(--red);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:var(--red2);
+}
+
+.btn-dark{
+  background:var(--navy);
+  color:#fff;
+  border-color:var(--navy);
+}
+
+.btn-success{
+  background:var(--green);
+  color:#fff;
+  border-color:var(--green);
+}
+
+.btn-danger{
+  background:#fff;
+  color:var(--danger);
+  border-color:#fecaca;
+}
+
+.btn-small{
+  min-height:34px;
+  padding:7px 10px;
+  font-size:11px;
 }
 
 .content{
@@ -232,31 +317,26 @@ button{cursor:pointer}
   margin:auto;
 }
 
-/* COMMON */
-.section{
-  display:none;
-}
-
-.section.active{
-  display:block;
-}
+/* =========================
+   COMMON
+========================= */
 
 .section-head{
   display:flex;
-  align-items:flex-start;
+  align-items:flex-end;
   justify-content:space-between;
-  gap:15px;
-  margin-bottom:18px;
+  gap:12px;
+  margin-bottom:15px;
 }
 
 .section-title{
-  font-size:22px;
-  font-weight:850;
+  font-size:17px;
+  font-weight:800;
 }
 
-.section-desc{
+.section-sub{
   color:var(--muted);
-  font-size:12px;
+  font-size:11px;
   margin-top:4px;
 }
 
@@ -267,113 +347,145 @@ button{cursor:pointer}
   box-shadow:var(--shadow);
 }
 
-.card-head{
-  padding:16px 18px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-
-.card-title{
-  font-size:14px;
-  font-weight:800;
-}
-
-.card-body{
-  padding:18px;
-}
-
-/* KPI */
 .kpi-grid{
   display:grid;
   grid-template-columns:repeat(6,1fr);
-  gap:12px;
-  margin-bottom:18px;
+  gap:13px;
+  margin-bottom:20px;
 }
 
 .kpi{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:15px;
-  box-shadow:var(--shadow);
-  min-width:0;
+  padding:17px;
+  min-height:120px;
+  position:relative;
+  overflow:hidden;
 }
 
 .kpi-label{
   color:var(--muted);
-  font-size:10px;
+  font-size:11px;
   font-weight:700;
 }
 
 .kpi-value{
-  font-size:21px;
-  font-weight:850;
-  margin-top:7px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  margin-top:10px;
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:-.6px;
 }
 
 .kpi-note{
+  margin-top:5px;
   font-size:10px;
-  color:#94a3b8;
-  margin-top:4px;
+  color:var(--muted);
 }
 
-/* WORKFLOW */
+.kpi-icon{
+  position:absolute;
+  right:14px;
+  top:14px;
+  width:35px;
+  height:35px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f1f5f9;
+  font-size:16px;
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:18px;
+  margin-bottom:20px;
+}
+
+.panel{
+  padding:18px;
+}
+
+.panel-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.panel-title{
+  font-size:14px;
+  font-weight:800;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.small{
+  font-size:11px;
+}
+
+/* =========================
+   WORKFLOW
+========================= */
+
 .workflow{
   display:grid;
   grid-template-columns:repeat(9,1fr);
   gap:7px;
-  margin-bottom:18px;
 }
 
-.workflow-item{
-  background:#fff;
+.workflow-step{
+  min-width:0;
+  padding:12px 7px;
   border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px 6px;
+  border-radius:11px;
   text-align:center;
-  position:relative;
-}
-
-.workflow-item:not(:last-child)::after{
-  content:"›";
-  position:absolute;
-  right:-9px;
-  top:50%;
-  transform:translateY(-50%);
-  color:#94a3b8;
-  font-size:18px;
-  z-index:2;
+  background:#fafafa;
 }
 
 .workflow-num{
-  width:25px;
-  height:25px;
-  margin:auto auto 6px;
+  width:27px;
+  height:27px;
   border-radius:50%;
-  background:#fee2e2;
-  color:#b91c1c;
+  background:#e2e8f0;
+  color:#475569;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:10px;
-  font-weight:800;
+  margin:0 auto 7px;
+  font-size:11px;
+  font-weight:900;
+}
+
+.workflow-step.done{
+  background:#f0fdf4;
+  border-color:#bbf7d0;
+}
+
+.workflow-step.done .workflow-num{
+  background:#16a34a;
+  color:#fff;
 }
 
 .workflow-label{
   font-size:10px;
-  font-weight:700;
+  font-weight:800;
+  line-height:1.35;
 }
 
-/* TABLE */
+/* =========================
+   TABLE
+========================= */
+
+.table-card{
+  overflow:hidden;
+}
+
 .table-wrap{
+  width:100%;
   overflow:auto;
-  border-radius:12px;
 }
 
 table{
@@ -387,45 +499,69 @@ th{
   color:#64748b;
   font-size:10px;
   text-transform:uppercase;
-  letter-spacing:.3px;
+  letter-spacing:.4px;
+  padding:12px 11px;
   text-align:left;
-  padding:11px 10px;
   border-bottom:1px solid var(--line);
   white-space:nowrap;
 }
 
 td{
-  padding:11px 10px;
-  border-bottom:1px solid #eef2f6;
-  font-size:12px;
+  padding:12px 11px;
+  border-bottom:1px solid #eef2f7;
+  font-size:11px;
   vertical-align:middle;
 }
 
-tr:hover td{background:#fafafa}
-
-.mono{
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:11px;
+tbody tr:hover{
+  background:#fafafa;
 }
 
 .badge{
   display:inline-flex;
   align-items:center;
-  padding:4px 7px;
+  padding:5px 8px;
   border-radius:999px;
   font-size:9px;
   font-weight:800;
   white-space:nowrap;
 }
 
-.badge-red{background:#fee2e2;color:#991b1b}
-.badge-green{background:#dcfce7;color:#166534}
-.badge-orange{background:#fef3c7;color:#92400e}
-.badge-blue{background:#dbeafe;color:#1d4ed8}
-.badge-gray{background:#f1f5f9;color:#475569}
-.badge-purple{background:#ede9fe;color:#6d28d9}
+.badge-green{
+  background:#dcfce7;
+  color:#166534;
+}
 
-/* SEARCH */
+.badge-orange{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.badge-red{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.badge-blue{
+  background:#dbeafe;
+  color:#1e40af;
+}
+
+.badge-gray{
+  background:#e2e8f0;
+  color:#475569;
+}
+
+.action-row{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+
 .toolbar{
   display:flex;
   gap:8px;
@@ -441,77 +577,98 @@ tr:hover td{background:#fafafa}
 
 .search input{
   width:100%;
-  height:40px;
+  height:42px;
   border:1px solid var(--line);
   border-radius:10px;
-  padding:0 12px;
-  outline:none;
   background:#fff;
+  padding:0 13px 0 38px;
+  outline:none;
 }
 
-.search input:focus{
+.search input:focus,
+.form-control:focus{
   border-color:#94a3b8;
-  box-shadow:0 0 0 3px rgba(148,163,184,.15);
+  box-shadow:0 0 0 3px rgba(148,163,184,.12);
 }
 
-.select{
-  height:40px;
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:10px;
-  padding:0 10px;
-  outline:none;
-}
-
-/* PRICE CARDS */
-.price-highlight{
-  background:linear-gradient(135deg,#0f172a,#1e293b);
-  color:#fff;
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:18px;
-}
-
-.price-highlight small{
+.search-icon{
+  position:absolute;
+  left:13px;
+  top:12px;
   color:#94a3b8;
 }
 
-.price-highlight .big{
-  font-size:28px;
-  font-weight:900;
-  margin-top:4px;
+select.filter{
+  height:42px;
+  min-width:150px;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:10px;
+  padding:0 12px;
 }
 
-.price-grid{
+/* =========================
+   FORMS
+========================= */
+
+.form-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin-top:14px;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
 }
 
-.price-box{
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:11px;
-  padding:10px;
+.form-grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
 }
 
-.price-box small{
-  display:block;
-  font-size:9px;
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
 }
 
-.price-box strong{
-  display:block;
-  margin-top:4px;
-  font-size:13px;
+.form-label{
+  font-size:11px;
+  font-weight:800;
+  color:#475569;
 }
 
-/* MODAL */
-.overlay{
+.form-control{
+  width:100%;
+  min-height:42px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px 11px;
+  outline:none;
+  background:#fff;
+}
+
+textarea.form-control{
+  min-height:90px;
+  resize:vertical;
+}
+
+.form-full{
+  grid-column:1/-1;
+}
+
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:18px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-backdrop{
   position:fixed;
   inset:0;
-  background:rgba(15,23,42,.58);
+  background:rgba(2,6,23,.62);
   z-index:2000;
   display:none;
   align-items:center;
@@ -519,177 +676,160 @@ tr:hover td{background:#fafafa}
   padding:15px;
 }
 
-.overlay.show{display:flex}
-
-.modal{
-  background:#fff;
-  width:min(760px,100%);
-  max-height:92vh;
-  overflow:auto;
-  border-radius:18px;
-  box-shadow:0 30px 80px rgba(0,0,0,.25);
+.modal-backdrop.show{
+  display:flex;
 }
 
-.modal-head{
-  padding:17px 18px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.modal{
+  width:min(800px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 30px 80px rgba(0,0,0,.28);
+}
+
+.modal-header{
   position:sticky;
   top:0;
   background:#fff;
   z-index:2;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:17px 18px;
+  border-bottom:1px solid var(--line);
 }
 
 .modal-title{
-  font-weight:850;
   font-size:16px;
+  font-weight:900;
 }
 
 .close{
-  border:0;
-  background:#f1f5f9;
-  width:34px;
-  height:34px;
+  width:35px;
+  height:35px;
+  border:1px solid var(--line);
+  background:#fff;
   border-radius:9px;
+  font-size:18px;
 }
 
-.form{
+.modal-body{
   padding:18px;
 }
 
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+/* =========================
+   PRICE
+========================= */
+
+.price-highlight{
+  background:linear-gradient(135deg,#fff7f7,#fff);
+  border:1px solid #fecaca;
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:15px;
 }
 
-.field label{
-  display:block;
+.price-main{
+  font-size:25px;
+  font-weight:900;
+  color:var(--red);
+}
+
+.price-label{
+  color:var(--muted);
   font-size:10px;
-  color:#64748b;
-  font-weight:800;
   margin-bottom:5px;
 }
 
-.field input,
-.field select,
-.field textarea{
-  width:100%;
+.price-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.price-box{
   border:1px solid var(--line);
-  border-radius:9px;
-  padding:10px;
-  outline:none;
+  border-radius:12px;
+  padding:12px;
   background:#fff;
 }
 
-.field textarea{
-  min-height:80px;
-  resize:vertical;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
-  border-color:#94a3b8;
-}
-
-.full{grid-column:1/-1}
-
-.form-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:8px;
-  margin-top:18px;
-  padding-top:15px;
-  border-top:1px solid var(--line);
-}
-
-/* DETAIL */
-.detail-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-.detail-item{
-  background:#f8fafc;
-  padding:11px;
-  border-radius:10px;
-}
-
-.detail-item small{
-  display:block;
-  color:#64748b;
+.price-box-label{
+  color:var(--muted);
   font-size:9px;
+  font-weight:700;
+  line-height:1.3;
 }
 
-.detail-item strong{
-  display:block;
-  margin-top:3px;
-  font-size:12px;
-  word-break:break-word;
+.price-box-value{
+  margin-top:5px;
+  font-size:13px;
+  font-weight:900;
 }
 
-.timeline{
-  margin-top:16px;
+.price-total{
+  border-color:#fecaca;
+  background:#fff7f7;
 }
 
-.timeline-row{
-  display:flex;
-  gap:10px;
-  padding:9px 0;
-  border-bottom:1px solid #eef2f6;
-}
+/* =========================
+   EMPTY / ALERT
+========================= */
 
-.timeline-dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:var(--red);
-  margin-top:4px;
-  flex:none;
-}
-
-.timeline-title{
-  font-size:12px;
-  font-weight:800;
-}
-
-.timeline-date{
-  font-size:10px;
-  color:#64748b;
-}
-
-/* EMPTY */
 .empty{
-  text-align:center;
   padding:45px 20px;
-  color:#94a3b8;
+  text-align:center;
+  color:var(--muted);
 }
 
 .empty-icon{
-  font-size:35px;
+  font-size:34px;
   margin-bottom:8px;
 }
 
-/* TOAST */
+.alert{
+  padding:11px 13px;
+  border-radius:10px;
+  font-size:11px;
+  margin-bottom:12px;
+}
+
+.alert-info{
+  background:#eff6ff;
+  color:#1e40af;
+  border:1px solid #bfdbfe;
+}
+
+.alert-warning{
+  background:#fffbeb;
+  color:#92400e;
+  border:1px solid #fde68a;
+}
+
+/* =========================
+   TOAST
+========================= */
+
 .toast{
   position:fixed;
   right:18px;
   bottom:18px;
-  background:#0f172a;
+  z-index:5000;
+  min-width:240px;
+  max-width:360px;
+  padding:13px 15px;
+  border-radius:11px;
   color:#fff;
-  padding:12px 15px;
-  border-radius:10px;
+  background:#0f172a;
+  box-shadow:0 15px 35px rgba(0,0,0,.2);
   font-size:12px;
   font-weight:700;
-  z-index:5000;
   opacity:0;
   transform:translateY(15px);
   pointer-events:none;
-  transition:.25s;
+  transition:.2s;
 }
 
 .toast.show{
@@ -697,20 +837,52 @@ tr:hover td{background:#fafafa}
   transform:translateY(0);
 }
 
-/* MOBILE */
-@media(max-width:1100px){
-  .kpi-grid{grid-template-columns:repeat(3,1fr)}
-  .workflow{grid-template-columns:repeat(3,1fr)}
-  .workflow-item:not(:last-child)::after{display:none}
+.toast.success{
+  background:#166534;
 }
 
-@media(max-width:800px){
+.toast.error{
+  background:#991b1b;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(2,6,23,.5);
+  z-index:900;
+}
+
+@media(max-width:1200px){
+  .kpi-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .workflow{
+    grid-template-columns:repeat(5,1fr);
+  }
+
+  .price-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
+@media(max-width:850px){
   .sidebar{
     transform:translateX(-100%);
+    transition:.22s;
   }
 
   .sidebar.open{
     transform:translateX(0);
+  }
+
+  .overlay.show{
+    display:block;
   }
 
   .main{
@@ -718,13 +890,15 @@ tr:hover td{background:#fafafa}
     width:100%;
   }
 
-  .menu-btn{display:block}
-
-  .topbar{
-    padding:0 12px;
+  .menu-mobile{
+    display:block;
   }
 
-  .top-actions .export-top{
+  .topbar{
+    padding:0 13px;
+  }
+
+  .top-actions .btn-export{
     display:none;
   }
 
@@ -732,39 +906,81 @@ tr:hover td{background:#fafafa}
     padding:14px;
   }
 
+  .grid-2{
+    grid-template-columns:1fr;
+  }
+
   .kpi-grid{
     grid-template-columns:repeat(2,1fr);
+    gap:9px;
+  }
+
+  .kpi{
+    min-height:105px;
+    padding:13px;
+  }
+
+  .kpi-value{
+    font-size:21px;
   }
 
   .workflow{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .form-grid,
+  .form-grid-3{
+    grid-template-columns:1fr;
   }
 
   .price-grid{
     grid-template-columns:repeat(2,1fr);
   }
 
+  .page-title{
+    font-size:16px;
+  }
+
+  .page-subtitle{
+    display:none;
+  }
+}
+
+@media(max-width:520px){
+  .top-actions .btn-add{
+    padding:9px;
+    width:40px;
+    font-size:0;
+  }
+
+  .top-actions .btn-add span{
+    font-size:17px;
+  }
+
+  .workflow{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .price-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
   .section-head{
+    align-items:flex-start;
     flex-direction:column;
   }
 
-  .section-head .btn{
+  .toolbar{
+    flex-direction:column;
+  }
+
+  .search{
     width:100%;
   }
 
-  .form-grid{
-    grid-template-columns:1fr;
+  select.filter{
+    width:100%;
   }
-
-  .full{grid-column:auto}
-}
-
-@media(max-width:480px){
-  .page-title{font-size:15px}
-  .page-sub{display:none}
-  .kpi-value{font-size:18px}
-  .price-highlight .big{font-size:22px}
-  .detail-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -773,665 +989,253 @@ tr:hover td{background:#fafafa}
 
 <div class="app">
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
 
-  <div class="brand">
-    <div class="brand-logo" aria-label="ISUZU">
-      <svg viewBox="0 0 420 130" xmlns="http://www.w3.org/2000/svg">
-        <rect x="5" y="5" width="410" height="120" rx="18" fill="#fff"/>
-        <path d="M55 35h34v60H55zM106 35h34v60h-34zM157 35h34v60h-34z"
-              fill="#d71920"/>
-        <path d="M208 35h34v60h-34zM259 35h34v60h-34z"
-              fill="#d71920"/>
-        <text x="325" y="78" text-anchor="middle"
-              font-family="Arial,sans-serif"
-              font-size="30"
-              font-weight="900"
-              fill="#d71920">ISUZU</text>
-      </svg>
-    </div>
+    <div class="brand">
 
-    <div class="brand-title">Sales Manager Workflow Pro</div>
-    <div class="brand-sub">Vehicle Sales & Operations</div>
-    <div class="workspace">ISUZU WORKSPACE</div>
-  </div>
-
-  <nav class="nav">
-
-    <div class="nav-section">Main</div>
-
-    <button class="nav-btn active" data-section="dashboard">
-      <span class="nav-icon">▦</span> Dashboard
-    </button>
-
-    <button class="nav-btn" data-section="vehicles">
-      <span class="nav-icon">🚚</span> Vehicles
-    </button>
-
-    <button class="nav-btn" data-section="production">
-      <span class="nav-icon">🏭</span> Production
-    </button>
-
-    <button class="nav-btn" data-section="price">
-      <span class="nav-icon">💰</span> Price Master
-    </button>
-
-    <button class="nav-btn" data-section="tax">
-      <span class="nav-icon">🧾</span> MMC Tax & Invoice
-    </button>
-
-    <button class="nav-btn" data-section="registration">
-      <span class="nav-icon">🪪</span> Registration
-    </button>
-
-    <button class="nav-btn" data-section="delivery">
-      <span class="nav-icon">🚛</span> Delivery
-    </button>
-
-    <div class="nav-section">Management</div>
-
-    <button class="nav-btn" data-section="customers">
-      <span class="nav-icon">👥</span> Customers
-    </button>
-
-    <button class="nav-btn" data-section="reports">
-      <span class="nav-icon">📊</span> Reports
-    </button>
-
-    <button class="nav-btn" data-section="daily">
-      <span class="nav-icon">📋</span> Daily Manager
-    </button>
-
-    <button class="nav-btn" data-section="settings">
-      <span class="nav-icon">⚙️</span> Settings
-    </button>
-
-  </nav>
-
-  <div class="sidebar-footer">
-    Sales Manager Workflow Pro V3<br>
-    Local data • No Firebase
-  </div>
-
-</aside>
-
-<main class="main">
-
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="top-left">
-      <button class="menu-btn" id="menuBtn">☰</button>
-
-      <div>
-        <div class="page-title" id="pageTitle">Dashboard</div>
-        <div class="page-sub">ISUZU • Myanmar Motor Corporation</div>
+      <div class="brand-logo-wrap">
+        <div class="isuzu-logo" aria-label="ISUZU">
+          <div class="isuzu-word">ISUZU</div>
+        </div>
       </div>
+
+      <div class="brand-title">Sales Manager Workflow Pro</div>
+      <div class="brand-sub">Vehicle Sales & Operations</div>
+      <div class="workspace">ISUZU WORKSPACE</div>
+
     </div>
 
-    <div class="top-actions">
-      <button class="btn btn-light export-top" onclick="exportAllCSV()">⬇ Export</button>
-      <button class="btn btn-primary" onclick="openVehicleModal()">＋ Vehicle</button>
+    <nav class="nav">
+
+      <div class="nav-section">Main</div>
+
+      <button class="nav-btn active" data-page="dashboard">
+        <span class="nav-icon">▦</span>
+        Dashboard
+      </button>
+
+      <button class="nav-btn" data-page="vehicles">
+        <span class="nav-icon">🚚</span>
+        Vehicles
+      </button>
+
+      <button class="nav-btn" data-page="production">
+        <span class="nav-icon">🏭</span>
+        Production
+      </button>
+
+      <button class="nav-btn" data-page="tax">
+        <span class="nav-icon">🧾</span>
+        MMC Tax & Invoice
+      </button>
+
+      <button class="nav-btn" data-page="prices">
+        <span class="nav-icon">💰</span>
+        Current Vehicle Price
+      </button>
+
+      <button class="nav-btn" data-page="registration">
+        <span class="nav-icon">🪪</span>
+        Registration
+      </button>
+
+      <button class="nav-btn" data-page="delivery">
+        <span class="nav-icon">🔄</span>
+        Delivery
+      </button>
+
+      <div class="nav-section">Management</div>
+
+      <button class="nav-btn" data-page="customers">
+        <span class="nav-icon">👥</span>
+        Customers
+      </button>
+
+      <button class="nav-btn" data-page="reports">
+        <span class="nav-icon">📊</span>
+        Reports
+      </button>
+
+      <button class="nav-btn" data-page="daily">
+        <span class="nav-icon">📅</span>
+        Daily Manager
+      </button>
+
+      <button class="nav-btn" data-page="settings">
+        <span class="nav-icon">⚙</span>
+        Settings
+      </button>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      Sales Manager Workflow Pro<br>
+      Local data storage • V3
     </div>
-  </header>
 
-  <div class="content">
+  </aside>
 
-    <!-- DASHBOARD -->
-    <section class="section active" id="dashboard">
+  <div class="overlay" id="overlay"></div>
 
-      <div class="section-head">
+  <!-- MAIN -->
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="top-left">
+        <button class="menu-mobile" id="mobileMenu">☰</button>
+
         <div>
-          <div class="section-title">Dashboard</div>
-          <div class="section-desc">Sales Manager daily control center</div>
-        </div>
-      </div>
-
-      <div class="kpi-grid">
-        <div class="kpi">
-          <div class="kpi-label">TOTAL VEHICLES</div>
-          <div class="kpi-value" id="kTotalVehicles">0</div>
-          <div class="kpi-note">Vehicle master</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">PRODUCTION</div>
-          <div class="kpi-value" id="kProduction">0</div>
-          <div class="kpi-note">In production</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">NUMBER PENDING</div>
-          <div class="kpi-value" id="kNumber">0</div>
-          <div class="kpi-note">Registration</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">OWNER BOOK</div>
-          <div class="kpi-value" id="kOwner">0</div>
-          <div class="kpi-note">Owner book stage</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">DELIVERY</div>
-          <div class="kpi-value" id="kDelivery">0</div>
-          <div class="kpi-note">Ready / delivered</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">CURRENT VALUE</div>
-          <div class="kpi-value" id="kValue">0</div>
-          <div class="kpi-note">Matched vehicle value</div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-bottom:18px">
-        <div class="card-head">
-          <div class="card-title">Vehicle Workflow</div>
-        </div>
-
-        <div class="card-body">
-          <div class="workflow">
-            <div class="workflow-item"><div class="workflow-num">1</div><div class="workflow-label">Production</div></div>
-            <div class="workflow-item"><div class="workflow-num">2</div><div class="workflow-label">Body Building</div></div>
-            <div class="workflow-item"><div class="workflow-num">3</div><div class="workflow-label">နံပါတ်ယူ</div></div>
-            <div class="workflow-item"><div class="workflow-num">4</div><div class="workflow-label">ယာဉ်စစ်</div></div>
-            <div class="workflow-item"><div class="workflow-num">5</div><div class="workflow-label">အခွန်ဆောင်</div></div>
-            <div class="workflow-item"><div class="workflow-num">6</div><div class="workflow-label">Owner Book</div></div>
-            <div class="workflow-item"><div class="workflow-num">7</div><div class="workflow-label">လုပ်ငန်းလုပ်</div></div>
-            <div class="workflow-item"><div class="workflow-num">8</div><div class="workflow-label">ကားလွှဲပြောင်း</div></div>
-            <div class="workflow-item"><div class="workflow-num">9</div><div class="workflow-label">Delivery</div></div>
+          <div class="page-title" id="pageTitle">
+            Dashboard
+          </div>
+          <div class="page-subtitle" id="pageSubtitle">
+            Vehicle sales workflow control
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-head">
-          <div class="card-title">Recent Vehicles</div>
-          <button class="btn btn-light btn-sm" onclick="showSection('vehicles')">View All</button>
-        </div>
+      <div class="top-actions">
 
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Series</th>
-                <th>Chassis</th>
-                <th>Customer</th>
-                <th>Stage</th>
-                <th>Current Price</th>
-              </tr>
-            </thead>
-            <tbody id="dashboardVehicles"></tbody>
-          </table>
-        </div>
+        <button class="btn btn-export" id="exportAllBtn">
+          ↓ Export
+        </button>
+
+        <button class="btn btn-primary btn-add" id="globalAddBtn">
+          <span>＋</span> Add Vehicle
+        </button>
+
       </div>
 
-    </section>
+    </header>
 
-    <!-- VEHICLES -->
-    <section class="section" id="vehicles">
+    <section class="content" id="appContent"></section>
 
-      <div class="section-head">
-        <div>
-          <div class="section-title">Vehicle Master</div>
-          <div class="section-desc">Vehicle workflow and current value control</div>
-        </div>
-
-        <button class="btn btn-primary" onclick="openVehicleModal()">＋ Add Vehicle</button>
-      </div>
-
-      <div class="toolbar">
-        <div class="search">
-          <input id="vehicleSearch" placeholder="Search chassis, series, customer, car no..." oninput="renderVehicles()">
-        </div>
-
-        <select id="vehicleStageFilter" class="select" onchange="renderVehicles()">
-          <option value="">All Stages</option>
-          <option value="1">Production</option>
-          <option value="2">Body Building</option>
-          <option value="3">နံပါတ်ယူ</option>
-          <option value="4">ယာဉ်စစ်</option>
-          <option value="5">အခွန်ဆောင်</option>
-          <option value="6">Owner Book</option>
-          <option value="7">လုပ်ငန်းလုပ်</option>
-          <option value="8">ကားလွှဲပြောင်း</option>
-          <option value="9">Delivery</option>
-        </select>
-      </div>
-
-      <div class="card">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Series</th>
-                <th>Length</th>
-                <th>Chassis No.</th>
-                <th>Body</th>
-                <th>Customer</th>
-                <th>Car No.</th>
-                <th>Stage</th>
-                <th>Current Value</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="vehicleTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- PRODUCTION -->
-    <section class="section" id="production">
-
-      <div class="section-head">
-        <div>
-          <div class="section-title">Production</div>
-          <div class="section-desc">Production and body building tracking</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Production Month</th>
-                <th>Series</th>
-                <th>Chassis No.</th>
-                <th>Body Type</th>
-                <th>Customer</th>
-                <th>Production Date</th>
-                <th>Stage</th>
-              </tr>
-            </thead>
-            <tbody id="productionTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- PRICE MASTER -->
-    <section class="section" id="price">
-
-      <div class="section-head">
-        <div>
-          <div class="section-title">Price Master</div>
-          <div class="section-desc">Current ISUZU vehicle price reference</div>
-        </div>
-
-        <button class="btn btn-primary" onclick="openPriceModal()">＋ Update Price</button>
-      </div>
-
-      <div class="toolbar">
-        <div class="search">
-          <input id="priceSearch" placeholder="Search Series / Length..." oninput="renderPrices()">
-        </div>
-      </div>
-
-      <div id="priceHighlight"></div>
-
-      <div class="card">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Series</th>
-                <th>Length</th>
-                <th>Car Price</th>
-                <th>Box</th>
-                <th>Income Tax</th>
-                <th>Additional</th>
-                <th>Cargo Package</th>
-                <th>Box Package</th>
-                <th>Cargo Total w/o IT</th>
-                <th>Box Total w/o IT</th>
-                <th>Cargo Total</th>
-                <th>Box Total</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody id="priceTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- MMC TAX -->
-    <section class="section" id="tax">
-
-      <div class="section-head">
-        <div>
-          <div class="section-title">MMC Tax & Invoice</div>
-          <div class="section-desc">Myanmar Motor Corporation invoice and tax reconciliation</div>
-        </div>
-
-        <button class="btn btn-primary" onclick="openTaxModal()">＋ Add Invoice</button>
-      </div>
-
-      <div class="kpi-grid">
-        <div class="kpi">
-          <div class="kpi-label">TOTAL INVOICES</div>
-          <div class="kpi-value" id="taxCount">0</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">QUANTITY</div>
-          <div class="kpi-value" id="taxQty">0</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">TOTAL AMOUNT</div>
-          <div class="kpi-value" id="taxAmount">0</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">PENDING</div>
-          <div class="kpi-value" id="taxPending">0</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">PAID</div>
-          <div class="kpi-value" id="taxPaid">0</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">MATCHED</div>
-          <div class="kpi-value" id="taxMatched">0</div>
-        </div>
-      </div>
-
-      <div class="toolbar">
-        <div class="search">
-          <input id="taxSearch"
-            placeholder="Invoice No / Chassis / Series / Month..."
-            oninput="renderTax()">
-        </div>
-
-        <select id="taxStatusFilter" class="select" onchange="renderTax()">
-          <option value="">All Status</option>
-          <option value="Pending">Pending</option>
-          <option value="Paid">Paid</option>
-        </select>
-
-        <button class="btn btn-light" onclick="exportTaxCSV()">⬇ CSV</button>
-      </div>
-
-      <div class="card">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Invoice No.</th>
-                <th>Month</th>
-                <th>Series</th>
-                <th>Length</th>
-                <th>Chassis No.</th>
-                <th>Qty</th>
-                <th>Unit Price</th>
-                <th>Amount</th>
-                <th>Tax Status</th>
-                <th>Reconcile</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="taxTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- REGISTRATION -->
-    <section class="section" id="registration">
-
-      <div class="section-head">
-        <div>
-          <div class="section-title">Registration</div>
-          <div class="section-desc">Number, inspection, tax and owner book stages</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Chassis</th>
-                <th>Customer</th>
-                <th>Car No.</th>
-                <th>Current Stage</th>
-                <th>Stage Date</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="registrationTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- DELIVERY -->
-    <section class="section" id="delivery">
-
-      <div class="section-head">
-        <div>
-          <div class="section-title">Delivery</div>
-          <div class="section-desc">Transfer and delivery completion tracking</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Series</th>
-                <th>Chassis</th>
-                <th>Customer</th>
-                <th>Car No.</th>
-                <th>Stage</th>
-                <th>Required Delivery</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="deliveryTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- CUSTOMERS -->
-    <section class="section" id="customers">
-
-      <div class="section-head">
-        <div>
-          <div class="section-title">Customers</div>
-          <div class="section-desc">Customer vehicle summary</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Customer</th>
-                <th>Vehicles</th>
-                <th>Delivered</th>
-                <th>Pending</th>
-                <th>Total Value</th>
-              </tr>
-            </thead>
-            <tbody id="customerTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- REPORTS -->
-    <section class="section" id="reports">
-
-      <div class="section-head">
-        <div>
-          <div class="section-title">Reports</div>
-          <div class="section-desc">Vehicle, value and MMC invoice summary</div>
-        </div>
-      </div>
-
-      <div class="kpi-grid">
-        <div class="kpi">
-          <div class="kpi-label">VEHICLE VALUE</div>
-          <div class="kpi-value" id="reportVehicleValue">0</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">MMC INVOICE VALUE</div>
-          <div class="kpi-value" id="reportInvoiceValue">0</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">PRICE DIFFERENCE</div>
-          <div class="kpi-value" id="reportDifference">0</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">MATCHED</div>
-          <div class="kpi-value" id="reportMatched">0</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">NOT MATCHED</div>
-          <div class="kpi-value" id="reportUnmatched">0</div>
-        </div>
-
-        <div class="kpi">
-          <div class="kpi-label">PENDING TAX</div>
-          <div class="kpi-value" id="reportPending">0</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-head">
-          <div class="card-title">Reconciliation Report</div>
-          <button class="btn btn-light btn-sm" onclick="exportAllCSV()">⬇ Export</button>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Chassis</th>
-                <th>Series</th>
-                <th>Current Value</th>
-                <th>MMC Invoice</th>
-                <th>Difference</th>
-                <th>Result</th>
-              </tr>
-            </thead>
-            <tbody id="reportTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- DAILY -->
-    <section class="section" id="daily">
-
-      <div class="section-head">
-        <div>
-          <div class="section-title">Daily Manager</div>
-          <div class="section-desc">Today’s pending actions</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Series</th>
-                <th>Chassis</th>
-                <th>Customer</th>
-                <th>Stage</th>
-                <th>Required Delivery</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="dailyTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- SETTINGS -->
-    <section class="section" id="settings">
-
-      <div class="section-head">
-        <div>
-          <div class="section-title">Settings</div>
-          <div class="section-desc">Backup and local data management</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-body">
-
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn btn-dark" onclick="backupJSON()">⬇ Backup JSON</button>
-
-            <label class="btn btn-light">
-              ⬆ Restore JSON
-              <input type="file" id="restoreFile" accept=".json" hidden>
-            </label>
-
-            <button class="btn btn-light" onclick="exportAllCSV()">⬇ Export CSV</button>
-
-            <button class="btn btn-danger" onclick="clearAllData()">🗑 Clear All Data</button>
-          </div>
-
-          <div style="margin-top:20px;background:#f8fafc;padding:15px;border-radius:12px">
-            <strong style="font-size:12px">Data Storage</strong>
-            <div style="font-size:11px;color:#64748b;margin-top:5px">
-              All data is stored locally in this browser using LocalStorage
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-</main>
+  </main>
 </div>
 
-<!-- OVERLAY -->
-<div class="overlay" id="modalOverlay">
-  <div class="modal" id="modalContent"></div>
+
+<!-- GENERIC MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modal"></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script>
 
+<script>
 /* =========================================================
    SALES MANAGER WORKFLOW PRO V3
 ========================================================= */
 
-const VEHICLE_KEY = "sales_manager_workflow_pro_v2";
-const TAX_KEY = "sales_manager_workflow_mmc_tax_v1";
-const PRICE_KEY = "sales_manager_workflow_price_master_v1";
+const VEHICLE_KEY = "sales_manager_workflow_pro_v3_vehicles";
+const TAX_KEY = "sales_manager_workflow_pro_v3_tax";
+const PRICE_KEY = "sales_manager_workflow_pro_v3_prices";
+
+let vehicles = [];
+let taxRecords = [];
+let prices = [];
+let currentPage = "dashboard";
+let editingVehicleId = null;
+let editingTaxId = null;
+
+
+/* =========================================================
+   PRICE MASTER
+========================================================= */
+
+const DEFAULT_PRICES = [
+  {
+    series:"Traga",
+    length:"9.5",
+    carPrice:105000000,
+    box:8000000,
+    incomeTax:3150000,
+    additional:22200000,
+    cargoPackage:27850000,
+    boxPackage:35850000,
+    cargoTotalWithoutIT:132850000,
+    boxTotalWithoutIT:140850000,
+    cargoTotal:136000000,
+    boxTotal:144000000
+  },
+  {
+    series:"QLR77E",
+    length:"10",
+    carPrice:115000000,
+    box:8000000,
+    incomeTax:3450000,
+    additional:32350000,
+    cargoPackage:38550000,
+    boxPackage:46550000,
+    cargoTotalWithoutIT:153550000,
+    boxTotalWithoutIT:161550000,
+    cargoTotal:157000000,
+    boxTotal:165000000
+  },
+  {
+    series:"QMR77F",
+    length:"12",
+    carPrice:125000000,
+    box:9000000,
+    incomeTax:3750000,
+    additional:32500000,
+    cargoPackage:39250000,
+    boxPackage:48250000,
+    cargoTotalWithoutIT:164250000,
+    boxTotalWithoutIT:173250000,
+    cargoTotal:168000000,
+    boxTotal:177000000
+  },
+  {
+    series:"QMR77H",
+    length:"14",
+    carPrice:140000000,
+    box:10000000,
+    incomeTax:4200000,
+    additional:24250000,
+    cargoPackage:31800000,
+    boxPackage:41800000,
+    cargoTotalWithoutIT:171800000,
+    boxTotalWithoutIT:181800000,
+    cargoTotal:176000000,
+    boxTotal:186000000
+  },
+  {
+    series:"NMR71E",
+    length:"10",
+    carPrice:120000000,
+    box:8000000,
+    incomeTax:3600000,
+    additional:38850000,
+    cargoPackage:44900000,
+    boxPackage:52900000,
+    cargoTotalWithoutIT:164900000,
+    boxTotalWithoutIT:172900000,
+    cargoTotal:168500000,
+    boxTotal:176500000
+  },
+  {
+    series:"NQR90K",
+    length:"16",
+    carPrice:170000000,
+    box:11000000,
+    incomeTax:5100000,
+    additional:33300000,
+    cargoPackage:42900000,
+    boxPackage:53900000,
+    cargoTotalWithoutIT:212900000,
+    boxTotalWithoutIT:223900000,
+    cargoTotal:218000000,
+    boxTotal:229000000
+  }
+];
+
+
+/* =========================================================
+   WORKFLOW
+========================================================= */
 
 const STAGES = [
   "Production",
@@ -1445,1003 +1249,402 @@ const STAGES = [
   "Delivery"
 ];
 
-let vehicles = load(VEHICLE_KEY, []);
-let taxes = load(TAX_KEY, []);
-let prices = load(PRICE_KEY, []);
-
-const defaultPrices = [
-  {
-    series:"Traga",
-    length:9.5,
-    carPrice:105000000,
-    box:8000000,
-    incomeTax:3150000,
-    additional:22200000,
-    cargoPackage:27850000,
-    boxPackage:35850000,
-    cargoWithoutIT:132850000,
-    boxWithoutIT:140850000,
-    cargoTotal:136000000,
-    boxTotal:144000000
-  },
-  {
-    series:"QLR77E",
-    length:10,
-    carPrice:115000000,
-    box:8000000,
-    incomeTax:3450000,
-    additional:32350000,
-    cargoPackage:38550000,
-    boxPackage:46550000,
-    cargoWithoutIT:153550000,
-    boxWithoutIT:161550000,
-    cargoTotal:157000000,
-    boxTotal:165000000
-  },
-  {
-    series:"QMR77F",
-    length:12,
-    carPrice:125000000,
-    box:9000000,
-    incomeTax:3750000,
-    additional:32500000,
-    cargoPackage:39250000,
-    boxPackage:48250000,
-    cargoWithoutIT:164250000,
-    boxWithoutIT:173250000,
-    cargoTotal:168000000,
-    boxTotal:177000000
-  },
-  {
-    series:"QMR77H",
-    length:14,
-    carPrice:140000000,
-    box:10000000,
-    incomeTax:4200000,
-    additional:24250000,
-    cargoPackage:31800000,
-    boxPackage:41800000,
-    cargoWithoutIT:171800000,
-    boxWithoutIT:181800000,
-    cargoTotal:176000000,
-    boxTotal:186000000
-  },
-  {
-    series:"NMR71E",
-    length:10,
-    carPrice:120000000,
-    box:8000000,
-    incomeTax:3600000,
-    additional:38850000,
-    cargoPackage:44900000,
-    boxPackage:52900000,
-    cargoWithoutIT:164900000,
-    boxWithoutIT:172900000,
-    cargoTotal:168500000,
-    boxTotal:176500000
-  },
-  {
-    series:"NQR90K",
-    length:16,
-    carPrice:170000000,
-    box:11000000,
-    incomeTax:5100000,
-    additional:33300000,
-    cargoPackage:42900000,
-    boxPackage:53900000,
-    cargoWithoutIT:212900000,
-    boxWithoutIT:223900000,
-    cargoTotal:218000000,
-    boxTotal:229000000
-  }
-];
-
-if(!prices.length){
-  prices = defaultPrices;
-  save(PRICE_KEY,prices);
-}
-
-if(!vehicles.length){
-  vehicles = [
-    {
-      id:id(),
-      productionMonth:"2026-10",
-      series:"NMR71E",
-      length:"10",
-      chassis:"JAA1MR77HT7100921",
-      bodyType:"DRY BOX",
-      bodyBuilder:"Yoma Body",
-      customer:"Yoma Fleet",
-      carNo:"",
-      requiredDate:"",
-      stage:2,
-      remark:"Demo vehicle",
-      history:[
-        {stage:1,date:"2026-06-29",note:"Production completed"},
-        {stage:2,date:"2026-07-15",note:"Body completed"}
-      ]
-    }
-  ];
-
-  save(VEHICLE_KEY,vehicles);
-}
 
 /* =========================================================
-   HELPERS
+   INIT
 ========================================================= */
 
-function id(){
-  return Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-}
+function loadData(){
 
-function load(key,fallback){
   try{
-    const data=localStorage.getItem(key);
-    return data ? JSON.parse(data) : fallback;
+    vehicles = JSON.parse(localStorage.getItem(VEHICLE_KEY)) || [];
   }catch(e){
-    return fallback;
+    vehicles = [];
+  }
+
+  try{
+    taxRecords = JSON.parse(localStorage.getItem(TAX_KEY)) || [];
+  }catch(e){
+    taxRecords = [];
+  }
+
+  try{
+    prices = JSON.parse(localStorage.getItem(PRICE_KEY)) || [];
+  }catch(e){
+    prices = [];
+  }
+
+  if(!prices.length){
+    prices = structuredClone(DEFAULT_PRICES);
+    savePrices();
+  }
+
+  if(!vehicles.length){
+    vehicles = [
+      {
+        id:uid(),
+        productionMonth:"2026-10",
+        series:"NMR71E",
+        length:"10",
+        chassis:"JAA1MR77HT7100921",
+        bodyType:"DRY BOX",
+        bodyBuilder:"Yoma Body",
+        customer:"Yoma Fleet",
+        carNo:"",
+        requiredDate:"",
+        stage:2,
+        createdAt:today(),
+        remark:"Demo vehicle"
+      }
+    ];
+
+    saveVehicles();
   }
 }
 
-function save(key,data){
-  localStorage.setItem(key,JSON.stringify(data));
+function saveVehicles(){
+  localStorage.setItem(VEHICLE_KEY,JSON.stringify(vehicles));
+}
+
+function saveTax(){
+  localStorage.setItem(TAX_KEY,JSON.stringify(taxRecords));
+}
+
+function savePrices(){
+  localStorage.setItem(PRICE_KEY,JSON.stringify(prices));
+}
+
+function uid(){
+  return Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+}
+
+function today(){
+  return new Date().toISOString().slice(0,10);
+}
+
+function escapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
 function money(n){
-  return Number(n||0).toLocaleString("en-US")+" Ks";
+  return Number(n || 0).toLocaleString("en-US");
 }
 
-function number(n){
-  return Number(n||0).toLocaleString("en-US");
+function amountNumber(v){
+  return Number(String(v ?? "").replaceAll(",","")) || 0;
 }
 
-function esc(v){
-  return String(v??"")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
-}
 
-function toast(msg){
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message,type=""){
   const el=document.getElementById("toast");
-  el.textContent=msg;
-  el.classList.add("show");
 
-  clearTimeout(window.toastTimer);
+  el.textContent=message;
+  el.className="toast show "+type;
 
-  window.toastTimer=setTimeout(()=>{
-    el.classList.remove("show");
-  },2200);
+  clearTimeout(window.__toastTimer);
+
+  window.__toastTimer=setTimeout(()=>{
+    el.className="toast";
+  },2500);
 }
 
-function closeModal(){
-  document.getElementById("modalOverlay").classList.remove("show");
-}
-
-function showModal(html){
-  document.getElementById("modalContent").innerHTML=html;
-  document.getElementById("modalOverlay").classList.add("show");
-}
-
-function priceForVehicle(v){
-  return prices.find(p =>
-    String(p.series).toLowerCase()===String(v.series).toLowerCase()
-  );
-}
-
-function currentValue(v){
-  const p=priceForVehicle(v);
-  if(!p)return 0;
-
-  const body=String(v.bodyType||"").toLowerCase();
-
-  if(body.includes("box")) return p.boxTotal || p.cargoTotal || 0;
-
-  return p.cargoTotal || p.carPrice || 0;
-}
-
-function stageName(n){
-  return STAGES[(Number(n)||1)-1] || STAGES[0];
-}
-
-function statusBadge(status){
-  if(status==="Paid")
-    return `<span class="badge badge-green">PAID</span>`;
-
-  return `<span class="badge badge-orange">PENDING</span>`;
-}
-
-function reconcileTax(tax){
-  const v=vehicles.find(x =>
-    String(x.chassis).trim().toLowerCase()===
-    String(tax.chassis).trim().toLowerCase()
-  );
-
-  if(!v){
-    return {
-      result:"NOT MATCHED",
-      cls:"badge-red",
-      vehicle:null,
-      difference:null
-    };
-  }
-
-  const value=currentValue(v);
-  const amount=Number(tax.amount||0);
-
-  return {
-    result:value===amount ? "MATCHED" : "CHECK",
-    cls:value===amount ? "badge-green" : "badge-orange",
-    vehicle:v,
-    difference:amount-value
-  };
-}
 
 /* =========================================================
    NAVIGATION
 ========================================================= */
 
-const sectionTitles={
-  dashboard:"Dashboard",
-  vehicles:"Vehicles",
-  production:"Production",
-  price:"Price Master",
-  tax:"MMC Tax & Invoice",
-  registration:"Registration",
-  delivery:"Delivery",
-  customers:"Customers",
-  reports:"Reports",
-  daily:"Daily Manager",
-  settings:"Settings"
-};
-
 document.querySelectorAll(".nav-btn").forEach(btn=>{
   btn.addEventListener("click",()=>{
-    showSection(btn.dataset.section);
+    navigate(btn.dataset.page);
+    closeMobileMenu();
   });
 });
 
-function showSection(section){
+function navigate(page){
 
-  document.querySelectorAll(".section").forEach(x=>{
-    x.classList.remove("active");
+  currentPage=page;
+
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.page===page);
   });
 
-  document.getElementById(section).classList.add("active");
-
-  document.querySelectorAll(".nav-btn").forEach(x=>{
-    x.classList.toggle(
-      "active",
-      x.dataset.section===section
-    );
-  });
-
-  document.getElementById("pageTitle").textContent =
-    sectionTitles[section] || "Dashboard";
-
-  document.getElementById("sidebar").classList.remove("open");
-
-  renderAll();
-}
-
-document.getElementById("menuBtn").onclick=()=>{
-  document.getElementById("sidebar").classList.toggle("open");
-};
-
-document.getElementById("modalOverlay").addEventListener("click",e=>{
-  if(e.target.id==="modalOverlay")closeModal();
-});
-
-/* =========================================================
-   VEHICLE MODAL
-========================================================= */
-
-function openVehicleModal(vehicleId=""){
-
-  const v=vehicles.find(x=>x.id===vehicleId) || {};
-
-  showModal(`
-    <div class="modal-head">
-      <div class="modal-title">${vehicleId?"Edit Vehicle":"Add Vehicle"}</div>
-      <button class="close" onclick="closeModal()">✕</button>
-    </div>
-
-    <form class="form" onsubmit="saveVehicle(event,'${vehicleId}')">
-
-      <div class="form-grid">
-
-        <div class="field">
-          <label>Production Month</label>
-          <input type="month" name="productionMonth" value="${esc(v.productionMonth||"")}">
-        </div>
-
-        <div class="field">
-          <label>Series</label>
-          <input name="series" required value="${esc(v.series||"")}" placeholder="NMR71E">
-        </div>
-
-        <div class="field">
-          <label>Length</label>
-          <input name="length" value="${esc(v.length||"")}" placeholder="10 ft">
-        </div>
-
-        <div class="field">
-          <label>Chassis No.</label>
-          <input name="chassis" required value="${esc(v.chassis||"")}">
-        </div>
-
-        <div class="field">
-          <label>Body Type</label>
-          <input name="bodyType" value="${esc(v.bodyType||"")}" placeholder="DRY BOX">
-        </div>
-
-        <div class="field">
-          <label>Body Builder</label>
-          <input name="bodyBuilder" value="${esc(v.bodyBuilder||"")}">
-        </div>
-
-        <div class="field">
-          <label>Customer Name</label>
-          <input name="customer" value="${esc(v.customer||"")}">
-        </div>
-
-        <div class="field">
-          <label>Car No.</label>
-          <input name="carNo" value="${esc(v.carNo||"")}">
-        </div>
-
-        <div class="field">
-          <label>Required Delivery Date</label>
-          <input type="date" name="requiredDate" value="${esc(v.requiredDate||"")}">
-        </div>
-
-        <div class="field">
-          <label>Current Stage</label>
-          <select name="stage">
-            ${STAGES.map((s,i)=>`
-              <option value="${i+1}" ${(v.stage||1)==i+1?"selected":""}>
-                ${i+1}. ${s}
-              </option>
-            `).join("")}
-          </select>
-        </div>
-
-        <div class="field full">
-          <label>Remark</label>
-          <textarea name="remark">${esc(v.remark||"")}</textarea>
-        </div>
-
-      </div>
-
-      <div class="form-actions">
-        <button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save Vehicle</button>
-      </div>
-
-    </form>
-  `);
-}
-
-function saveVehicle(e,vehicleId){
-
-  e.preventDefault();
-
-  const fd=new FormData(e.target);
-  const data=Object.fromEntries(fd.entries());
-
-  const duplicate=vehicles.find(v =>
-    v.chassis.toLowerCase()===data.chassis.toLowerCase() &&
-    v.id!==vehicleId
-  );
-
-  if(duplicate){
-    toast("Chassis No. already exists");
-    return;
-  }
-
-  if(vehicleId){
-
-    const index=vehicles.findIndex(v=>v.id===vehicleId);
-
-    vehicles[index]={
-      ...vehicles[index],
-      ...data,
-      stage:Number(data.stage)
-    };
-
-  }else{
-
-    vehicles.push({
-      id:id(),
-      ...data,
-      stage:Number(data.stage),
-      history:[
-        {
-          stage:Number(data.stage),
-          date:new Date().toISOString().slice(0,10),
-          note:"Vehicle created"
-        }
-      ]
-    });
-  }
-
-  save(VEHICLE_KEY,vehicles);
-  closeModal();
-  renderAll();
-  toast("Vehicle saved");
-}
-
-/* =========================================================
-   VEHICLE DETAIL
-========================================================= */
-
-function viewVehicle(vehicleId){
-
-  const v=vehicles.find(x=>x.id===vehicleId);
-  if(!v)return;
-
-  const p=priceForVehicle(v);
-  const value=currentValue(v);
-
-  showModal(`
-    <div class="modal-head">
-      <div class="modal-title">Vehicle Detail</div>
-      <button class="close" onclick="closeModal()">✕</button>
-    </div>
-
-    <div class="form">
-
-      <div class="detail-grid">
-
-        <div class="detail-item">
-          <small>Series</small>
-          <strong>${esc(v.series)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Length</small>
-          <strong>${esc(v.length)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Chassis No.</small>
-          <strong class="mono">${esc(v.chassis)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Customer</small>
-          <strong>${esc(v.customer)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Body</small>
-          <strong>${esc(v.bodyType)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Car No.</small>
-          <strong>${esc(v.carNo)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Current Stage</small>
-          <strong>${esc(stageName(v.stage))}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Current Vehicle Value</small>
-          <strong>${money(value)}</strong>
-        </div>
-
-      </div>
-
-      ${
-        p ? `
-        <div class="price-highlight" style="margin-top:16px">
-
-          <small>PRICE MASTER • ${esc(p.series)}</small>
-
-          <div class="big">${money(value)}</div>
-
-          <div class="price-grid">
-
-            <div class="price-box">
-              <small>Car Price</small>
-              <strong>${money(p.carPrice)}</strong>
-            </div>
-
-            <div class="price-box">
-              <small>Income Tax</small>
-              <strong>${money(p.incomeTax)}</strong>
-            </div>
-
-            <div class="price-box">
-              <small>Cargo Total</small>
-              <strong>${money(p.cargoTotal)}</strong>
-            </div>
-
-            <div class="price-box">
-              <small>Box Total</small>
-              <strong>${money(p.boxTotal)}</strong>
-            </div>
-
-          </div>
-        </div>
-        ` : `
-          <div class="empty">No Price Master found for this Series</div>
-        `
-      }
-
-      <div class="timeline">
-
-        <div style="font-weight:800;font-size:13px;margin-bottom:5px">
-          Workflow Timeline
-        </div>
-
-        ${(v.history||[]).map(h=>`
-          <div class="timeline-row">
-            <div class="timeline-dot"></div>
-            <div>
-              <div class="timeline-title">${esc(stageName(h.stage))}</div>
-              <div class="timeline-date">
-                ${esc(h.date||"")} ${h.note?"• "+esc(h.note):""}
-              </div>
-            </div>
-          </div>
-        `).join("")}
-
-      </div>
-
-      <div class="form-actions">
-        <button class="btn btn-light" onclick="editVehicle('${v.id}')">✏ Edit</button>
-        <button class="btn btn-primary" onclick="openStageModal('${v.id}')">Update Stage</button>
-        <button class="btn btn-danger" onclick="deleteVehicle('${v.id}')">Delete</button>
-      </div>
-
-    </div>
-  `);
-}
-
-function editVehicle(id){
-  closeModal();
-  setTimeout(()=>openVehicleModal(id),50);
-}
-
-function deleteVehicle(id){
-
-  const v=vehicles.find(x=>x.id===id);
-
-  if(!v)return;
-
-  if(!confirm(`Delete vehicle ${v.chassis}?`))return;
-
-  vehicles=vehicles.filter(x=>x.id!==id);
-
-  save(VEHICLE_KEY,vehicles);
-
-  closeModal();
-  renderAll();
-  toast("Vehicle deleted");
-}
-
-/* =========================================================
-   STAGE MODAL
-========================================================= */
-
-function openStageModal(vehicleId){
-
-  const v=vehicles.find(x=>x.id===vehicleId);
-  if(!v)return;
-
-  showModal(`
-    <div class="modal-head">
-      <div class="modal-title">Update Workflow Stage</div>
-      <button class="close" onclick="closeModal()">✕</button>
-    </div>
-
-    <form class="form" onsubmit="saveStage(event,'${vehicleId}')">
-
-      <div class="form-grid">
-
-        <div class="field">
-          <label>Workflow Stage</label>
-          <select name="stage">
-            ${STAGES.map((s,i)=>`
-              <option value="${i+1}" ${v.stage==i+1?"selected":""}>
-                ${i+1}. ${s}
-              </option>
-            `).join("")}
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Stage Date</label>
-          <input type="date" name="date" value="${new Date().toISOString().slice(0,10)}">
-        </div>
-
-        <div class="field full">
-          <label>Note</label>
-          <textarea name="note" placeholder="Stage update note"></textarea>
-        </div>
-
-      </div>
-
-      <div class="form-actions">
-        <button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button>
-        <button class="btn btn-primary">Update</button>
-      </div>
-
-    </form>
-  `);
-}
-
-function saveStage(e,vehicleId){
-
-  e.preventDefault();
-
-  const fd=new FormData(e.target);
-  const stage=Number(fd.get("stage"));
-  const date=fd.get("date");
-  const note=fd.get("note");
-
-  const v=vehicles.find(x=>x.id===vehicleId);
-
-  if(!v)return;
-
-  v.stage=stage;
-
-  if(!v.history)v.history=[];
-
-  v.history.push({
-    stage,
-    date,
-    note
-  });
-
-  save(VEHICLE_KEY,vehicles);
-
-  closeModal();
-  renderAll();
-  toast("Workflow stage updated");
-}
-
-/* =========================================================
-   VEHICLES RENDER
-========================================================= */
-
-function renderVehicles(){
-
-  const search=(document.getElementById("vehicleSearch")?.value||"")
-    .toLowerCase();
-
-  const stage=document.getElementById("vehicleStageFilter")?.value||"";
-
-  const list=vehicles.filter(v=>{
-
-    const text=[
-      v.series,
-      v.length,
-      v.chassis,
-      v.customer,
-      v.carNo,
-      v.bodyType
-    ].join(" ").toLowerCase();
-
-    return text.includes(search) &&
-      (!stage || String(v.stage)===stage);
-  });
-
-  const tbody=document.getElementById("vehicleTable");
-
-  if(!list.length){
-    tbody.innerHTML=`
-      <tr>
-        <td colspan="9">
-          <div class="empty">
-            <div class="empty-icon">🚚</div>
-            No vehicles found
-          </div>
-        </td>
-      </tr>
-    `;
-    return;
-  }
-
-  tbody.innerHTML=list.map(v=>{
-
-    const val=currentValue(v);
-
-    return `
-      <tr>
-
-        <td><strong>${esc(v.series)}</strong></td>
-
-        <td>${esc(v.length)}</td>
-
-        <td class="mono">${esc(v.chassis)}</td>
-
-        <td>${esc(v.bodyType)}</td>
-
-        <td>${esc(v.customer)}</td>
-
-        <td>${esc(v.carNo)}</td>
-
-        <td>
-          <span class="badge ${v.stage===9?"badge-green":"badge-blue"}">
-            ${esc(stageName(v.stage))}
-          </span>
-        </td>
-
-        <td>
-          <strong>${val?money(val):"-"}</strong>
-        </td>
-
-        <td>
-          <button class="btn btn-light btn-sm"
-            onclick="viewVehicle('${v.id}')">
-            View
-          </button>
-        </td>
-
-      </tr>
-    `;
-
-  }).join("");
-}
-
-/* =========================================================
-   PRODUCTION
-========================================================= */
-
-function renderProduction(){
-
-  const tbody=document.getElementById("productionTable");
-
-  if(!vehicles.length){
-    tbody.innerHTML=`<tr><td colspan="7"><div class="empty">No data</div></td></tr>`;
-    return;
-  }
-
-  tbody.innerHTML=vehicles.map(v=>{
-
-    const prod=(v.history||[]).find(x=>x.stage===1);
-
-    return `
-      <tr>
-        <td>${esc(v.productionMonth)}</td>
-        <td><strong>${esc(v.series)}</strong></td>
-        <td class="mono">${esc(v.chassis)}</td>
-        <td>${esc(v.bodyType)}</td>
-        <td>${esc(v.customer)}</td>
-        <td>${esc(prod?.date||"")}</td>
-        <td>
-          <span class="badge badge-blue">${esc(stageName(v.stage))}</span>
-        </td>
-      </tr>
-    `;
-
-  }).join("");
-}
-
-/* =========================================================
-   PRICE MASTER
-========================================================= */
-
-function openPriceModal(priceId=""){
-
-  const p=prices.find(x=>x.id===priceId)||{};
-
-  showModal(`
-    <div class="modal-head">
-      <div class="modal-title">${priceId?"Edit Price":"Update Price"}</div>
-      <button class="close" onclick="closeModal()">✕</button>
-    </div>
-
-    <form class="form" onsubmit="savePrice(event,'${priceId}')">
-
-      <div class="form-grid">
-
-        <div class="field">
-          <label>Series</label>
-          <input name="series" required value="${esc(p.series||"")}">
-        </div>
-
-        <div class="field">
-          <label>Length</label>
-          <input type="number" step="0.1" name="length" value="${esc(p.length||"")}">
-        </div>
-
-        <div class="field">
-          <label>Car Price</label>
-          <input type="number" name="carPrice" value="${p.carPrice||0}">
-        </div>
-
-        <div class="field">
-          <label>Box</label>
-          <input type="number" name="box" value="${p.box||0}">
-        </div>
-
-        <div class="field">
-          <label>Income Tax</label>
-          <input type="number" name="incomeTax" value="${p.incomeTax||0}">
-        </div>
-
-        <div class="field">
-          <label>Additional</label>
-          <input type="number" name="additional" value="${p.additional||0}">
-        </div>
-
-        <div class="field">
-          <label>Cargo Package</label>
-          <input type="number" name="cargoPackage" value="${p.cargoPackage||0}">
-        </div>
-
-        <div class="field">
-          <label>Box Package</label>
-          <input type="number" name="boxPackage" value="${p.boxPackage||0}">
-        </div>
-
-        <div class="field">
-          <label>Cargo Total (without IT)</label>
-          <input type="number" name="cargoWithoutIT" value="${p.cargoWithoutIT||0}">
-        </div>
-
-        <div class="field">
-          <label>Box Total (without IT)</label>
-          <input type="number" name="boxWithoutIT" value="${p.boxWithoutIT||0}">
-        </div>
-
-        <div class="field">
-          <label>Cargo Total</label>
-          <input type="number" name="cargoTotal" value="${p.cargoTotal||0}">
-        </div>
-
-        <div class="field">
-          <label>Box Total</label>
-          <input type="number" name="boxTotal" value="${p.boxTotal||0}">
-        </div>
-
-      </div>
-
-      <div class="form-actions">
-        <button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button>
-        <button class="btn btn-primary">Save Price</button>
-      </div>
-
-    </form>
-  `);
-}
-
-function savePrice(e,priceId){
-
-  e.preventDefault();
-
-  const fd=new FormData(e.target);
-  const d=Object.fromEntries(fd.entries());
-
-  const p={
-    id:priceId || id(),
-    series:d.series,
-    length:Number(d.length||0),
-    carPrice:Number(d.carPrice||0),
-    box:Number(d.box||0),
-    incomeTax:Number(d.incomeTax||0),
-    additional:Number(d.additional||0),
-    cargoPackage:Number(d.cargoPackage||0),
-    boxPackage:Number(d.boxPackage||0),
-    cargoWithoutIT:Number(d.cargoWithoutIT||0),
-    boxWithoutIT:Number(d.boxWithoutIT||0),
-    cargoTotal:Number(d.cargoTotal||0),
-    boxTotal:Number(d.boxTotal||0)
+  const titles={
+    dashboard:["Dashboard","Vehicle sales workflow control"],
+    vehicles:["Vehicles","Vehicle master & workflow tracking"],
+    production:["Production","Production and body building control"],
+    tax:["MMC Tax & Invoice","Myanmar Motor Corporation tax invoice control"],
+    prices:["Current Vehicle Price","Current ISUZU vehicle price master"],
+    registration:["Registration","Number plate, inspection and owner book"],
+    delivery:["Delivery","Vehicle handover & delivery control"],
+    customers:["Customers","Customer vehicle summary"],
+    reports:["Reports","Management reports and summaries"],
+    daily:["Daily Manager","Today / overdue follow-up"],
+    settings:["Settings","Backup, restore and local data"]
   };
 
-  const duplicate=prices.find(x=>
-    x.series.toLowerCase()===p.series.toLowerCase() &&
-    x.id!==priceId
-  );
+  document.getElementById("pageTitle").textContent=titles[page][0];
+  document.getElementById("pageSubtitle").textContent=titles[page][1];
 
-  if(duplicate){
-    toast("Series already exists");
-    return;
-  }
-
-  if(priceId){
-    const i=prices.findIndex(x=>x.id===priceId);
-    prices[i]=p;
-  }else{
-    prices.push(p);
-  }
-
-  save(PRICE_KEY,prices);
-
-  closeModal();
-  renderAll();
-  toast("Price Master updated");
+  renderPage();
 }
 
-function renderPrices(){
+function renderPage(){
 
-  const search=(document.getElementById("priceSearch")?.value||"")
-    .toLowerCase();
+  const content=document.getElementById("appContent");
 
-  const list=prices.filter(p=>
-    String(p.series).toLowerCase().includes(search) ||
-    String(p.length).toLowerCase().includes(search)
-  );
+  if(currentPage==="dashboard") content.innerHTML=dashboardHTML();
+  if(currentPage==="vehicles") content.innerHTML=vehiclesHTML();
+  if(currentPage==="production") content.innerHTML=productionHTML();
+  if(currentPage==="tax") content.innerHTML=taxHTML();
+  if(currentPage==="prices") content.innerHTML=pricesHTML();
+  if(currentPage==="registration") content.innerHTML=registrationHTML();
+  if(currentPage==="delivery") content.innerHTML=deliveryHTML();
+  if(currentPage==="customers") content.innerHTML=customersHTML();
+  if(currentPage==="reports") content.innerHTML=reportsHTML();
+  if(currentPage==="daily") content.innerHTML=dailyHTML();
+  if(currentPage==="settings") content.innerHTML=settingsHTML();
 
-  const tbody=document.getElementById("priceTable");
+  bindPageEvents();
+}
 
-  tbody.innerHTML=list.map(p=>`
 
-    <tr>
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
-      <td><strong>${esc(p.series)}</strong></td>
-      <td>${esc(p.length)}</td>
+function dashboardHTML(){
 
-      <td>${money(p.carPrice)}</td>
-      <td>${money(p.box)}</td>
-      <td>${money(p.incomeTax)}</td>
-      <td>${money(p.additional)}</td>
+  const total=vehicles.length;
 
-      <td>${money(p.cargoPackage)}</td>
-      <td>${money(p.boxPackage)}</td>
+  const production=vehicles.filter(v=>v.stage<=1).length;
+  const body=vehicles.filter(v=>v.stage===2).length;
+  const number=vehicles.filter(v=>v.stage===3).length;
+  const owner=vehicles.filter(v=>v.stage===6).length;
+  const delivery=vehicles.filter(v=>v.stage>=9).length;
 
-      <td>${money(p.cargoWithoutIT)}</td>
-      <td>${money(p.boxWithoutIT)}</td>
+  const taxPending=taxRecords.filter(x=>x.status!=="Paid").length;
+  const taxAmount=taxRecords.reduce((a,b)=>a+amountNumber(b.amount),0);
 
-      <td><strong>${money(p.cargoTotal)}</strong></td>
-      <td><strong>${money(p.boxTotal)}</strong></td>
+  return `
+    <div class="kpi-grid">
 
-      <td>
-        <button class="btn btn-light btn-sm"
-          onclick="openPriceModal('${p.id}')">
-          Edit
+      ${kpi("Total Vehicles",total,"🚚","Vehicle Master")}
+      ${kpi("Production",production,"🏭","Production / Body")}
+      ${kpi("Number Pending",number,"🪪","Registration")}
+      ${kpi("Owner Book",owner,"📕","Owner Book")}
+      ${kpi("Delivery",delivery,"🚛","Final Delivery")}
+      ${kpi("Tax Pending",taxPending,"🧾","MMC Tax")}
+
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card panel">
+
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Vehicle Workflow</div>
+            <div class="small muted">Current vehicle progress</div>
+          </div>
+          <button class="btn btn-small" onclick="navigate('vehicles')">
+            View Vehicles
+          </button>
+        </div>
+
+        <div class="workflow">
+
+          ${STAGES.map((s,i)=>{
+
+            const count=vehicles.filter(v=>v.stage>=i+1).length;
+
+            return `
+              <div class="workflow-step ${count ? "done":""}">
+                <div class="workflow-num">${i+1}</div>
+                <div class="workflow-label">${s}</div>
+                <div class="small muted" style="margin-top:4px">${count}</div>
+              </div>
+            `;
+
+          }).join("")}
+
+        </div>
+
+      </div>
+
+      <div class="card panel">
+
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">MMC TAX CONTROL</div>
+            <div class="small muted">Invoice monitoring</div>
+          </div>
+          <button class="btn btn-small btn-primary" onclick="navigate('tax')">
+            Open Tax
+          </button>
+        </div>
+
+        <div class="price-grid">
+
+          <div class="price-box">
+            <div class="price-box-label">TOTAL INVOICE</div>
+            <div class="price-box-value">${taxRecords.length}</div>
+          </div>
+
+          <div class="price-box">
+            <div class="price-box-label">TOTAL QTY</div>
+            <div class="price-box-value">
+              ${taxRecords.reduce((a,b)=>a+Number(b.quantity||0),0)}
+            </div>
+          </div>
+
+          <div class="price-box">
+            <div class="price-box-label">TOTAL AMOUNT</div>
+            <div class="price-box-value">${money(taxAmount)}</div>
+          </div>
+
+          <div class="price-box price-total">
+            <div class="price-box-label">PAID</div>
+            <div class="price-box-value">
+              ${taxRecords.filter(x=>x.status==="Paid").length}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card panel">
+
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Current Vehicle Price Quick View</div>
+          <div class="small muted">
+            Current price master for ISUZU models
+          </div>
+        </div>
+
+        <button class="btn btn-small" onclick="navigate('prices')">
+          View Full Price
         </button>
-      </td>
+      </div>
 
-    </tr>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Series</th>
+              <th>Length</th>
+              <th>Car Price</th>
+              <th>Cargo Total</th>
+              <th>Box Total</th>
+            </tr>
+          </thead>
 
-  `).join("");
+          <tbody>
 
-  const p=list[0];
+            ${prices.map(p=>`
+              <tr>
+                <td><strong>${escapeHtml(p.series)}</strong></td>
+                <td>${escapeHtml(p.length)}</td>
+                <td>${money(p.carPrice)}</td>
+                <td><strong>${money(p.cargoTotal)}</strong></td>
+                <td><strong>${money(p.boxTotal)}</strong></td>
+              </tr>
+            `).join("")}
 
-  const highlight=document.getElementById("priceHighlight");
+          </tbody>
+        </table>
+      </div>
 
-  if(!p){
-    highlight.innerHTML="";
-    return;
-  }
+    </div>
+  `;
+}
 
-  highlight.innerHTML=`
+function kpi(label,value,icon,note){
 
-    <div class="price-highlight">
+  return `
+    <div class="card kpi">
+      <div class="kpi-icon">${icon}</div>
+      <div class="kpi-label">${label}</div>
+      <div class="kpi-value">${money(value)}</div>
+      <div class="kpi-note">${note}</div>
+    </div>
+  `;
+}
 
-      <small>CURRENT PRICE • ${esc(p.series)} • ${esc(p.length)} FT</small>
 
-      <div class="big">${money(p.cargoTotal)}</div>
+/* =========================================================
+   VEHICLES
+========================================================= */
 
-      <div class="price-grid">
+function vehiclesHTML(){
 
-        <div class="price-box">
-          <small>Car Price</small>
-          <strong>${money(p.carPrice)}</strong>
+  return `
+    <div class="section-head">
+      <div>
+        <div class="section-title">Vehicle Master</div>
+        <div class="section-sub">
+          Production → Body → Registration → Tax → Owner Book → Delivery
         </div>
+      </div>
 
-        <div class="price-box">
-          <small>Income Tax</small>
-          <strong>${money(p.incomeTax)}</strong>
-        </div>
+      <button class="btn btn-primary" onclick="openVehicleModal()">
+        ＋ Add Vehicle
+      </button>
+    </div>
 
-        <div class="price-box">
-          <small>Cargo Total</small>
-          <strong>${money(p.cargoTotal)}</strong>
-        </div>
+    <div class="toolbar">
 
-        <div class="price-box">
-          <small>Box Total</small>
-          <strong>${money(p.boxTotal)}</strong>
-        </div>
+      <div class="search">
+        <span class="search-icon">⌕</span>
+        <input
+          id="vehicleSearch"
+          placeholder="Search chassis, series, customer, car no..."
+        >
+      </div>
+
+      <select class="filter" id="vehicleStageFilter">
+        <option value="">All Stages</option>
+        ${STAGES.map((s,i)=>`
+          <option value="${i+1}">${s}</option>
+        `).join("")}
+      </select>
+
+    </div>
+
+    <div class="card table-card">
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Series</th>
+              <th>Length</th>
+              <th>Chassis No.</th>
+              <th>Body</th>
+              <th>Customer</th>
+              <th>Car No.</th>
+              <th>Current Stage</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="vehicleTableBody"></tbody>
+
+        </table>
 
       </div>
 
@@ -2449,361 +1652,1379 @@ function renderPrices(){
   `;
 }
 
+
 /* =========================================================
-   MMC TAX MODAL
+   PRODUCTION
 ========================================================= */
 
-function openTaxModal(taxId=""){
+function productionHTML(){
 
-  const t=taxes.find(x=>x.id===taxId)||{};
+  const rows=vehicles.filter(v=>v.stage<=2);
 
-  showModal(`
-    <div class="modal-head">
-      <div class="modal-title">${taxId?"Edit MMC Invoice":"Add MMC Tax Invoice"}</div>
-      <button class="close" onclick="closeModal()">✕</button>
+  return `
+    <div class="section-head">
+      <div>
+        <div class="section-title">Production Control</div>
+        <div class="section-sub">
+          Production month and body building tracking
+        </div>
+      </div>
     </div>
 
-    <form class="form" onsubmit="saveTax(event,'${taxId}')">
+    <div class="card table-card">
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Production Month</th>
+              <th>Series</th>
+              <th>Chassis No.</th>
+              <th>Body Type</th>
+              <th>Body Builder</th>
+              <th>Customer</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${
+              rows.length
+              ? rows.map(v=>`
+                <tr>
+                  <td>${escapeHtml(v.productionMonth)}</td>
+                  <td><strong>${escapeHtml(v.series)}</strong></td>
+                  <td>${escapeHtml(v.chassis)}</td>
+                  <td>${escapeHtml(v.bodyType)}</td>
+                  <td>${escapeHtml(v.bodyBuilder)}</td>
+                  <td>${escapeHtml(v.customer)}</td>
+                  <td>
+                    ${stageBadge(v.stage)}
+                  </td>
+                </tr>
+              `).join("")
+              :
+              `<tr><td colspan="7">
+                <div class="empty">No production vehicles</div>
+              </td></tr>`
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   MMC TAX
+========================================================= */
+
+function taxHTML(){
+
+  return `
+    <div class="kpi-grid">
+
+      ${kpi("Total Invoice",taxRecords.length,"🧾","MMC Invoice")}
+
+      ${kpi(
+        "Total Quantity",
+        taxRecords.reduce((a,b)=>a+Number(b.quantity||0),0),
+        "📦",
+        "Vehicle quantity"
+      )}
+
+      ${kpi(
+        "Total Amount",
+        taxRecords.reduce((a,b)=>a+amountNumber(b.amount),0),
+        "💰",
+        "Invoice amount"
+      )}
+
+      ${kpi(
+        "Pending",
+        taxRecords.filter(x=>x.status!=="Paid").length,
+        "⏳",
+        "Tax pending"
+      )}
+
+      ${kpi(
+        "Paid",
+        taxRecords.filter(x=>x.status==="Paid").length,
+        "✓",
+        "Tax paid"
+      )}
+
+      ${kpi(
+        "Matched",
+        taxRecords.filter(t=>findVehicleByChassis(t.chassis)).length,
+        "🔎",
+        "Vehicle matched"
+      )}
+
+    </div>
+
+    <div class="section-head">
+      <div>
+        <div class="section-title">MMC Tax & Invoice</div>
+        <div class="section-sub">
+          Search, reconcile and track MMC tax invoices
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="openTaxModal()">
+        ＋ Add Tax Invoice
+      </button>
+    </div>
+
+    <div class="alert alert-info">
+      Invoice Number ဥပမာ <strong>MMC04090003</strong> ကို ရိုက်ပြီး
+      Invoice / Chassis / Series / Month အလိုက် ပြန်ရှာနိုင်ပါတယ်
+    </div>
+
+    <div class="toolbar">
+
+      <div class="search">
+        <span class="search-icon">⌕</span>
+        <input
+          id="taxSearch"
+          placeholder="Search invoice no, chassis, series, month..."
+        >
+      </div>
+
+      <select class="filter" id="taxStatusFilter">
+        <option value="">All Status</option>
+        <option value="Pending">Pending</option>
+        <option value="Paid">Paid</option>
+      </select>
+
+      <button class="btn" onclick="exportTaxCSV()">
+        ↓ Export Tax CSV
+      </button>
+
+    </div>
+
+    <div class="card table-card">
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Invoice No.</th>
+              <th>Month</th>
+              <th>Series</th>
+              <th>Length</th>
+              <th>Chassis No.</th>
+              <th>Qty</th>
+              <th>Unit Price</th>
+              <th>Amount</th>
+              <th>Match</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="taxTableBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   PRICE MASTER
+========================================================= */
+
+function pricesHTML(){
+
+  return `
+    <div class="section-head">
+      <div>
+        <div class="section-title">Current Vehicle Price</div>
+        <div class="section-sub">
+          ISUZU current price master — Car / Box / Tax / Package / Total
+        </div>
+      </div>
+
+      <button class="btn" onclick="exportPriceCSV()">
+        ↓ Export Price CSV
+      </button>
+    </div>
+
+    <div class="toolbar">
+
+      <div class="search">
+        <span class="search-icon">⌕</span>
+        <input
+          id="priceSearch"
+          placeholder="Search Series or Length..."
+        >
+      </div>
+
+    </div>
+
+    <div class="card table-card">
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Update Price</th>
+              <th>Length</th>
+              <th>Car Price</th>
+              <th>Box</th>
+              <th>Income Tax</th>
+              <th>Additional</th>
+              <th>Cargo Package</th>
+              <th>Box Package</th>
+              <th>Cargo Total<br>without IT</th>
+              <th>Box Total<br>without IT</th>
+              <th>Cargo Total</th>
+              <th>Box Total</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="priceTableBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   REGISTRATION
+========================================================= */
+
+function registrationHTML(){
+
+  const rows=vehicles.filter(v=>v.stage>=3 && v.stage<7);
+
+  return `
+    <div class="section-head">
+      <div>
+        <div class="section-title">Registration Control</div>
+        <div class="section-sub">
+          နံပါတ်ယူ → ယာဉ်စစ် → အခွန်ဆောင် → Owner Book
+        </div>
+      </div>
+    </div>
+
+    <div class="card table-card">
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Series</th>
+              <th>Chassis</th>
+              <th>Customer</th>
+              <th>Car No.</th>
+              <th>Current Stage</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${
+              rows.length
+              ? rows.map(v=>`
+                <tr>
+                  <td><strong>${escapeHtml(v.series)}</strong></td>
+                  <td>${escapeHtml(v.chassis)}</td>
+                  <td>${escapeHtml(v.customer)}</td>
+                  <td>${escapeHtml(v.carNo || "-")}</td>
+                  <td>${stageBadge(v.stage)}</td>
+                  <td>
+                    <button
+                      class="btn btn-small"
+                      onclick="openStageModal('${v.id}')">
+                      Update
+                    </button>
+                  </td>
+                </tr>
+              `).join("")
+              :
+              `<tr><td colspan="6">
+                <div class="empty">
+                  <div class="empty-icon">🪪</div>
+                  No registration vehicles
+                </div>
+              </td></tr>`
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   DELIVERY
+========================================================= */
+
+function deliveryHTML(){
+
+  const rows=vehicles.filter(v=>v.stage>=8);
+
+  return `
+    <div class="section-head">
+      <div>
+        <div class="section-title">Delivery Control</div>
+        <div class="section-sub">
+          ကားလွှဲပြောင်း → Delivery Completed
+        </div>
+      </div>
+    </div>
+
+    <div class="card table-card">
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Series</th>
+              <th>Chassis</th>
+              <th>Customer</th>
+              <th>Car No.</th>
+              <th>Stage</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${
+              rows.length
+              ? rows.map(v=>`
+                <tr>
+                  <td><strong>${escapeHtml(v.series)}</strong></td>
+                  <td>${escapeHtml(v.chassis)}</td>
+                  <td>${escapeHtml(v.customer)}</td>
+                  <td>${escapeHtml(v.carNo || "-")}</td>
+                  <td>${stageBadge(v.stage)}</td>
+                  <td>
+                    <button
+                      class="btn btn-small"
+                      onclick="openStageModal('${v.id}')">
+                      Update
+                    </button>
+                  </td>
+                </tr>
+              `).join("")
+              :
+              `<tr><td colspan="6">
+                <div class="empty">
+                  <div class="empty-icon">🚛</div>
+                  No delivery vehicles
+                </div>
+              </td></tr>`
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   CUSTOMERS
+========================================================= */
+
+function customersHTML(){
+
+  const map={};
+
+  vehicles.forEach(v=>{
+    const key=v.customer || "Unknown";
+
+    if(!map[key]){
+      map[key]={
+        customer:key,
+        count:0,
+        delivered:0,
+        pending:0
+      };
+    }
+
+    map[key].count++;
+
+    if(v.stage>=9) map[key].delivered++;
+    else map[key].pending++;
+  });
+
+  return `
+    <div class="section-head">
+      <div>
+        <div class="section-title">Customers</div>
+        <div class="section-sub">Customer vehicle summary</div>
+      </div>
+    </div>
+
+    <div class="card table-card">
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Total Vehicles</th>
+              <th>Pending</th>
+              <th>Delivered</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${
+              Object.values(map).length
+              ? Object.values(map).map(c=>`
+                <tr>
+                  <td><strong>${escapeHtml(c.customer)}</strong></td>
+                  <td>${c.count}</td>
+                  <td>${c.pending}</td>
+                  <td>${c.delivered}</td>
+                </tr>
+              `).join("")
+              :
+              `<tr><td colspan="4">
+                <div class="empty">No customers</div>
+              </td></tr>`
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   REPORTS
+========================================================= */
+
+function reportsHTML(){
+
+  const totalValue=vehicles.reduce((sum,v)=>{
+    const p=prices.find(x=>x.series.toLowerCase()===String(v.series).toLowerCase());
+
+    return sum+(p ? p.carPrice : 0);
+  },0);
+
+  return `
+    <div class="kpi-grid">
+
+      ${kpi("Vehicles",vehicles.length,"🚚","Total vehicles")}
+
+      ${kpi(
+        "Price Base",
+        totalValue,
+        "💰",
+        "Vehicle base price"
+      )}
+
+      ${kpi(
+        "Tax Records",
+        taxRecords.length,
+        "🧾",
+        "MMC invoices"
+      )}
+
+      ${kpi(
+        "Tax Amount",
+        taxRecords.reduce((a,b)=>a+amountNumber(b.amount),0),
+        "💵",
+        "Invoice total"
+      )}
+
+      ${kpi(
+        "Customers",
+        new Set(vehicles.map(v=>v.customer).filter(Boolean)).size,
+        "👥",
+        "Unique customers"
+      )}
+
+      ${kpi(
+        "Delivered",
+        vehicles.filter(v=>v.stage>=9).length,
+        "🚛",
+        "Completed delivery"
+      )}
+
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card panel">
+
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Stage Distribution</div>
+          </div>
+        </div>
+
+        ${STAGES.map((s,i)=>{
+
+          const count=vehicles.filter(v=>v.stage===i+1).length;
+
+          return `
+            <div style="margin-bottom:12px">
+
+              <div style="
+                display:flex;
+                justify-content:space-between;
+                font-size:11px;
+                font-weight:700;
+                margin-bottom:5px;
+              ">
+                <span>${s}</span>
+                <span>${count}</span>
+              </div>
+
+              <div style="
+                height:7px;
+                background:#e2e8f0;
+                border-radius:999px;
+                overflow:hidden;
+              ">
+                <div style="
+                  width:${vehicles.length ? Math.min(100,count/vehicles.length*100):0}%;
+                  height:100%;
+                  background:#d71920;
+                "></div>
+              </div>
+
+            </div>
+          `;
+
+        }).join("")}
+
+      </div>
+
+      <div class="card panel">
+
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Price Master Summary</div>
+          </div>
+        </div>
+
+        ${prices.map(p=>`
+          <div style="
+            display:flex;
+            justify-content:space-between;
+            padding:10px 0;
+            border-bottom:1px solid #eef2f7;
+            font-size:11px;
+          ">
+            <strong>${escapeHtml(p.series)}</strong>
+            <span>${money(p.carPrice)}</span>
+          </div>
+        `).join("")}
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   DAILY MANAGER
+========================================================= */
+
+function dailyHTML(){
+
+  const pending=vehicles.filter(v=>v.stage<9);
+
+  return `
+    <div class="section-head">
+      <div>
+        <div class="section-title">Daily Manager</div>
+        <div class="section-sub">
+          Follow-up list for today
+        </div>
+      </div>
+    </div>
+
+    <div class="card panel">
+
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Pending Follow-up</div>
+          <div class="small muted">
+            Vehicles that are not delivered yet
+          </div>
+        </div>
+      </div>
+
+      ${
+        pending.length
+        ? `
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Series</th>
+                  <th>Chassis</th>
+                  <th>Customer</th>
+                  <th>Current Stage</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                ${pending.map(v=>`
+                  <tr>
+                    <td><strong>${escapeHtml(v.series)}</strong></td>
+                    <td>${escapeHtml(v.chassis)}</td>
+                    <td>${escapeHtml(v.customer)}</td>
+                    <td>${stageBadge(v.stage)}</td>
+                    <td>
+                      <button
+                        class="btn btn-small"
+                        onclick="openStageModal('${v.id}')">
+                        Update
+                      </button>
+                    </td>
+                  </tr>
+                `).join("")}
+
+              </tbody>
+
+            </table>
+
+          </div>
+        `
+        :
+        `<div class="empty">
+          <div class="empty-icon">✓</div>
+          No pending vehicles
+        </div>`
+      }
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function settingsHTML(){
+
+  return `
+    <div class="section-head">
+      <div>
+        <div class="section-title">Settings</div>
+        <div class="section-sub">
+          Local backup and application data
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card panel">
+
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Backup</div>
+            <div class="small muted">
+              Export all application data
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="backupAll()">
+          ↓ Download Full Backup
+        </button>
+
+        <div style="height:8px"></div>
+
+        <button class="btn" onclick="document.getElementById('restoreInput').click()">
+          ↑ Restore Backup
+        </button>
+
+        <input
+          id="restoreInput"
+          type="file"
+          accept=".json"
+          style="display:none"
+        >
+
+      </div>
+
+      <div class="card panel">
+
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Data Statistics</div>
+          </div>
+        </div>
+
+        <div class="small">
+          Vehicles: <strong>${vehicles.length}</strong>
+        </div>
+
+        <div class="small" style="margin-top:8px">
+          MMC Tax Records: <strong>${taxRecords.length}</strong>
+        </div>
+
+        <div class="small" style="margin-top:8px">
+          Price Master: <strong>${prices.length}</strong>
+        </div>
+
+        <div style="height:18px"></div>
+
+        <button class="btn btn-danger" onclick="clearAllData()">
+          Clear All Data
+        </button>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   STAGE BADGE
+========================================================= */
+
+function stageBadge(stage){
+
+  const label=STAGES[stage-1] || "Unknown";
+
+  let cls="badge-gray";
+
+  if(stage>=9) cls="badge-green";
+  else if(stage>=5) cls="badge-blue";
+  else if(stage>=3) cls="badge-orange";
+
+  return `<span class="badge ${cls}">${escapeHtml(label)}</span>`;
+}
+
+
+/* =========================================================
+   VEHICLE MODAL
+========================================================= */
+
+function openVehicleModal(id=null){
+
+  editingVehicleId=id;
+
+  const v=id ? vehicles.find(x=>x.id===id) : null;
+
+  showModal(`
+    <div class="modal-header">
+
+      <div class="modal-title">
+        ${v ? "Edit Vehicle" : "Add Vehicle"}
+      </div>
+
+      <button class="close" onclick="closeModal()">×</button>
+
+    </div>
+
+    <div class="modal-body">
 
       <div class="form-grid">
 
-        <div class="field">
-          <label>Month</label>
-          <input type="month" name="month" required value="${esc(t.month||"")}">
+        <div class="form-group">
+          <label class="form-label">Production Month</label>
+          <input class="form-control" id="vMonth" type="month"
+            value="${escapeHtml(v?.productionMonth || "")}">
         </div>
 
-        <div class="field">
-          <label>Invoice Number</label>
-          <input
-            name="invoice"
-            required
-            value="${esc(t.invoice||"")}"
-            placeholder="MMC04090003">
+        <div class="form-group">
+          <label class="form-label">Series</label>
+          <input class="form-control" id="vSeries"
+            value="${escapeHtml(v?.series || "")}"
+            placeholder="NMR71E">
         </div>
 
-        <div class="field">
-          <label>Series</label>
-          <input name="series" required value="${esc(t.series||"")}" placeholder="NMR71E">
+        <div class="form-group">
+          <label class="form-label">Length</label>
+          <input class="form-control" id="vLength"
+            value="${escapeHtml(v?.length || "")}"
+            placeholder="10">
         </div>
 
-        <div class="field">
-          <label>Length</label>
-          <input name="length" value="${esc(t.length||"")}">
+        <div class="form-group">
+          <label class="form-label">Chassis No.</label>
+          <input class="form-control" id="vChassis"
+            value="${escapeHtml(v?.chassis || "")}"
+            placeholder="JAA1MR77HT7100921">
         </div>
 
-        <div class="field">
-          <label>Chassis No.</label>
-          <input name="chassis" required value="${esc(t.chassis||"")}">
+        <div class="form-group">
+          <label class="form-label">Body Type</label>
+          <input class="form-control" id="vBody"
+            value="${escapeHtml(v?.bodyType || "")}"
+            placeholder="DRY BOX">
         </div>
 
-        <div class="field">
-          <label>Quantity</label>
-          <input
-            type="number"
-            min="1"
-            name="quantity"
-            value="${t.quantity||1}"
-            oninput="calculateTaxAmount()">
+        <div class="form-group">
+          <label class="form-label">Body Builder</label>
+          <input class="form-control" id="vBuilder"
+            value="${escapeHtml(v?.bodyBuilder || "")}">
         </div>
 
-        <div class="field">
-          <label>Unit Price</label>
-          <input
-            type="number"
-            name="unitPrice"
-            value="${t.unitPrice||0}"
-            oninput="calculateTaxAmount()">
+        <div class="form-group">
+          <label class="form-label">Customer Name</label>
+          <input class="form-control" id="vCustomer"
+            value="${escapeHtml(v?.customer || "")}">
         </div>
 
-        <div class="field">
-          <label>Amount</label>
-          <input
-            id="taxAmountInput"
-            type="number"
-            name="amount"
-            readonly
-            value="${t.amount||0}">
+        <div class="form-group">
+          <label class="form-label">Car No.</label>
+          <input class="form-control" id="vCarNo"
+            value="${escapeHtml(v?.carNo || "")}">
         </div>
 
-        <div class="field">
-          <label>Tax Status</label>
-          <select name="status">
-            <option value="Pending" ${t.status==="Pending"||!t.status?"selected":""}>Pending</option>
-            <option value="Paid" ${t.status==="Paid"?"selected":""}>Paid</option>
+        <div class="form-group">
+          <label class="form-label">Required Delivery Date</label>
+          <input class="form-control" id="vRequired"
+            type="date"
+            value="${escapeHtml(v?.requiredDate || "")}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Current Stage</label>
+          <select class="form-control" id="vStage">
+
+            ${STAGES.map((s,i)=>`
+              <option value="${i+1}"
+                ${Number(v?.stage || 1)===i+1 ? "selected":""}>
+                ${i+1}. ${s}
+              </option>
+            `).join("")}
+
           </select>
         </div>
 
-        <div class="field">
-          <label>Tax Paid Date</label>
-          <input type="date" name="paidDate" value="${esc(t.paidDate||"")}">
-        </div>
-
-        <div class="field full">
-          <label>Remark</label>
-          <textarea name="remark">${esc(t.remark||"")}</textarea>
+        <div class="form-group form-full">
+          <label class="form-label">Remark</label>
+          <textarea class="form-control" id="vRemark">${escapeHtml(v?.remark || "")}</textarea>
         </div>
 
       </div>
 
       <div class="form-actions">
-        <button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button>
-        <button class="btn btn-primary">Save Invoice</button>
+
+        ${
+          v
+          ? `<button class="btn btn-danger" onclick="deleteVehicle('${v.id}')">
+              Delete
+             </button>`
+          : ""
+        }
+
+        <button class="btn" onclick="closeModal()">Cancel</button>
+
+        <button class="btn btn-primary" onclick="saveVehicle()">
+          Save Vehicle
+        </button>
+
       </div>
 
-    </form>
+    </div>
   `);
+}
 
-  calculateTaxAmount();
+function saveVehicle(){
+
+  const chassis=document.getElementById("vChassis").value.trim();
+
+  if(!chassis){
+    toast("Chassis No. is required","error");
+    return;
+  }
+
+  const duplicate=vehicles.find(v=>
+    v.chassis.toLowerCase()===chassis.toLowerCase() &&
+    v.id!==editingVehicleId
+  );
+
+  if(duplicate){
+    toast("This Chassis No. already exists","error");
+    return;
+  }
+
+  const data={
+    id:editingVehicleId || uid(),
+    productionMonth:document.getElementById("vMonth").value,
+    series:document.getElementById("vSeries").value.trim(),
+    length:document.getElementById("vLength").value.trim(),
+    chassis,
+    bodyType:document.getElementById("vBody").value.trim(),
+    bodyBuilder:document.getElementById("vBuilder").value.trim(),
+    customer:document.getElementById("vCustomer").value.trim(),
+    carNo:document.getElementById("vCarNo").value.trim(),
+    requiredDate:document.getElementById("vRequired").value,
+    stage:Number(document.getElementById("vStage").value),
+    remark:document.getElementById("vRemark").value.trim(),
+    createdAt:today()
+  };
+
+  if(editingVehicleId){
+    const index=vehicles.findIndex(v=>v.id===editingVehicleId);
+
+    if(index>=0){
+      vehicles[index]=data;
+    }
+  }else{
+    vehicles.unshift(data);
+  }
+
+  saveVehicles();
+  closeModal();
+  renderPage();
+  toast("Vehicle saved","success");
+}
+
+function deleteVehicle(id){
+
+  if(!confirm("Delete this vehicle?")) return;
+
+  vehicles=vehicles.filter(v=>v.id!==id);
+
+  saveVehicles();
+
+  closeModal();
+  renderPage();
+
+  toast("Vehicle deleted","success");
+}
+
+
+/* =========================================================
+   STAGE MODAL
+========================================================= */
+
+function openStageModal(id){
+
+  const v=vehicles.find(x=>x.id===id);
+
+  if(!v) return;
+
+  showModal(`
+    <div class="modal-header">
+
+      <div>
+        <div class="modal-title">Update Workflow</div>
+        <div class="small muted">
+          ${escapeHtml(v.series)} • ${escapeHtml(v.chassis)}
+        </div>
+      </div>
+
+      <button class="close" onclick="closeModal()">×</button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label class="form-label">Workflow Stage</label>
+
+          <select class="form-control" id="stageSelect">
+
+            ${STAGES.map((s,i)=>`
+              <option value="${i+1}"
+                ${v.stage===i+1 ? "selected":""}>
+                ${i+1}. ${s}
+              </option>
+            `).join("")}
+
+          </select>
+
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Stage Date</label>
+          <input
+            class="form-control"
+            id="stageDate"
+            type="date"
+            value="${today()}">
+        </div>
+
+        <div class="form-group form-full">
+
+          <label class="form-label">Note</label>
+
+          <textarea
+            class="form-control"
+            id="stageNote"
+            placeholder="Follow-up note..."></textarea>
+
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button class="btn" onclick="closeModal()">Cancel</button>
+
+        <button
+          class="btn btn-primary"
+          onclick="saveStage('${id}')">
+          Update Stage
+        </button>
+
+      </div>
+
+    </div>
+  `);
+}
+
+function saveStage(id){
+
+  const v=vehicles.find(x=>x.id===id);
+
+  if(!v) return;
+
+  v.stage=Number(document.getElementById("stageSelect").value);
+
+  saveVehicles();
+
+  closeModal();
+  renderPage();
+
+  toast("Workflow stage updated","success");
+}
+
+
+/* =========================================================
+   TAX MODAL
+========================================================= */
+
+function openTaxModal(id=null){
+
+  editingTaxId=id;
+
+  const t=id ? taxRecords.find(x=>x.id===id) : null;
+
+  showModal(`
+    <div class="modal-header">
+
+      <div class="modal-title">
+        ${t ? "Edit MMC Tax Invoice" : "Add MMC Tax Invoice"}
+      </div>
+
+      <button class="close" onclick="closeModal()">×</button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label class="form-label">Month</label>
+          <input
+            class="form-control"
+            id="tMonth"
+            type="month"
+            value="${escapeHtml(t?.month || "")}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Invoice Number</label>
+          <input
+            class="form-control"
+            id="tInvoice"
+            value="${escapeHtml(t?.invoice || "")}"
+            placeholder="MMC04090003">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Series</label>
+          <input
+            class="form-control"
+            id="tSeries"
+            value="${escapeHtml(t?.series || "")}"
+            placeholder="NMR71E">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Length</label>
+          <input
+            class="form-control"
+            id="tLength"
+            value="${escapeHtml(t?.length || "")}"
+            placeholder="10">
+        </div>
+
+        <div class="form-group form-full">
+          <label class="form-label">Chassis No.</label>
+          <input
+            class="form-control"
+            id="tChassis"
+            value="${escapeHtml(t?.chassis || "")}"
+            placeholder="JAA1MR77HT7100921">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Quantity</label>
+          <input
+            class="form-control"
+            id="tQty"
+            type="number"
+            min="1"
+            step="1"
+            value="${escapeHtml(t?.quantity || 1)}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Unit Price</label>
+          <input
+            class="form-control"
+            id="tUnit"
+            type="number"
+            min="0"
+            value="${escapeHtml(t?.unitPrice || "")}"
+            oninput="calculateTaxAmount()">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Amount</label>
+          <input
+            class="form-control"
+            id="tAmount"
+            type="number"
+            readonly
+            value="${escapeHtml(t?.amount || "")}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tax Status</label>
+          <select class="form-control" id="tStatus">
+
+            <option value="Pending"
+              ${t?.status!=="Paid" ? "selected":""}>
+              Pending
+            </option>
+
+            <option value="Paid"
+              ${t?.status==="Paid" ? "selected":""}>
+              Paid
+            </option>
+
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tax Paid Date</label>
+          <input
+            class="form-control"
+            id="tPaidDate"
+            type="date"
+            value="${escapeHtml(t?.paidDate || "")}">
+        </div>
+
+        <div class="form-group form-full">
+          <label class="form-label">Remark</label>
+          <textarea
+            class="form-control"
+            id="tRemark">${escapeHtml(t?.remark || "")}</textarea>
+        </div>
+
+      </div>
+
+      <div class="alert alert-warning" style="margin-top:15px">
+        Save လုပ်တဲ့အခါ Invoice Number duplicate နဲ့ Chassis No. ကို
+        Vehicle Master ထဲမှာရှိ/မရှိ တိုက်စစ်ပေးမယ်
+      </div>
+
+      <div class="form-actions">
+
+        ${
+          t
+          ? `<button class="btn btn-danger" onclick="deleteTax('${t.id}')">
+              Delete
+             </button>`
+          : ""
+        }
+
+        <button class="btn" onclick="closeModal()">Cancel</button>
+
+        <button class="btn btn-primary" onclick="saveTaxRecord()">
+          Save Invoice
+        </button>
+
+      </div>
+
+    </div>
+  `);
 }
 
 function calculateTaxAmount(){
 
-  const q=document.querySelector('[name="quantity"]');
-  const u=document.querySelector('[name="unitPrice"]');
-  const a=document.getElementById("taxAmountInput");
+  const qty=amountNumber(document.getElementById("tQty")?.value);
+  const unit=amountNumber(document.getElementById("tUnit")?.value);
 
-  if(!q||!u||!a)return;
+  const amount=qty*unit;
 
-  a.value=Number(q.value||0)*Number(u.value||0);
+  const target=document.getElementById("tAmount");
+
+  if(target){
+    target.value=amount;
+  }
 }
 
-function saveTax(e,taxId){
+function saveTaxRecord(){
 
-  e.preventDefault();
+  const invoice=document.getElementById("tInvoice").value.trim();
+  const chassis=document.getElementById("tChassis").value.trim();
 
-  const fd=new FormData(e.target);
-  const d=Object.fromEntries(fd.entries());
-
-  const t={
-    id:taxId||id(),
-    month:d.month,
-    invoice:d.invoice.trim(),
-    series:d.series.trim(),
-    length:d.length,
-    chassis:d.chassis.trim(),
-    quantity:Number(d.quantity||0),
-    unitPrice:Number(d.unitPrice||0),
-    amount:Number(d.amount||0),
-    status:d.status,
-    paidDate:d.paidDate,
-    remark:d.remark
-  };
-
-  const duplicateInvoice=taxes.find(x=>
-    x.invoice.toLowerCase()===t.invoice.toLowerCase() &&
-    x.id!==taxId
-  );
-
-  if(duplicateInvoice){
-    toast("Invoice number already exists");
+  if(!invoice){
+    toast("Invoice Number is required","error");
     return;
   }
 
-  const duplicateChassis=taxes.find(x=>
-    x.chassis.toLowerCase()===t.chassis.toLowerCase() &&
-    x.month===t.month &&
-    x.id!==taxId
-  );
-
-  if(duplicateChassis){
-
-    if(!confirm(
-      "This Chassis already has an invoice in the same month. Save anyway?"
-    )){
-      return;
-    }
+  if(!chassis){
+    toast("Chassis No. is required","error");
+    return;
   }
 
-  if(taxId){
+  const duplicateInvoice=taxRecords.find(t=>
+    t.invoice.toLowerCase()===invoice.toLowerCase() &&
+    t.id!==editingTaxId
+  );
 
-    const i=taxes.findIndex(x=>x.id===taxId);
-    taxes[i]=t;
+  if(duplicateInvoice){
+    toast("Duplicate Invoice Number","error");
+    return;
+  }
+
+  const qty=amountNumber(document.getElementById("tQty").value);
+  const unit=amountNumber(document.getElementById("tUnit").value);
+  const amount=qty*unit;
+
+  const data={
+    id:editingTaxId || uid(),
+    month:document.getElementById("tMonth").value,
+    invoice,
+    series:document.getElementById("tSeries").value.trim(),
+    length:document.getElementById("tLength").value.trim(),
+    chassis,
+    quantity:qty,
+    unitPrice:unit,
+    amount,
+    status:document.getElementById("tStatus").value,
+    paidDate:document.getElementById("tPaidDate").value,
+    remark:document.getElementById("tRemark").value.trim(),
+    createdAt:today()
+  };
+
+  if(editingTaxId){
+
+    const index=taxRecords.findIndex(t=>t.id===editingTaxId);
+
+    if(index>=0){
+      taxRecords[index]=data;
+    }
 
   }else{
 
-    taxes.push(t);
+    taxRecords.unshift(data);
 
   }
 
-  save(TAX_KEY,taxes);
+  saveTax();
+
+  const vehicle=findVehicleByChassis(chassis);
 
   closeModal();
-  renderAll();
-  toast("MMC Invoice saved");
-}
+  renderPage();
 
-/* =========================================================
-   TAX DETAIL
-========================================================= */
-
-function viewTax(taxId){
-
-  const t=taxes.find(x=>x.id===taxId);
-  if(!t)return;
-
-  const r=reconcileTax(t);
-
-  showModal(`
-
-    <div class="modal-head">
-      <div class="modal-title">MMC Invoice Detail</div>
-      <button class="close" onclick="closeModal()">✕</button>
-    </div>
-
-    <div class="form">
-
-      <div class="detail-grid">
-
-        <div class="detail-item">
-          <small>Invoice Number</small>
-          <strong class="mono">${esc(t.invoice)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Month</small>
-          <strong>${esc(t.month)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Series</small>
-          <strong>${esc(t.series)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Length</small>
-          <strong>${esc(t.length)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Chassis No.</small>
-          <strong class="mono">${esc(t.chassis)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Quantity</small>
-          <strong>${number(t.quantity)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Unit Price</small>
-          <strong>${money(t.unitPrice)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Amount</small>
-          <strong>${money(t.amount)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Tax Status</small>
-          <strong>${statusBadge(t.status)}</strong>
-        </div>
-
-        <div class="detail-item">
-          <small>Reconcile</small>
-          <strong>
-            <span class="badge ${r.cls}">
-              ${r.result}
-            </span>
-          </strong>
-        </div>
-
-      </div>
-
-      ${
-        r.vehicle ? `
-          <div class="price-highlight" style="margin-top:16px">
-
-            <small>VEHICLE PRICE CHECK</small>
-
-            <div class="big">
-              ${money(currentValue(r.vehicle))}
-            </div>
-
-            <div class="price-grid">
-
-              <div class="price-box">
-                <small>Vehicle Series</small>
-                <strong>${esc(r.vehicle.series)}</strong>
-              </div>
-
-              <div class="price-box">
-                <small>Vehicle Chassis</small>
-                <strong>${esc(r.vehicle.chassis)}</strong>
-              </div>
-
-              <div class="price-box">
-                <small>MMC Invoice</small>
-                <strong>${money(t.amount)}</strong>
-              </div>
-
-              <div class="price-box">
-                <small>Difference</small>
-                <strong>${money(r.difference)}</strong>
-              </div>
-
-            </div>
-
-          </div>
-        ` : `
-          <div style="margin-top:16px;background:#fee2e2;color:#991b1b;padding:14px;border-radius:12px;font-size:12px;font-weight:700">
-            ⚠ This invoice chassis does not match Vehicle Master
-          </div>
-        `
-      }
-
-      <div class="form-actions">
-
-        <button class="btn btn-light"
-          onclick="openTaxModal('${t.id}')">
-          ✏ Edit
-        </button>
-
-        <button class="btn btn-danger"
-          onclick="deleteTax('${t.id}')">
-          Delete
-        </button>
-
-        <button class="btn btn-primary"
-          onclick="closeModal()">
-          Close
-        </button>
-
-      </div>
-
-    </div>
-  `);
+  if(vehicle){
+    toast("Tax invoice saved • Chassis MATCHED","success");
+  }else{
+    toast("Tax invoice saved • Chassis NOT MATCHED","error");
+  }
 }
 
 function deleteTax(id){
 
-  const t=taxes.find(x=>x.id===id);
+  if(!confirm("Delete this tax invoice?")) return;
 
-  if(!t)return;
+  taxRecords=taxRecords.filter(t=>t.id!==id);
 
-  if(!confirm(`Delete invoice ${t.invoice}?`))return;
-
-  taxes=taxes.filter(x=>x.id!==id);
-
-  save(TAX_KEY,taxes);
+  saveTax();
 
   closeModal();
-  renderAll();
-  toast("Invoice deleted");
+  renderPage();
+
+  toast("Tax invoice deleted","success");
 }
 
+
 /* =========================================================
-   TAX RENDER
+   TAX SEARCH / RENDER
 ========================================================= */
 
-function renderTax(){
+function renderTaxTable(){
 
-  const search=(document.getElementById("taxSearch")?.value||"")
-    .toLowerCase();
+  const body=document.getElementById("taxTableBody");
 
-  const status=document.getElementById("taxStatusFilter")?.value||"";
+  if(!body) return;
 
-  const list=taxes.filter(t=>{
+  const search=(document.getElementById("taxSearch")?.value || "")
+    .toLowerCase()
+    .trim();
+
+  const status=document.getElementById("taxStatusFilter")?.value || "";
+
+  const rows=taxRecords.filter(t=>{
 
     const text=[
       t.invoice,
@@ -2813,624 +3034,737 @@ function renderTax(){
       t.length
     ].join(" ").toLowerCase();
 
-    return text.includes(search) &&
-      (!status || t.status===status);
+    const matchSearch=!search || text.includes(search);
+
+    const matchStatus=!status || t.status===status;
+
+    return matchSearch && matchStatus;
   });
 
-  const tbody=document.getElementById("taxTable");
+  body.innerHTML=rows.length
+    ? rows.map(t=>{
 
-  if(!list.length){
+        const vehicle=findVehicleByChassis(t.chassis);
 
-    tbody.innerHTML=`
-      <tr>
+        return `
+          <tr>
+
+            <td>
+              <strong>${escapeHtml(t.invoice)}</strong>
+            </td>
+
+            <td>${escapeHtml(t.month)}</td>
+
+            <td>${escapeHtml(t.series)}</td>
+
+            <td>${escapeHtml(t.length)}</td>
+
+            <td>${escapeHtml(t.chassis)}</td>
+
+            <td>${money(t.quantity)}</td>
+
+            <td>${money(t.unitPrice)}</td>
+
+            <td>
+              <strong>${money(t.amount)}</strong>
+            </td>
+
+            <td>
+              ${
+                vehicle
+                ? `<span class="badge badge-green">MATCHED</span>`
+                : `<span class="badge badge-red">NOT MATCHED</span>`
+              }
+            </td>
+
+            <td>
+              ${
+                t.status==="Paid"
+                ? `<span class="badge badge-green">PAID</span>`
+                : `<span class="badge badge-orange">PENDING</span>`
+              }
+            </td>
+
+            <td>
+
+              <div class="action-row">
+
+                <button
+                  class="btn btn-small"
+                  onclick="openTaxModal('${t.id}')">
+                  Edit
+                </button>
+
+                ${
+                  vehicle
+                  ? `
+                    <button
+                      class="btn btn-small"
+                      onclick="openVehicleModal('${vehicle.id}')">
+                      Vehicle
+                    </button>
+                  `
+                  : ""
+                }
+
+              </div>
+
+            </td>
+
+          </tr>
+        `;
+
+      }).join("")
+    :
+      `<tr>
         <td colspan="11">
           <div class="empty">
             <div class="empty-icon">🧾</div>
-            No MMC invoice found
+            No tax invoice found
           </div>
         </td>
-      </tr>
-    `;
-
-  }else{
-
-    tbody.innerHTML=list.map(t=>{
-
-      const r=reconcileTax(t);
-
-      return `
-        <tr>
-
-          <td class="mono">
-            <strong>${esc(t.invoice)}</strong>
-          </td>
-
-          <td>${esc(t.month)}</td>
-
-          <td>${esc(t.series)}</td>
-
-          <td>${esc(t.length)}</td>
-
-          <td class="mono">${esc(t.chassis)}</td>
-
-          <td>${number(t.quantity)}</td>
-
-          <td>${money(t.unitPrice)}</td>
-
-          <td>
-            <strong>${money(t.amount)}</strong>
-          </td>
-
-          <td>${statusBadge(t.status)}</td>
-
-          <td>
-            <span class="badge ${r.cls}">
-              ${r.result}
-            </span>
-          </td>
-
-          <td>
-            <button class="btn btn-light btn-sm"
-              onclick="viewTax('${t.id}')">
-              View
-            </button>
-          </td>
-
-        </tr>
-      `;
-
-    }).join("");
-  }
-
-  const qty=taxes.reduce((a,x)=>a+Number(x.quantity||0),0);
-  const amount=taxes.reduce((a,x)=>a+Number(x.amount||0),0);
-  const pending=taxes.filter(x=>x.status!=="Paid").length;
-  const paid=taxes.filter(x=>x.status==="Paid").length;
-  const matched=taxes.filter(x=>reconcileTax(x).result==="MATCHED").length;
-
-  document.getElementById("taxCount").textContent=number(taxes.length);
-  document.getElementById("taxQty").textContent=number(qty);
-  document.getElementById("taxAmount").textContent=money(amount);
-  document.getElementById("taxPending").textContent=number(pending);
-  document.getElementById("taxPaid").textContent=number(paid);
-  document.getElementById("taxMatched").textContent=number(matched);
+      </tr>`;
 }
 
-/* =========================================================
-   REGISTRATION
-========================================================= */
-
-function renderRegistration(){
-
-  const list=vehicles.filter(v=>v.stage>=3 && v.stage<7);
-
-  document.getElementById("registrationTable").innerHTML=
-
-    list.length ? list.map(v=>{
-
-      const last=(v.history||[]).at(-1);
-
-      return `
-        <tr>
-          <td class="mono">${esc(v.chassis)}</td>
-          <td>${esc(v.customer)}</td>
-          <td>${esc(v.carNo)}</td>
-          <td><span class="badge badge-blue">${esc(stageName(v.stage))}</span></td>
-          <td>${esc(last?.date||"")}</td>
-          <td>
-            <button class="btn btn-light btn-sm"
-              onclick="viewVehicle('${v.id}')">
-              View
-            </button>
-          </td>
-        </tr>
-      `;
-
-    }).join("") :
-    `<tr><td colspan="6"><div class="empty">No registration pending</div></td></tr>`;
-}
 
 /* =========================================================
-   DELIVERY
+   PRICE RENDER
 ========================================================= */
 
-function renderDelivery(){
+function renderPriceTable(){
 
-  const list=vehicles.filter(v=>v.stage>=8);
+  const body=document.getElementById("priceTableBody");
 
-  document.getElementById("deliveryTable").innerHTML=
+  if(!body) return;
 
-    list.length ? list.map(v=>`
+  const search=(document.getElementById("priceSearch")?.value || "")
+    .toLowerCase()
+    .trim();
 
+  const rows=prices.filter(p=>
+    !search ||
+    p.series.toLowerCase().includes(search) ||
+    String(p.length).includes(search)
+  );
+
+  body.innerHTML=rows.length
+    ? rows.map(p=>`
       <tr>
 
-        <td><strong>${esc(v.series)}</strong></td>
-
-        <td class="mono">${esc(v.chassis)}</td>
-
-        <td>${esc(v.customer)}</td>
-
-        <td>${esc(v.carNo)}</td>
-
         <td>
-          <span class="badge ${v.stage===9?"badge-green":"badge-orange"}">
-            ${esc(stageName(v.stage))}
-          </span>
+          <strong>${escapeHtml(p.series)}</strong>
         </td>
 
-        <td>${esc(v.requiredDate)}</td>
+        <td>${escapeHtml(p.length)}</td>
+
+        <td>${money(p.carPrice)}</td>
+
+        <td>${money(p.box)}</td>
+
+        <td>${money(p.incomeTax)}</td>
+
+        <td>${money(p.additional)}</td>
+
+        <td>${money(p.cargoPackage)}</td>
+
+        <td>${money(p.boxPackage)}</td>
+
+        <td>${money(p.cargoTotalWithoutIT)}</td>
+
+        <td>${money(p.boxTotalWithoutIT)}</td>
 
         <td>
-          <button class="btn btn-light btn-sm"
-            onclick="viewVehicle('${v.id}')">
-            View
+          <strong>${money(p.cargoTotal)}</strong>
+        </td>
+
+        <td>
+          <strong>${money(p.boxTotal)}</strong>
+        </td>
+
+        <td>
+          <button
+            class="btn btn-small"
+            onclick="openPriceDetail('${escapeHtml(p.series)}')">
+            Detail
           </button>
         </td>
 
       </tr>
-
-    `).join("") :
-    `<tr><td colspan="7"><div class="empty">No delivery vehicle</div></td></tr>`;
+    `).join("")
+    :
+    `<tr>
+      <td colspan="13">
+        <div class="empty">No price found</div>
+      </td>
+    </tr>`;
 }
 
+
 /* =========================================================
-   CUSTOMERS
+   PRICE DETAIL
 ========================================================= */
 
-function renderCustomers(){
+function openPriceDetail(series){
 
-  const map={};
+  const p=prices.find(x=>x.series===series);
 
-  vehicles.forEach(v=>{
+  if(!p) return;
 
-    const name=v.customer||"Unknown";
+  showModal(`
+    <div class="modal-header">
 
-    if(!map[name]){
-      map[name]={
-        total:0,
-        delivered:0,
-        pending:0,
-        value:0
-      };
-    }
+      <div>
+        <div class="modal-title">
+          ${escapeHtml(p.series)}
+        </div>
+        <div class="small muted">
+          Length ${escapeHtml(p.length)}
+        </div>
+      </div>
 
-    map[name].total++;
+      <button class="close" onclick="closeModal()">×</button>
 
-    if(v.stage===9)
-      map[name].delivered++;
-    else
-      map[name].pending++;
+    </div>
 
-    map[name].value+=currentValue(v);
+    <div class="modal-body">
+
+      <div class="price-highlight">
+
+        <div class="price-label">CAR PRICE</div>
+
+        <div class="price-main">
+          ${money(p.carPrice)} Ks
+        </div>
+
+      </div>
+
+      <div class="price-grid">
+
+        ${priceBox("Length",p.length)}
+
+        ${priceBox("Car Price",money(p.carPrice)+" Ks")}
+
+        ${priceBox("Box",money(p.box)+" Ks")}
+
+        ${priceBox("Income Tax",money(p.incomeTax)+" Ks")}
+
+        ${priceBox("Additional",money(p.additional)+" Ks")}
+
+        ${priceBox("Cargo Package",money(p.cargoPackage)+" Ks")}
+
+        ${priceBox("Box Package",money(p.boxPackage)+" Ks")}
+
+        ${priceBox("Cargo Total without IT",money(p.cargoTotalWithoutIT)+" Ks")}
+
+        ${priceBox("Box Total without IT",money(p.boxTotalWithoutIT)+" Ks")}
+
+        ${priceBox("Cargo Total",money(p.cargoTotal)+" Ks","price-total")}
+
+        ${priceBox("Box Total",money(p.boxTotal)+" Ks","price-total")}
+
+      </div>
+
+      <div class="form-actions">
+
+        <button class="btn" onclick="closeModal()">
+          Close
+        </button>
+
+      </div>
+
+    </div>
+  `);
+}
+
+function priceBox(label,value,extra=""){
+
+  return `
+    <div class="price-box ${extra}">
+
+      <div class="price-box-label">
+        ${escapeHtml(label)}
+      </div>
+
+      <div class="price-box-value">
+        ${escapeHtml(value)}
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   VEHICLE SEARCH
+========================================================= */
+
+function renderVehicleTable(){
+
+  const body=document.getElementById("vehicleTableBody");
+
+  if(!body) return;
+
+  const search=(document.getElementById("vehicleSearch")?.value || "")
+    .toLowerCase()
+    .trim();
+
+  const stage=document.getElementById("vehicleStageFilter")?.value || "";
+
+  const rows=vehicles.filter(v=>{
+
+    const text=[
+      v.series,
+      v.length,
+      v.chassis,
+      v.bodyType,
+      v.customer,
+      v.carNo,
+      v.productionMonth
+    ].join(" ").toLowerCase();
+
+    return (!search || text.includes(search)) &&
+      (!stage || String(v.stage)===stage);
   });
 
-  const rows=Object.entries(map);
-
-  document.getElementById("customerTable").innerHTML=
-
-    rows.length ? rows.map(([name,d])=>`
-
+  body.innerHTML=rows.length
+    ? rows.map(v=>`
       <tr>
 
-        <td><strong>${esc(name)}</strong></td>
-
-        <td>${number(d.total)}</td>
-
         <td>
-          <span class="badge badge-green">
-            ${number(d.delivered)}
-          </span>
+          <strong>${escapeHtml(v.series)}</strong>
         </td>
 
-        <td>
-          <span class="badge badge-orange">
-            ${number(d.pending)}
-          </span>
-        </td>
+        <td>${escapeHtml(v.length)}</td>
 
-        <td><strong>${money(d.value)}</strong></td>
+        <td>${escapeHtml(v.chassis)}</td>
 
-      </tr>
+        <td>${escapeHtml(v.bodyType)}</td>
 
-    `).join("") :
-    `<tr><td colspan="5"><div class="empty">No customers</div></td></tr>`;
-}
+        <td>${escapeHtml(v.customer)}</td>
 
-/* =========================================================
-   REPORTS
-========================================================= */
+        <td>${escapeHtml(v.carNo || "-")}</td>
 
-function renderReports(){
-
-  const vehicleValue=vehicles.reduce(
-    (a,v)=>a+currentValue(v),0
-  );
-
-  const invoiceValue=taxes.reduce(
-    (a,t)=>a+Number(t.amount||0),0
-  );
-
-  const matched=taxes.filter(
-    t=>reconcileTax(t).result==="MATCHED"
-  ).length;
-
-  const unmatched=taxes.filter(
-    t=>reconcileTax(t).result==="NOT MATCHED"
-  ).length;
-
-  const pending=taxes.filter(
-    t=>t.status!=="Paid"
-  ).length;
-
-  const difference=taxes.reduce((a,t)=>{
-
-    const r=reconcileTax(t);
-
-    return a+(r.difference||0);
-
-  },0);
-
-  document.getElementById("reportVehicleValue").textContent=
-    money(vehicleValue);
-
-  document.getElementById("reportInvoiceValue").textContent=
-    money(invoiceValue);
-
-  document.getElementById("reportDifference").textContent=
-    money(difference);
-
-  document.getElementById("reportMatched").textContent=
-    number(matched);
-
-  document.getElementById("reportUnmatched").textContent=
-    number(unmatched);
-
-  document.getElementById("reportPending").textContent=
-    number(pending);
-
-  document.getElementById("reportTable").innerHTML=
-
-    taxes.length ? taxes.map(t=>{
-
-      const r=reconcileTax(t);
-      const v=r.vehicle;
-
-      return `
-        <tr>
-
-          <td class="mono">${esc(t.chassis)}</td>
-
-          <td>${esc(t.series)}</td>
-
-          <td>${v?money(currentValue(v)):"-"}</td>
-
-          <td>${money(t.amount)}</td>
-
-          <td>${r.difference===null?"-":money(r.difference)}</td>
-
-          <td>
-            <span class="badge ${r.cls}">
-              ${r.result}
-            </span>
-          </td>
-
-        </tr>
-      `;
-
-    }).join("") :
-    `<tr><td colspan="6"><div class="empty">No reconciliation data</div></td></tr>`;
-}
-
-/* =========================================================
-   DAILY MANAGER
-========================================================= */
-
-function renderDaily(){
-
-  const list=vehicles.filter(v=>v.stage<9);
-
-  document.getElementById("dailyTable").innerHTML=
-
-    list.length ? list.map(v=>`
-
-      <tr>
-
-        <td><strong>${esc(v.series)}</strong></td>
-
-        <td class="mono">${esc(v.chassis)}</td>
-
-        <td>${esc(v.customer)}</td>
+        <td>${stageBadge(v.stage)}</td>
 
         <td>
-          <span class="badge badge-orange">
-            ${esc(stageName(v.stage))}
-          </span>
-        </td>
 
-        <td>${esc(v.requiredDate||"-")}</td>
+          <div class="action-row">
 
-        <td>
-          <button class="btn btn-primary btn-sm"
-            onclick="openStageModal('${v.id}')">
-            Update
-          </button>
+            <button
+              class="btn btn-small"
+              onclick="openStageModal('${v.id}')">
+              Stage
+            </button>
+
+            <button
+              class="btn btn-small"
+              onclick="openVehicleModal('${v.id}')">
+              Edit
+            </button>
+
+          </div>
+
         </td>
 
       </tr>
-
-    `).join("") :
-    `<tr><td colspan="6"><div class="empty">All vehicles completed</div></td></tr>`;
+    `).join("")
+    :
+    `<tr>
+      <td colspan="8">
+        <div class="empty">
+          <div class="empty-icon">🚚</div>
+          No vehicles found
+        </div>
+      </td>
+    </tr>`;
 }
 
+
 /* =========================================================
-   DASHBOARD
+   MATCHING
 ========================================================= */
 
-function renderDashboard(){
+function findVehicleByChassis(chassis){
 
-  document.getElementById("kTotalVehicles").textContent=
-    number(vehicles.length);
+  if(!chassis) return null;
 
-  document.getElementById("kProduction").textContent=
-    number(vehicles.filter(v=>v.stage<=2).length);
+  const normalized=chassis.trim().toLowerCase();
 
-  document.getElementById("kNumber").textContent=
-    number(vehicles.filter(v=>v.stage===3).length);
-
-  document.getElementById("kOwner").textContent=
-    number(vehicles.filter(v=>v.stage===6).length);
-
-  document.getElementById("kDelivery").textContent=
-    number(vehicles.filter(v=>v.stage>=8).length);
-
-  const totalValue=vehicles.reduce(
-    (a,v)=>a+currentValue(v),0
-  );
-
-  document.getElementById("kValue").textContent=
-    money(totalValue);
-
-  const recent=[...vehicles].slice(-8).reverse();
-
-  document.getElementById("dashboardVehicles").innerHTML=
-
-    recent.length ? recent.map(v=>`
-
-      <tr>
-
-        <td><strong>${esc(v.series)}</strong></td>
-
-        <td class="mono">${esc(v.chassis)}</td>
-
-        <td>${esc(v.customer)}</td>
-
-        <td>
-          <span class="badge ${v.stage===9?"badge-green":"badge-blue"}">
-            ${esc(stageName(v.stage))}
-          </span>
-        </td>
-
-        <td><strong>${money(currentValue(v))}</strong></td>
-
-      </tr>
-
-    `).join("") :
-
-    `<tr><td colspan="5"><div class="empty">No vehicles</div></td></tr>`;
+  return vehicles.find(v=>
+    String(v.chassis || "").trim().toLowerCase()===normalized
+  ) || null;
 }
 
+
 /* =========================================================
-   EXPORT
+   CSV
 ========================================================= */
 
-function download(filename,text,type="text/plain"){
+function csvEscape(v){
 
-  const blob=new Blob([text],{type});
+  const s=String(v ?? "");
+
+  return `"${s.replaceAll('"','""')}"`;
+}
+
+function downloadCSV(filename,headers,rows){
+
+  const csv=[
+    headers.map(csvEscape).join(","),
+    ...rows.map(row=>row.map(csvEscape).join(","))
+  ].join("\n");
+
+  const blob=new Blob(["\ufeff"+csv],{
+    type:"text/csv;charset=utf-8;"
+  });
+
   const url=URL.createObjectURL(blob);
 
   const a=document.createElement("a");
+
   a.href=url;
   a.download=filename;
   a.click();
 
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-}
-
-function csv(rows){
-
-  if(!rows.length)return "";
-
-  const keys=Object.keys(rows[0]);
-
-  const header=keys.join(",");
-
-  const body=rows.map(row=>
-    keys.map(k=>{
-
-      const value=String(row[k]??"")
-        .replace(/"/g,'""');
-
-      return `"${value}"`;
-
-    }).join(",")
-  );
-
-  return [header,...body].join("\n");
+  URL.revokeObjectURL(url);
 }
 
 function exportTaxCSV(){
 
-  const rows=taxes.map(t=>{
-
-    const r=reconcileTax(t);
-
-    return {
-      Invoice:t.invoice,
-      Month:t.month,
-      Series:t.series,
-      Length:t.length,
-      Chassis:t.chassis,
-      Quantity:t.quantity,
-      UnitPrice:t.unitPrice,
-      Amount:t.amount,
-      TaxStatus:t.status,
-      PaidDate:t.paidDate,
-      Reconcile:r.result,
-      Difference:r.difference
-    };
-
-  });
-
-  download(
-    "MMC_Tax_Invoices.csv",
-    csv(rows),
-    "text/csv;charset=utf-8"
+  downloadCSV(
+    "MMC_Tax_Invoice.csv",
+    [
+      "Invoice Number",
+      "Month",
+      "Series",
+      "Length",
+      "Chassis No",
+      "Quantity",
+      "Unit Price",
+      "Amount",
+      "Status",
+      "Paid Date",
+      "Vehicle Match"
+    ],
+    taxRecords.map(t=>[
+      t.invoice,
+      t.month,
+      t.series,
+      t.length,
+      t.chassis,
+      t.quantity,
+      t.unitPrice,
+      t.amount,
+      t.status,
+      t.paidDate,
+      findVehicleByChassis(t.chassis) ? "MATCHED":"NOT MATCHED"
+    ])
   );
 
-  toast("MMC invoice CSV exported");
+  toast("Tax CSV exported","success");
+}
+
+function exportPriceCSV(){
+
+  downloadCSV(
+    "ISUZU_Current_Vehicle_Price.csv",
+    [
+      "Series",
+      "Length",
+      "Car Price",
+      "Box",
+      "Income Tax",
+      "Additional",
+      "Cargo Package",
+      "Box Package",
+      "Cargo Total without IT",
+      "Box Total without IT",
+      "Cargo Total",
+      "Box Total"
+    ],
+    prices.map(p=>[
+      p.series,
+      p.length,
+      p.carPrice,
+      p.box,
+      p.incomeTax,
+      p.additional,
+      p.cargoPackage,
+      p.boxPackage,
+      p.cargoTotalWithoutIT,
+      p.boxTotalWithoutIT,
+      p.cargoTotal,
+      p.boxTotal
+    ])
+  );
+
+  toast("Price CSV exported","success");
 }
 
 function exportAllCSV(){
 
-  const rows=vehicles.map(v=>({
-
-    Series:v.series,
-    Length:v.length,
-    Chassis:v.chassis,
-    Body:v.bodyType,
-    Customer:v.customer,
-    CarNo:v.carNo,
-    Stage:stageName(v.stage),
-    CurrentValue:currentValue(v),
-    RequiredDelivery:v.requiredDate
-
-  }));
-
-  download(
-    "Sales_Manager_Vehicles.csv",
-    csv(rows),
-    "text/csv;charset=utf-8"
+  downloadCSV(
+    "Vehicle_Master.csv",
+    [
+      "Production Month",
+      "Series",
+      "Length",
+      "Chassis",
+      "Body Type",
+      "Body Builder",
+      "Customer",
+      "Car No",
+      "Required Date",
+      "Stage",
+      "Remark"
+    ],
+    vehicles.map(v=>[
+      v.productionMonth,
+      v.series,
+      v.length,
+      v.chassis,
+      v.bodyType,
+      v.bodyBuilder,
+      v.customer,
+      v.carNo,
+      v.requiredDate,
+      STAGES[v.stage-1] || "",
+      v.remark
+    ])
   );
 
-  toast("Vehicle CSV exported");
+  toast("Vehicle CSV exported","success");
 }
+
 
 /* =========================================================
    BACKUP
 ========================================================= */
 
-function backupJSON(){
+function backupAll(){
 
-  const data={
-    version:"3.0",
+  const backup={
+    app:"Sales Manager Workflow Pro",
+    version:"V3",
     exportedAt:new Date().toISOString(),
     vehicles,
-    taxes,
+    taxRecords,
     prices
   };
 
-  download(
-    "Sales_Manager_Workflow_Pro_V3_Backup.json",
-    JSON.stringify(data,null,2),
-    "application/json"
+  const blob=new Blob(
+    [JSON.stringify(backup,null,2)],
+    {type:"application/json"}
   );
 
-  toast("Backup created");
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download="sales-manager-workflow-pro-backup.json";
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  toast("Full backup downloaded","success");
 }
 
-document.getElementById("restoreFile").addEventListener("change",e=>{
-
-  const file=e.target.files[0];
-
-  if(!file)return;
+function restoreBackup(file){
 
   const reader=new FileReader();
 
-  reader.onload=event=>{
+  reader.onload=()=>{
 
     try{
 
-      const data=JSON.parse(event.target.result);
+      const data=JSON.parse(reader.result);
 
       if(Array.isArray(data.vehicles)){
         vehicles=data.vehicles;
-        save(VEHICLE_KEY,vehicles);
+        saveVehicles();
       }
 
-      if(Array.isArray(data.taxes)){
-        taxes=data.taxes;
-        save(TAX_KEY,taxes);
+      if(Array.isArray(data.taxRecords)){
+        taxRecords=data.taxRecords;
+        saveTax();
       }
 
       if(Array.isArray(data.prices)){
         prices=data.prices;
-        save(PRICE_KEY,prices);
+        savePrices();
       }
 
-      renderAll();
+      renderPage();
 
-      toast("Backup restored successfully");
+      toast("Backup restored","success");
 
-    }catch(err){
+    }catch(e){
 
-      alert("Invalid backup file");
+      toast("Invalid backup file","error");
 
     }
 
   };
 
   reader.readAsText(file);
-
-});
-
-/* =========================================================
-   CLEAR
-========================================================= */
+}
 
 function clearAllData(){
 
   if(!confirm(
-    "Clear Vehicles, MMC Tax and Price Master data?\n\nThis cannot be undone."
-  ))return;
+    "Clear all vehicle, tax and price data?\n\nThis cannot be undone."
+  )) return;
 
   localStorage.removeItem(VEHICLE_KEY);
   localStorage.removeItem(TAX_KEY);
   localStorage.removeItem(PRICE_KEY);
 
   vehicles=[];
-  taxes=[];
-  prices=[...defaultPrices];
+  taxRecords=[];
+  prices=[];
 
-  save(PRICE_KEY,prices);
+  loadData();
+  renderPage();
 
-  renderAll();
-
-  toast("All local data cleared");
+  toast("Data cleared and reset","success");
 }
+
 
 /* =========================================================
-   RENDER ALL
+   MODAL
 ========================================================= */
 
-function renderAll(){
+function showModal(html){
 
-  renderDashboard();
-  renderVehicles();
-  renderProduction();
-  renderPrices();
-  renderTax();
-  renderRegistration();
-  renderDelivery();
-  renderCustomers();
-  renderReports();
-  renderDaily();
+  document.getElementById("modal").innerHTML=html;
+  document.getElementById("modalBackdrop").classList.add("show");
+  document.body.style.overflow="hidden";
 }
+
+function closeModal(){
+
+  document.getElementById("modalBackdrop").classList.remove("show");
+  document.body.style.overflow="";
+}
+
+document.getElementById("modalBackdrop").addEventListener("click",e=>{
+
+  if(e.target.id==="modalBackdrop"){
+    closeModal();
+  }
+
+});
+
+
+/* =========================================================
+   PAGE EVENTS
+========================================================= */
+
+function bindPageEvents(){
+
+  const vehicleSearch=document.getElementById("vehicleSearch");
+
+  if(vehicleSearch){
+    vehicleSearch.addEventListener("input",renderVehicleTable);
+  }
+
+  const vehicleFilter=document.getElementById("vehicleStageFilter");
+
+  if(vehicleFilter){
+    vehicleFilter.addEventListener("change",renderVehicleTable);
+  }
+
+  const taxSearch=document.getElementById("taxSearch");
+
+  if(taxSearch){
+    taxSearch.addEventListener("input",renderTaxTable);
+  }
+
+  const taxFilter=document.getElementById("taxStatusFilter");
+
+  if(taxFilter){
+    taxFilter.addEventListener("change",renderTaxTable);
+  }
+
+  const priceSearch=document.getElementById("priceSearch");
+
+  if(priceSearch){
+    priceSearch.addEventListener("input",renderPriceTable);
+  }
+
+  const restore=document.getElementById("restoreInput");
+
+  if(restore){
+    restore.addEventListener("change",e=>{
+      const file=e.target.files[0];
+
+      if(file){
+        restoreBackup(file);
+      }
+    });
+  }
+
+  renderVehicleTable();
+  renderTaxTable();
+  renderPriceTable();
+}
+
+
+/* =========================================================
+   GLOBAL BUTTONS
+========================================================= */
+
+document.getElementById("globalAddBtn").addEventListener("click",()=>{
+
+  if(currentPage==="tax"){
+    openTaxModal();
+  }else{
+    openVehicleModal();
+  }
+
+});
+
+document.getElementById("exportAllBtn").addEventListener("click",()=>{
+
+  if(currentPage==="tax"){
+    exportTaxCSV();
+  }else if(currentPage==="prices"){
+    exportPriceCSV();
+  }else{
+    exportAllCSV();
+  }
+
+});
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+document.getElementById("mobileMenu").addEventListener("click",()=>{
+
+  document.getElementById("sidebar").classList.add("open");
+  document.getElementById("overlay").classList.add("show");
+
+});
+
+document.getElementById("overlay").addEventListener("click",closeMobileMenu);
+
+function closeMobileMenu(){
+
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+
+}
+
 
 /* =========================================================
    START
 ========================================================= */
 
-renderAll();
+loadData();
+navigate("dashboard");
 
 </script>
 
