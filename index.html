@@ -1,0 +1,3050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ISUZU Sales Manager Workflow</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#f4f6f8;
+  --card:#ffffff;
+  --text:#17212b;
+  --muted:#6b7785;
+  --line:#e5e9ee;
+  --dark:#17212b;
+  --dark2:#253342;
+  --accent:#e21f26;
+  --accent2:#b9151b;
+  --green:#15803d;
+  --green-bg:#dcfce7;
+  --orange:#c2410c;
+  --orange-bg:#ffedd5;
+  --blue:#1d4ed8;
+  --blue-bg:#dbeafe;
+  --gray-bg:#eef1f4;
+  --danger:#dc2626;
+  --shadow:0 8px 30px rgba(15,23,42,.07);
+  --radius:16px;
+}
+
+body{
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans Myanmar",
+    "Myanmar Text",
+    sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:255px;
+  background:var(--dark);
+  color:#fff;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  z-index:50;
+  padding:22px 16px;
+  overflow-y:auto;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:6px 8px 24px;
+}
+
+.brand-logo{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:#fff;
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:13px;
+}
+
+.brand-title{
+  font-size:16px;
+  font-weight:800;
+  line-height:1.2;
+}
+
+.brand-sub{
+  font-size:11px;
+  color:#9ca9b6;
+  margin-top:4px;
+}
+
+.nav-label{
+  font-size:10px;
+  color:#7f8d9b;
+  letter-spacing:1px;
+  font-weight:700;
+  padding:12px 10px 7px;
+  text-transform:uppercase;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.nav-btn{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#b9c3cd;
+  text-align:left;
+  padding:12px 12px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  transition:.2s;
+}
+
+.nav-btn:hover{
+  background:rgba(255,255,255,.07);
+  color:#fff;
+}
+
+.nav-btn.active{
+  background:var(--accent);
+  color:#fff;
+  font-weight:700;
+}
+
+.nav-icon{
+  width:23px;
+  text-align:center;
+  font-size:16px;
+}
+
+.sidebar-footer{
+  margin-top:25px;
+  padding:14px;
+  border-radius:13px;
+  background:rgba(255,255,255,.06);
+  color:#aab5c0;
+  font-size:11px;
+  line-height:1.6;
+}
+
+/* MAIN */
+
+.main{
+  margin-left:255px;
+  width:calc(100% - 255px);
+  min-height:100vh;
+}
+
+.topbar{
+  height:70px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  position:sticky;
+  top:0;
+  z-index:30;
+}
+
+.page-title{
+  font-size:20px;
+  font-weight:800;
+}
+
+.page-sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.menu-btn{
+  display:none;
+  border:0;
+  background:var(--dark);
+  color:#fff;
+  width:40px;
+  height:40px;
+  border-radius:10px;
+}
+
+.content{
+  padding:25px;
+  max-width:1500px;
+  margin:auto;
+}
+
+/* PAGES */
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+/* DASHBOARD */
+
+.hero{
+  background:linear-gradient(135deg,#17212b,#293847);
+  color:#fff;
+  border-radius:20px;
+  padding:25px;
+  margin-bottom:20px;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero:after{
+  content:"ISUZU";
+  position:absolute;
+  right:25px;
+  bottom:-22px;
+  font-size:90px;
+  font-weight:900;
+  opacity:.035;
+}
+
+.hero h1{
+  font-size:26px;
+  margin-bottom:7px;
+}
+
+.hero p{
+  color:#b8c3ce;
+  font-size:13px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-bottom:22px;
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+.stat-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.stat-icon{
+  width:35px;
+  height:35px;
+  border-radius:10px;
+  background:var(--gray-bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stat-value{
+  font-size:25px;
+  font-weight:850;
+  margin-top:12px;
+}
+
+.stat-note{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  gap:18px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.card-head{
+  padding:18px 20px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.card-title{
+  font-weight:800;
+  font-size:15px;
+}
+
+.card-body{
+  padding:20px;
+}
+
+.status-row{
+  display:grid;
+  grid-template-columns:1fr 100px;
+  gap:15px;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.status-info{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  margin-bottom:7px;
+}
+
+.progress{
+  width:100%;
+  height:8px;
+  background:#edf0f3;
+  border-radius:100px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  border-radius:100px;
+  background:var(--accent);
+}
+
+.quick-actions{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.quick-btn{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:12px;
+  padding:14px;
+  text-align:left;
+  transition:.2s;
+}
+
+.quick-btn:hover{
+  border-color:#c5ccd3;
+  transform:translateY(-1px);
+}
+
+.quick-btn strong{
+  display:block;
+  font-size:13px;
+}
+
+.quick-btn span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+/* TOOLBAR */
+
+.toolbar{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+}
+
+.search{
+  flex:1;
+  min-width:220px;
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  height:44px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:0 14px;
+  outline:none;
+  background:#fff;
+}
+
+.search input:focus{
+  border-color:var(--accent);
+}
+
+select,
+.input{
+  height:44px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:0 12px;
+  background:#fff;
+  outline:none;
+  width:100%;
+}
+
+textarea.input{
+  height:100px;
+  padding:12px;
+  resize:vertical;
+}
+
+select:focus,
+.input:focus{
+  border-color:var(--accent);
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  height:44px;
+  padding:0 15px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:var(--accent2);
+}
+
+.btn-dark{
+  background:var(--dark);
+  color:#fff;
+}
+
+.btn-light{
+  background:#fff;
+  border:1px solid var(--line);
+  color:var(--text);
+}
+
+.btn-danger{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+/* TABLE */
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:900px;
+}
+
+th{
+  background:#f7f8fa;
+  color:#687583;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.3px;
+  text-align:left;
+  padding:13px 14px;
+  white-space:nowrap;
+}
+
+td{
+  border-top:1px solid var(--line);
+  padding:14px;
+  font-size:12px;
+  vertical-align:middle;
+}
+
+tr:hover td{
+  background:#fafbfc;
+}
+
+.chassis{
+  font-family:monospace;
+  font-weight:700;
+  color:var(--dark);
+  white-space:nowrap;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border-radius:100px;
+  padding:6px 9px;
+  font-size:10px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.badge-pending{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.badge-building{
+  background:var(--orange-bg);
+  color:var(--orange);
+}
+
+.badge-completed{
+  background:var(--green-bg);
+  color:var(--green);
+}
+
+.badge-registration{
+  background:var(--blue-bg);
+  color:var(--blue);
+}
+
+.badge-ready{
+  background:#ede9fe;
+  color:#6d28d9;
+}
+
+.badge-delivered{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.actions{
+  display:flex;
+  gap:5px;
+}
+
+.icon-btn{
+  width:32px;
+  height:32px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+}
+
+.icon-btn:hover{
+  background:#f3f5f7;
+}
+
+.empty{
+  padding:45px 20px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.empty strong{
+  display:block;
+  color:var(--text);
+  margin-bottom:5px;
+}
+
+/* MODAL */
+
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+}
+
+.modal-backdrop.show{
+  display:flex;
+}
+
+.modal{
+  width:min(720px,100%);
+  max-height:90vh;
+  overflow-y:auto;
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 25px 80px rgba(0,0,0,.25);
+}
+
+.modal-head{
+  padding:18px 20px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.modal-title{
+  font-size:17px;
+  font-weight:850;
+}
+
+.close{
+  border:0;
+  background:#f1f3f5;
+  width:35px;
+  height:35px;
+  border-radius:9px;
+  font-size:18px;
+}
+
+.modal-body{
+  padding:20px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.field label{
+  display:block;
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:6px;
+  color:#4b5563;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.modal-foot{
+  padding:15px 20px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+
+/* DETAIL */
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.detail-item{
+  padding:13px;
+  background:#f7f8fa;
+  border-radius:10px;
+}
+
+.detail-label{
+  font-size:10px;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+
+.detail-value{
+  font-size:13px;
+  font-weight:700;
+  word-break:break-word;
+}
+
+/* OVERLAY */
+
+.overlay{
+  display:none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+  .stats{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:800px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .topbar-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .content{
+    padding:16px;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .overlay.show{
+    display:block;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    z-index:40;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:500px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+  }
+
+  .stat{
+    padding:13px;
+  }
+
+  .stat-value{
+    font-size:21px;
+  }
+
+  .hero{
+    padding:20px;
+  }
+
+  .hero h1{
+    font-size:21px;
+  }
+
+  .quick-actions{
+    grid-template-columns:1fr;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr;
+  }
+
+  .page-title{
+    font-size:17px;
+  }
+
+  .top-actions .btn{
+    padding:0 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+      <div class="brand-logo">ISUZU</div>
+      <div>
+        <div class="brand-title">Sales Manager</div>
+        <div class="brand-sub">Workflow System V1.0</div>
+      </div>
+    </div>
+
+    <div class="nav-label">Management</div>
+
+    <nav class="nav">
+
+      <button class="nav-btn active" data-page="dashboard">
+        <span class="nav-icon">▦</span>
+        <span>Dashboard</span>
+      </button>
+
+      <button class="nav-btn" data-page="production">
+        <span class="nav-icon">🚚</span>
+        <span>Production</span>
+      </button>
+
+      <button class="nav-btn" data-page="vehicles">
+        <span class="nav-icon">▤</span>
+        <span>Vehicles</span>
+      </button>
+
+      <button class="nav-btn" data-page="customers">
+        <span class="nav-icon">👤</span>
+        <span>Customers</span>
+      </button>
+
+    </nav>
+
+    <div class="nav-label">Tools</div>
+
+    <nav class="nav">
+
+      <button class="nav-btn" data-page="reports">
+        <span class="nav-icon">▥</span>
+        <span>Reports</span>
+      </button>
+
+      <button class="nav-btn" data-page="settings">
+        <span class="nav-icon">⚙</span>
+        <span>Settings</span>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <strong>Sales Manager Workflow</strong><br>
+      Production • Customer • Body • Delivery
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="topbar-left">
+        <button class="menu-btn" id="menuBtn">☰</button>
+
+        <div>
+          <div class="page-title" id="pageTitle">Dashboard</div>
+          <div class="page-sub" id="pageSub">
+            ISUZU Sales Manager Workflow
+          </div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="btn btn-light" id="exportBtn">Export CSV</button>
+        <button class="btn btn-primary" id="topAddBtn">+ Add Vehicle</button>
+      </div>
+
+    </header>
+
+    <section class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+
+        <div class="hero">
+          <h1>ISUZU Sales Manager Workflow</h1>
+          <p>Production, Body Building, Customer and Delivery tracking in one place</p>
+        </div>
+
+        <div class="stats">
+
+          <div class="stat">
+            <div class="stat-top">
+              <span class="stat-label">Total Vehicles</span>
+              <span class="stat-icon">🚚</span>
+            </div>
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-note">All production records</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-top">
+              <span class="stat-label">Body Building</span>
+              <span class="stat-icon">🔧</span>
+            </div>
+            <div class="stat-value" id="statBuilding">0</div>
+            <div class="stat-note">Currently in body work</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-top">
+              <span class="stat-label">Completed</span>
+              <span class="stat-icon">✓</span>
+            </div>
+            <div class="stat-value" id="statCompleted">0</div>
+            <div class="stat-note">Body completed</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-top">
+              <span class="stat-label">Ready</span>
+              <span class="stat-icon">⚡</span>
+            </div>
+            <div class="stat-value" id="statReady">0</div>
+            <div class="stat-note">Ready for delivery</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-top">
+              <span class="stat-label">Delivered</span>
+              <span class="stat-icon">✓</span>
+            </div>
+            <div class="stat-value" id="statDelivered">0</div>
+            <div class="stat-note">Delivery completed</div>
+          </div>
+
+        </div>
+
+        <div class="dashboard-grid">
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">Production Status</div>
+              <button class="btn btn-light" onclick="showPage('production')">View All</button>
+            </div>
+
+            <div class="card-body">
+
+              <div class="status-row">
+                <div>
+                  <div class="status-info">
+                    <span>Pending</span>
+                    <strong id="pendingCount">0</strong>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" id="pendingBar" style="width:0%"></div>
+                  </div>
+                </div>
+                <span class="badge badge-pending">Pending</span>
+              </div>
+
+              <div class="status-row">
+                <div>
+                  <div class="status-info">
+                    <span>Body Building</span>
+                    <strong id="buildingCount">0</strong>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" id="buildingBar" style="width:0%"></div>
+                  </div>
+                </div>
+                <span class="badge badge-building">Building</span>
+              </div>
+
+              <div class="status-row">
+                <div>
+                  <div class="status-info">
+                    <span>Body Completed</span>
+                    <strong id="completedCount">0</strong>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" id="completedBar" style="width:0%"></div>
+                  </div>
+                </div>
+                <span class="badge badge-completed">Completed</span>
+              </div>
+
+              <div class="status-row">
+                <div>
+                  <div class="status-info">
+                    <span>Ready for Delivery</span>
+                    <strong id="readyCount">0</strong>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" id="readyBar" style="width:0%"></div>
+                  </div>
+                </div>
+                <span class="badge badge-ready">Ready</span>
+              </div>
+
+              <div class="status-row" style="margin-bottom:0">
+                <div>
+                  <div class="status-info">
+                    <span>Delivered</span>
+                    <strong id="deliveredCount">0</strong>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" id="deliveredBar" style="width:0%"></div>
+                  </div>
+                </div>
+                <span class="badge badge-delivered">Delivered</span>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="card">
+
+            <div class="card-head">
+              <div class="card-title">Quick Actions</div>
+            </div>
+
+            <div class="card-body">
+
+              <div class="quick-actions">
+
+                <button class="quick-btn" onclick="openAddModal()">
+                  <strong>➕ Add Vehicle</strong>
+                  <span>Add production / chassis record</span>
+                </button>
+
+                <button class="quick-btn" onclick="showPage('production')">
+                  <strong>🚚 Production</strong>
+                  <span>Track production status</span>
+                </button>
+
+                <button class="quick-btn" onclick="focusSearch()">
+                  <strong>🔎 Find Chassis</strong>
+                  <span>Search any chassis number</span>
+                </button>
+
+                <button class="quick-btn" onclick="exportCSV()">
+                  <strong>📥 Export Report</strong>
+                  <span>Download vehicle data</span>
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="card" style="margin-top:18px">
+
+          <div class="card-head">
+            <div class="card-title">Recent Production</div>
+            <button class="btn btn-light" onclick="showPage('production')">
+              All Production
+            </button>
+          </div>
+
+          <div id="recentTable"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCTION -->
+      <div class="page" id="page-production">
+
+        <div class="toolbar">
+
+          <div class="search">
+            <input
+              id="productionSearch"
+              type="search"
+              placeholder="Search chassis, customer, series, car no..."
+            >
+          </div>
+
+          <select id="productionStatusFilter">
+            <option value="">All Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Body Building">Body Building</option>
+            <option value="Body Completed">Body Completed</option>
+            <option value="Registration">Registration</option>
+            <option value="Ready for Delivery">Ready for Delivery</option>
+            <option value="Delivered">Delivered</option>
+          </select>
+
+          <select id="productionMonthFilter">
+            <option value="">All Months</option>
+          </select>
+
+          <button class="btn btn-primary" onclick="openAddModal()">
+            + Add Production
+          </button>
+
+        </div>
+
+        <div class="card">
+
+          <div class="card-head">
+            <div>
+              <div class="card-title">ISUZU Production Tracking</div>
+              <div class="page-sub">Production → Body → Registration → Delivery</div>
+            </div>
+            <strong id="recordCount">0 records</strong>
+          </div>
+
+          <div id="productionTable"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- VEHICLES -->
+      <div class="page" id="page-vehicles">
+
+        <div class="hero">
+          <h1>Vehicle Master</h1>
+          <p>Search and manage every chassis from one place</p>
+        </div>
+
+        <div class="card">
+
+          <div class="card-head">
+            <div class="card-title">All Vehicles</div>
+            <button class="btn btn-primary" onclick="openAddModal()">+ Add Vehicle</button>
+          </div>
+
+          <div id="vehicleTable"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- CUSTOMERS -->
+      <div class="page" id="page-customers">
+
+        <div class="hero">
+          <h1>Customer Overview</h1>
+          <p>Customer and vehicle relationship tracking</p>
+        </div>
+
+        <div class="card">
+
+          <div class="card-head">
+            <div class="card-title">Customers</div>
+          </div>
+
+          <div id="customerTable"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- REPORTS -->
+      <div class="page" id="page-reports">
+
+        <div class="hero">
+          <h1>Management Reports</h1>
+          <p>Quick operational summary for Sales Manager</p>
+        </div>
+
+        <div class="stats">
+
+          <div class="stat">
+            <div class="stat-label">Total Units</div>
+            <div class="stat-value" id="reportTotal">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Customers</div>
+            <div class="stat-value" id="reportCustomers">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Body Types</div>
+            <div class="stat-value" id="reportBodyTypes">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Delivered</div>
+            <div class="stat-value" id="reportDelivered">0</div>
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <div class="card-head">
+            <div class="card-title">Body Type Summary</div>
+          </div>
+
+          <div id="bodyTypeReport"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SETTINGS -->
+      <div class="page" id="page-settings">
+
+        <div class="hero">
+          <h1>Settings</h1>
+          <p>Basic application settings</p>
+        </div>
+
+        <div class="card">
+
+          <div class="card-body">
+
+            <h3 style="margin-bottom:8px">Data Management</h3>
+
+            <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:18px">
+              Data is currently stored locally in this browser using LocalStorage.
+              Clearing browser data may remove records, so export CSV regularly.
+            </p>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn btn-primary" onclick="exportCSV()">
+                Export CSV
+              </button>
+
+              <button class="btn btn-danger" onclick="clearAllData()">
+                Clear All Data
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- ADD / EDIT MODAL -->
+
+<div class="modal-backdrop" id="vehicleModal">
+
+  <div class="modal">
+
+    <div class="modal-head">
+
+      <div class="modal-title" id="modalTitle">
+        Add Vehicle
+      </div>
+
+      <button class="close" onclick="closeModal()">×</button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <form id="vehicleForm">
+
+        <input type="hidden" id="editId">
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label>Production Month</label>
+            <input class="input" id="productionMonth" placeholder="October 2026">
+          </div>
+
+          <div class="field">
+            <label>Series</label>
+            <input class="input" id="series" placeholder="e.g. NLR / NPR / NQR">
+          </div>
+
+          <div class="field">
+            <label>Length</label>
+            <input class="input" id="length" placeholder="e.g. 14 ft">
+          </div>
+
+          <div class="field">
+            <label>Chassis No. *</label>
+            <input class="input" id="chassis" required placeholder="JAA1MR77HT7100921">
+          </div>
+
+          <div class="field">
+            <label>Body Type</label>
+            <input class="input" id="bodyType" placeholder="DRY BOX">
+          </div>
+
+          <div class="field">
+            <label>Body Status</label>
+            <select class="input" id="bodyStatus">
+              <option value="Pending">Pending</option>
+              <option value="Body Building">Body Building</option>
+              <option value="Body Completed">Body Completed</option>
+              <option value="Registration">Registration</option>
+              <option value="Ready for Delivery">Ready for Delivery</option>
+              <option value="Delivered">Delivered</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Customer Name</label>
+            <input class="input" id="customerName" placeholder="Yoma Fleet">
+          </div>
+
+          <div class="field">
+            <label>Car No.</label>
+            <input class="input" id="carNo" placeholder="1N-1234">
+          </div>
+
+          <div class="field">
+            <label>Order / Required Date</label>
+            <input class="input" id="requiredDate" type="date">
+          </div>
+
+          <div class="field full">
+            <label>Remark</label>
+            <textarea class="input" id="remark" placeholder="Additional information..."></textarea>
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="modal-foot">
+
+      <button class="btn btn-light" onclick="closeModal()">
+        Cancel
+      </button>
+
+      <button class="btn btn-primary" onclick="saveVehicle()">
+        Save Vehicle
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- DETAIL MODAL -->
+
+<div class="modal-backdrop" id="detailModal">
+
+  <div class="modal">
+
+    <div class="modal-head">
+
+      <div class="modal-title">Vehicle Details</div>
+
+      <button class="close" onclick="closeDetail()">×</button>
+
+    </div>
+
+    <div class="modal-body" id="detailBody"></div>
+
+    <div class="modal-foot">
+      <button class="btn btn-light" onclick="closeDetail()">Close</button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+"use strict";
+
+/* =========================================================
+   ISUZU SALES MANAGER WORKFLOW V1
+   ========================================================= */
+
+const STORAGE_KEY = "isuzu_sales_manager_workflow_v1";
+
+let vehicles = [];
+
+const demoData = [
+  {
+    id: Date.now(),
+    productionMonth: "October 2026",
+    series: "",
+    length: "",
+    chassis: "JAA1MR77HT7100921",
+    bodyType: "DRY BOX",
+    bodyStatus: "Pending",
+    customerName: "Yoma Fleet",
+    carNo: "",
+    requiredDate: "2026-06-29",
+    remark: ""
+  }
+];
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  loadData();
+
+  setupNavigation();
+  setupSearch();
+
+  renderAll();
+
+});
+
+
+/* =========================================================
+   DATA
+   ========================================================= */
+
+function loadData(){
+
+  try{
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if(saved){
+
+      vehicles = JSON.parse(saved);
+
+      if(!Array.isArray(vehicles)){
+        vehicles = [];
+      }
+
+    }else{
+
+      vehicles = demoData;
+
+      saveData();
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    vehicles = [];
+
+  }
+
+}
+
+
+function saveData(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(vehicles)
+  );
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function setupNavigation(){
+
+  document.querySelectorAll(".nav-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const page = button.dataset.page;
+
+      showPage(page);
+
+      closeMobileMenu();
+
+    });
+
+  });
+
+}
+
+
+function showPage(page){
+
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.remove("active");
+  });
+
+  const target = document.getElementById("page-" + page);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+
+    btn.classList.toggle(
+      "active",
+      btn.dataset.page === page
+    );
+
+  });
+
+  const titles = {
+
+    dashboard: [
+      "Dashboard",
+      "ISUZU Sales Manager Workflow"
+    ],
+
+    production: [
+      "Production Tracking",
+      "Production → Body → Registration → Delivery"
+    ],
+
+    vehicles: [
+      "Vehicle Master",
+      "Search and manage vehicle records"
+    ],
+
+    customers: [
+      "Customers",
+      "Customer and vehicle overview"
+    ],
+
+    reports: [
+      "Reports",
+      "Management operational summary"
+    ],
+
+    settings: [
+      "Settings",
+      "Application and data management"
+    ]
+
+  };
+
+  if(titles[page]){
+
+    document.getElementById("pageTitle").textContent =
+      titles[page][0];
+
+    document.getElementById("pageSub").textContent =
+      titles[page][1];
+
+  }
+
+  renderAll();
+
+}
+
+
+function closeMobileMenu(){
+
+  document.getElementById("sidebar")
+    .classList.remove("open");
+
+  document.getElementById("overlay")
+    .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+document.getElementById("menuBtn").addEventListener("click", () => {
+
+  document.getElementById("sidebar")
+    .classList.add("open");
+
+  document.getElementById("overlay")
+    .classList.add("show");
+
+});
+
+
+document.getElementById("overlay").addEventListener("click", () => {
+
+  closeMobileMenu();
+
+});
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+function setupSearch(){
+
+  const search = document.getElementById("productionSearch");
+
+  const status = document.getElementById("productionStatusFilter");
+
+  const month = document.getElementById("productionMonthFilter");
+
+  search.addEventListener("input", renderProduction);
+
+  status.addEventListener("change", renderProduction);
+
+  month.addEventListener("change", renderProduction);
+
+}
+
+
+function focusSearch(){
+
+  showPage("production");
+
+  setTimeout(() => {
+
+    document
+      .getElementById("productionSearch")
+      .focus();
+
+  }, 100);
+
+}
+
+
+/* =========================================================
+   FILTER
+   ========================================================= */
+
+function getFilteredVehicles(){
+
+  const search =
+    document
+      .getElementById("productionSearch")
+      ?.value
+      .toLowerCase()
+      .trim() || "";
+
+  const status =
+    document
+      .getElementById("productionStatusFilter")
+      ?.value || "";
+
+  const month =
+    document
+      .getElementById("productionMonthFilter")
+      ?.value || "";
+
+  return vehicles.filter(v => {
+
+    const text = [
+
+      v.productionMonth,
+      v.series,
+      v.length,
+      v.chassis,
+      v.bodyType,
+      v.customerName,
+      v.carNo,
+      v.remark
+
+    ]
+    .join(" ")
+    .toLowerCase();
+
+    const matchesSearch =
+      !search || text.includes(search);
+
+    const matchesStatus =
+      !status || v.bodyStatus === status;
+
+    const matchesMonth =
+      !month || v.productionMonth === month;
+
+    return (
+      matchesSearch &&
+      matchesStatus &&
+      matchesMonth
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+function openAddModal(){
+
+  document.getElementById("modalTitle")
+    .textContent = "Add Vehicle";
+
+  document.getElementById("vehicleForm")
+    .reset();
+
+  document.getElementById("editId")
+    .value = "";
+
+  document.getElementById("bodyStatus")
+    .value = "Pending";
+
+  document.getElementById("vehicleModal")
+    .classList.add("show");
+
+}
+
+
+function closeModal(){
+
+  document.getElementById("vehicleModal")
+    .classList.remove("show");
+
+}
+
+
+function editVehicle(id){
+
+  const v = vehicles.find(x => x.id === id);
+
+  if(!v) return;
+
+  document.getElementById("modalTitle")
+    .textContent = "Edit Vehicle";
+
+  document.getElementById("editId").value = v.id;
+
+  document.getElementById("productionMonth").value =
+    v.productionMonth || "";
+
+  document.getElementById("series").value =
+    v.series || "";
+
+  document.getElementById("length").value =
+    v.length || "";
+
+  document.getElementById("chassis").value =
+    v.chassis || "";
+
+  document.getElementById("bodyType").value =
+    v.bodyType || "";
+
+  document.getElementById("bodyStatus").value =
+    v.bodyStatus || "Pending";
+
+  document.getElementById("customerName").value =
+    v.customerName || "";
+
+  document.getElementById("carNo").value =
+    v.carNo || "";
+
+  document.getElementById("requiredDate").value =
+    v.requiredDate || "";
+
+  document.getElementById("remark").value =
+    v.remark || "";
+
+  document.getElementById("vehicleModal")
+    .classList.add("show");
+
+}
+
+
+function saveVehicle(){
+
+  const form =
+    document.getElementById("vehicleForm");
+
+  if(!form.reportValidity()){
+    return;
+  }
+
+  const id =
+    document.getElementById("editId").value;
+
+  const data = {
+
+    productionMonth:
+      document.getElementById("productionMonth").value.trim(),
+
+    series:
+      document.getElementById("series").value.trim(),
+
+    length:
+      document.getElementById("length").value.trim(),
+
+    chassis:
+      document.getElementById("chassis").value.trim(),
+
+    bodyType:
+      document.getElementById("bodyType").value.trim(),
+
+    bodyStatus:
+      document.getElementById("bodyStatus").value,
+
+    customerName:
+      document.getElementById("customerName").value.trim(),
+
+    carNo:
+      document.getElementById("carNo").value.trim(),
+
+    requiredDate:
+      document.getElementById("requiredDate").value,
+
+    remark:
+      document.getElementById("remark").value.trim()
+
+  };
+
+
+  /* DUPLICATE CHASSIS CHECK */
+
+  const duplicate = vehicles.find(v =>
+    v.chassis.toLowerCase() === data.chassis.toLowerCase() &&
+    String(v.id) !== String(id)
+  );
+
+  if(duplicate){
+
+    alert(
+      "This chassis number already exists."
+    );
+
+    return;
+
+  }
+
+
+  if(id){
+
+    const index =
+      vehicles.findIndex(
+        v => String(v.id) === String(id)
+      );
+
+    if(index !== -1){
+
+      vehicles[index] = {
+        ...vehicles[index],
+        ...data
+      };
+
+    }
+
+  }else{
+
+    vehicles.unshift({
+
+      id: Date.now(),
+
+      ...data
+
+    });
+
+  }
+
+
+  saveData();
+
+  closeModal();
+
+  renderAll();
+
+}
+
+
+/* =========================================================
+   DELETE
+   ========================================================= */
+
+function deleteVehicle(id){
+
+  const v =
+    vehicles.find(x => x.id === id);
+
+  if(!v) return;
+
+  const confirmed =
+    confirm(
+      "Delete this vehicle record?\n\n" +
+      (v.chassis || "Vehicle")
+    );
+
+  if(!confirmed) return;
+
+  vehicles =
+    vehicles.filter(x => x.id !== id);
+
+  saveData();
+
+  renderAll();
+
+}
+
+
+/* =========================================================
+   DETAIL
+   ========================================================= */
+
+function viewVehicle(id){
+
+  const v =
+    vehicles.find(x => x.id === id);
+
+  if(!v) return;
+
+  document.getElementById("detailBody").innerHTML = `
+
+    <div class="detail-grid">
+
+      ${detail("Production Month", v.productionMonth)}
+
+      ${detail("Series", v.series)}
+
+      ${detail("Length", v.length)}
+
+      ${detail("Chassis No.", v.chassis)}
+
+      ${detail("Body Type", v.bodyType)}
+
+      ${detail("Body Status", statusBadge(v.bodyStatus))}
+
+      ${detail("Customer Name", v.customerName)}
+
+      ${detail("Car No.", v.carNo)}
+
+      ${detail("Required Date", formatDate(v.requiredDate))}
+
+      ${detail("Remark", v.remark || "—")}
+
+    </div>
+
+  `;
+
+  document.getElementById("detailModal")
+    .classList.add("show");
+
+}
+
+
+function closeDetail(){
+
+  document.getElementById("detailModal")
+    .classList.remove("show");
+
+}
+
+
+function detail(label, value){
+
+  return `
+
+    <div class="detail-item">
+
+      <div class="detail-label">
+        ${escapeHtml(label)}
+      </div>
+
+      <div class="detail-value">
+        ${value || "—"}
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+function statusBadge(status){
+
+  const map = {
+
+    "Pending":"badge-pending",
+
+    "Body Building":"badge-building",
+
+    "Body Completed":"badge-completed",
+
+    "Registration":"badge-registration",
+
+    "Ready for Delivery":"badge-ready",
+
+    "Delivered":"badge-delivered"
+
+  };
+
+  const cls =
+    map[status] || "badge-pending";
+
+  return `
+    <span class="badge ${cls}">
+      ${escapeHtml(status || "Pending")}
+    </span>
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER ALL
+   ========================================================= */
+
+function renderAll(){
+
+  updateStats();
+
+  renderProduction();
+
+  renderRecent();
+
+  renderVehicles();
+
+  renderCustomers();
+
+  renderReports();
+
+  updateMonthFilter();
+
+}
+
+
+/* =========================================================
+   DASHBOARD STATS
+   ========================================================= */
+
+function updateStats(){
+
+  const total = vehicles.length;
+
+  const pending =
+    countStatus("Pending");
+
+  const building =
+    countStatus("Body Building");
+
+  const completed =
+    countStatus("Body Completed");
+
+  const ready =
+    countStatus("Ready for Delivery");
+
+  const delivered =
+    countStatus("Delivered");
+
+  document.getElementById("statTotal").textContent =
+    total;
+
+  document.getElementById("statBuilding").textContent =
+    building;
+
+  document.getElementById("statCompleted").textContent =
+    completed;
+
+  document.getElementById("statReady").textContent =
+    ready;
+
+  document.getElementById("statDelivered").textContent =
+    delivered;
+
+  document.getElementById("pendingCount").textContent =
+    pending;
+
+  document.getElementById("buildingCount").textContent =
+    building;
+
+  document.getElementById("completedCount").textContent =
+    completed;
+
+  document.getElementById("readyCount").textContent =
+    ready;
+
+  document.getElementById("deliveredCount").textContent =
+    delivered;
+
+
+  setBar("pendingBar", pending, total);
+
+  setBar("buildingBar", building, total);
+
+  setBar("completedBar", completed, total);
+
+  setBar("readyBar", ready, total);
+
+  setBar("deliveredBar", delivered, total);
+
+}
+
+
+function countStatus(status){
+
+  return vehicles.filter(
+    v => v.bodyStatus === status
+  ).length;
+
+}
+
+
+function setBar(id, value, total){
+
+  const percent =
+    total
+      ? Math.round((value / total) * 100)
+      : 0;
+
+  const el =
+    document.getElementById(id);
+
+  if(el){
+    el.style.width = percent + "%";
+  }
+
+}
+
+
+/* =========================================================
+   PRODUCTION TABLE
+   ========================================================= */
+
+function renderProduction(){
+
+  const container =
+    document.getElementById("productionTable");
+
+  if(!container) return;
+
+  const list =
+    getFilteredVehicles();
+
+  document.getElementById("recordCount")
+    .textContent =
+      `${list.length} record${list.length === 1 ? "" : "s"}`;
+
+
+  if(!list.length){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <strong>No production records found</strong>
+
+        Try another search or add a new vehicle
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Series</th>
+            <th>Length</th>
+            <th>Chassis No.</th>
+            <th>Body Type</th>
+            <th>Body Status</th>
+            <th>Customer Name</th>
+            <th>Car No.</th>
+            <th>Required Date</th>
+            <th>Action</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${list.map(vehicleRow).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+
+function vehicleRow(v){
+
+  return `
+
+    <tr>
+
+      <td>
+        <strong>${escapeHtml(v.series || "—")}</strong>
+      </td>
+
+      <td>
+        ${escapeHtml(v.length || "—")}
+      </td>
+
+      <td>
+        <span class="chassis">
+          ${escapeHtml(v.chassis || "—")}
+        </span>
+      </td>
+
+      <td>
+        ${escapeHtml(v.bodyType || "—")}
+      </td>
+
+      <td>
+        ${statusBadge(v.bodyStatus)}
+      </td>
+
+      <td>
+        <strong>
+          ${escapeHtml(v.customerName || "—")}
+        </strong>
+      </td>
+
+      <td>
+        ${escapeHtml(v.carNo || "—")}
+      </td>
+
+      <td>
+        ${formatDate(v.requiredDate)}
+      </td>
+
+      <td>
+
+        <div class="actions">
+
+          <button
+            class="icon-btn"
+            title="View"
+            onclick="viewVehicle(${v.id})">
+            👁
+          </button>
+
+          <button
+            class="icon-btn"
+            title="Edit"
+            onclick="editVehicle(${v.id})">
+            ✎
+          </button>
+
+          <button
+            class="icon-btn"
+            title="Delete"
+            onclick="deleteVehicle(${v.id})">
+            🗑
+          </button>
+
+        </div>
+
+      </td>
+
+    </tr>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RECENT
+   ========================================================= */
+
+function renderRecent(){
+
+  const container =
+    document.getElementById("recentTable");
+
+  if(!container) return;
+
+  const list =
+    vehicles.slice(0,5);
+
+  if(!list.length){
+
+    container.innerHTML =
+      `<div class="empty">No records yet</div>`;
+
+    return;
+
+  }
+
+  container.innerHTML = `
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Chassis No.</th>
+            <th>Body Type</th>
+            <th>Customer</th>
+            <th>Status</th>
+            <th>Required Date</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${list.map(v => `
+
+            <tr onclick="viewVehicle(${v.id})" style="cursor:pointer">
+
+              <td>
+                <span class="chassis">
+                  ${escapeHtml(v.chassis)}
+                </span>
+              </td>
+
+              <td>
+                ${escapeHtml(v.bodyType || "—")}
+              </td>
+
+              <td>
+                ${escapeHtml(v.customerName || "—")}
+              </td>
+
+              <td>
+                ${statusBadge(v.bodyStatus)}
+              </td>
+
+              <td>
+                ${formatDate(v.requiredDate)}
+              </td>
+
+            </tr>
+
+          `).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   VEHICLE MASTER
+   ========================================================= */
+
+function renderVehicles(){
+
+  const container =
+    document.getElementById("vehicleTable");
+
+  if(!container) return;
+
+  if(!vehicles.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        <strong>No vehicles</strong>
+        Add your first vehicle record
+      </div>`;
+
+    return;
+
+  }
+
+  container.innerHTML = `
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Production</th>
+            <th>Series</th>
+            <th>Chassis No.</th>
+            <th>Body Type</th>
+            <th>Customer</th>
+            <th>Status</th>
+            <th>Car No.</th>
+            <th>Action</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${vehicles.map(v => `
+
+            <tr>
+
+              <td>${escapeHtml(v.productionMonth || "—")}</td>
+
+              <td>${escapeHtml(v.series || "—")}</td>
+
+              <td>
+                <span class="chassis">
+                  ${escapeHtml(v.chassis || "—")}
+                </span>
+              </td>
+
+              <td>${escapeHtml(v.bodyType || "—")}</td>
+
+              <td>${escapeHtml(v.customerName || "—")}</td>
+
+              <td>${statusBadge(v.bodyStatus)}</td>
+
+              <td>${escapeHtml(v.carNo || "—")}</td>
+
+              <td>
+
+                <div class="actions">
+
+                  <button
+                    class="icon-btn"
+                    onclick="viewVehicle(${v.id})">
+                    👁
+                  </button>
+
+                  <button
+                    class="icon-btn"
+                    onclick="editVehicle(${v.id})">
+                    ✎
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          `).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   CUSTOMERS
+   ========================================================= */
+
+function renderCustomers(){
+
+  const container =
+    document.getElementById("customerTable");
+
+  if(!container) return;
+
+  const customerMap = {};
+
+  vehicles.forEach(v => {
+
+    const name =
+      v.customerName || "Unassigned";
+
+    if(!customerMap[name]){
+
+      customerMap[name] = {
+
+        name,
+        total:0,
+        delivered:0,
+        pending:0
+
+      };
+
+    }
+
+    customerMap[name].total++;
+
+    if(v.bodyStatus === "Delivered"){
+      customerMap[name].delivered++;
+    }
+
+    if(
+      v.bodyStatus !== "Delivered"
+    ){
+      customerMap[name].pending++;
+    }
+
+  });
+
+  const customers =
+    Object.values(customerMap);
+
+  if(!customers.length){
+
+    container.innerHTML =
+      `<div class="empty">No customer data</div>`;
+
+    return;
+
+  }
+
+  container.innerHTML = `
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Customer</th>
+            <th>Total Vehicles</th>
+            <th>Pending</th>
+            <th>Delivered</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${customers.map(c => `
+
+            <tr>
+
+              <td>
+                <strong>
+                  ${escapeHtml(c.name)}
+                </strong>
+              </td>
+
+              <td>${c.total}</td>
+
+              <td>${c.pending}</td>
+
+              <td>${c.delivered}</td>
+
+            </tr>
+
+          `).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   REPORTS
+   ========================================================= */
+
+function renderReports(){
+
+  const customers =
+    new Set(
+      vehicles
+        .map(v => v.customerName)
+        .filter(Boolean)
+    );
+
+  const bodyTypes =
+    new Set(
+      vehicles
+        .map(v => v.bodyType)
+        .filter(Boolean)
+    );
+
+  document.getElementById("reportTotal").textContent =
+    vehicles.length;
+
+  document.getElementById("reportCustomers").textContent =
+    customers.size;
+
+  document.getElementById("reportBodyTypes").textContent =
+    bodyTypes.size;
+
+  document.getElementById("reportDelivered").textContent =
+    countStatus("Delivered");
+
+
+  const container =
+    document.getElementById("bodyTypeReport");
+
+  if(!container) return;
+
+  const map = {};
+
+  vehicles.forEach(v => {
+
+    const type =
+      v.bodyType || "Unspecified";
+
+    map[type] =
+      (map[type] || 0) + 1;
+
+  });
+
+  const rows =
+    Object.entries(map);
+
+  if(!rows.length){
+
+    container.innerHTML =
+      `<div class="empty">No report data</div>`;
+
+    return;
+
+  }
+
+  container.innerHTML = `
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Body Type</th>
+            <th>Units</th>
+            <th>Share</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${rows.map(([type,count]) => {
+
+            const percent =
+              vehicles.length
+                ? Math.round(
+                    count / vehicles.length * 100
+                  )
+                : 0;
+
+            return `
+
+              <tr>
+
+                <td>
+                  <strong>
+                    ${escapeHtml(type)}
+                  </strong>
+                </td>
+
+                <td>${count}</td>
+
+                <td>
+
+                  <div style="display:flex;align-items:center;gap:10px">
+
+                    <div class="progress" style="max-width:160px">
+
+                      <div
+                        class="progress-bar"
+                        style="width:${percent}%">
+                      </div>
+
+                    </div>
+
+                    <span>${percent}%</span>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `;
+
+          }).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   MONTH FILTER
+   ========================================================= */
+
+function updateMonthFilter(){
+
+  const select =
+    document.getElementById(
+      "productionMonthFilter"
+    );
+
+  if(!select) return;
+
+  const current =
+    select.value;
+
+  const months =
+    [...new Set(
+      vehicles
+        .map(v => v.productionMonth)
+        .filter(Boolean)
+    )]
+    .sort();
+
+  select.innerHTML =
+    `<option value="">All Months</option>` +
+    months
+      .map(m =>
+        `<option value="${escapeAttr(m)}">
+          ${escapeHtml(m)}
+        </option>`
+      )
+      .join("");
+
+  select.value = current;
+
+}
+
+
+/* =========================================================
+   CSV EXPORT
+   ========================================================= */
+
+function exportCSV(){
+
+  if(!vehicles.length){
+
+    alert("No vehicle data to export.");
+
+    return;
+
+  }
+
+  const headers = [
+
+    "Production Month",
+    "Series",
+    "Length",
+    "Chassis No.",
+    "Body Type",
+    "Body Status",
+    "Customer Name",
+    "Car No.",
+    "Required Date",
+    "Remark"
+
+  ];
+
+  const rows =
+    vehicles.map(v => [
+
+      v.productionMonth,
+      v.series,
+      v.length,
+      v.chassis,
+      v.bodyType,
+      v.bodyStatus,
+      v.customerName,
+      v.carNo,
+      v.requiredDate,
+      v.remark
+
+    ]);
+
+
+  const csv = [
+
+    headers,
+
+    ...rows
+
+  ]
+  .map(row =>
+    row
+      .map(csvEscape)
+      .join(",")
+  )
+  .join("\n");
+
+
+  const blob =
+    new Blob(
+      ["\ufeff" + csv],
+      {type:"text/csv;charset=utf-8;"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  link.href = url;
+
+  link.download =
+    "ISUZU_Vehicle_Report.csv";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+function csvEscape(value){
+
+  const text =
+    String(value ?? "");
+
+  return `"${text.replace(/"/g,'""')}"`;
+
+}
+
+
+/* =========================================================
+   CLEAR DATA
+   ========================================================= */
+
+function clearAllData(){
+
+  const confirmed =
+    confirm(
+      "This will permanently remove all vehicle records from this browser.\n\nContinue?"
+    );
+
+  if(!confirmed) return;
+
+  vehicles = [];
+
+  saveData();
+
+  renderAll();
+
+}
+
+
+/* =========================================================
+   FORMAT
+   ========================================================= */
+
+function formatDate(date){
+
+  if(!date) return "—";
+
+  const d =
+    new Date(date + "T00:00:00");
+
+  if(Number.isNaN(d.getTime())){
+    return escapeHtml(date);
+  }
+
+  return d.toLocaleDateString(
+    "en-GB",
+    {
+      day:"2-digit",
+      month:"short",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+/* =========================================================
+   SECURITY HELPERS
+   ========================================================= */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttr(value){
+
+  return escapeHtml(value);
+
+}
+
+
+/* =========================================================
+   TOP ADD BUTTON
+   ========================================================= */
+
+document.getElementById("topAddBtn")
+  .addEventListener("click", () => {
+
+    openAddModal();
+
+  });
+
+
+/* =========================================================
+   EXPORT BUTTON
+   ========================================================= */
+
+document.getElementById("exportBtn")
+  .addEventListener("click", () => {
+
+    exportCSV();
+
+  });
+
+
+/* =========================================================
+   MODAL BACKDROP CLOSE
+   ========================================================= */
+
+document.getElementById("vehicleModal")
+  .addEventListener("click", e => {
+
+    if(e.target.id === "vehicleModal"){
+      closeModal();
+    }
+
+  });
+
+
+document.getElementById("detailModal")
+  .addEventListener("click", e => {
+
+    if(e.target.id === "detailModal"){
+      closeDetail();
+    }
+
+  });
+
+
+/* =========================================================
+   KEYBOARD
+   ========================================================= */
+
+document.addEventListener("keydown", e => {
+
+  if(e.key === "Escape"){
+
+    closeModal();
+
+    closeDetail();
+
+    closeMobileMenu();
+
+  }
+
+});
+
+
+/* =========================================================
+   GLOBAL EXPORTS
+   ========================================================= */
+
+window.showPage = showPage;
+window.openAddModal = openAddModal;
+window.closeModal = closeModal;
+window.saveVehicle = saveVehicle;
+window.editVehicle = editVehicle;
+window.deleteVehicle = deleteVehicle;
+window.viewVehicle = viewVehicle;
+window.closeDetail = closeDetail;
+window.focusSearch = focusSearch;
+window.exportCSV = exportCSV;
+window.clearAllData = clearAllData;
+
+</script>
+
+</body>
+</html>
