@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>ISUZU Sales Manager Workflow</title>
+<meta name="theme-color" content="#111827">
+<title>Sales Manager Workflow Pro V2</title>
 
 <style>
 *{
@@ -14,34 +15,29 @@
 
 :root{
   --bg:#f4f6f8;
-  --card:#ffffff;
-  --text:#17212b;
-  --muted:#6b7785;
-  --line:#e5e9ee;
-  --dark:#17212b;
-  --dark2:#253342;
-  --accent:#e21f26;
-  --accent2:#b9151b;
+  --surface:#ffffff;
+  --surface-2:#f8fafc;
+  --border:#e5e7eb;
+  --text:#111827;
+  --muted:#6b7280;
+  --dark:#111827;
+  --dark-2:#1f2937;
   --green:#15803d;
-  --green-bg:#dcfce7;
+  --green-bg:#ecfdf3;
   --orange:#c2410c;
-  --orange-bg:#ffedd5;
+  --orange-bg:#fff7ed;
+  --red:#b91c1c;
+  --red-bg:#fef2f2;
   --blue:#1d4ed8;
-  --blue-bg:#dbeafe;
-  --gray-bg:#eef1f4;
-  --danger:#dc2626;
-  --shadow:0 8px 30px rgba(15,23,42,.07);
+  --blue-bg:#eff6ff;
+  --purple:#7e22ce;
+  --purple-bg:#faf5ff;
   --radius:16px;
+  --shadow:0 8px 24px rgba(15,23,42,.06);
 }
 
 body{
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Noto Sans Myanmar",
-    "Myanmar Text",
-    sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Myanmar","Myanmar Text",Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
@@ -59,557 +55,548 @@ button{
 }
 
 .app{
-  display:flex;
   min-height:100vh;
+  display:flex;
 }
 
 /* SIDEBAR */
-
 .sidebar{
-  width:255px;
+  width:260px;
   background:var(--dark);
   color:#fff;
   position:fixed;
   left:0;
   top:0;
   bottom:0;
-  z-index:50;
-  padding:22px 16px;
-  overflow-y:auto;
+  z-index:100;
+  display:flex;
+  flex-direction:column;
+  transition:.25s ease;
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:6px 8px 24px;
-}
-
-.brand-logo{
-  width:44px;
-  height:44px;
-  border-radius:12px;
-  background:#fff;
-  color:var(--accent);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:900;
-  font-size:13px;
+  padding:24px 20px 18px;
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .brand-title{
-  font-size:16px;
+  font-size:20px;
   font-weight:800;
-  line-height:1.2;
+  letter-spacing:-.4px;
 }
 
 .brand-sub{
-  font-size:11px;
-  color:#9ca9b6;
-  margin-top:4px;
+  color:#9ca3af;
+  font-size:12px;
+  margin-top:5px;
 }
 
-.nav-label{
-  font-size:10px;
-  color:#7f8d9b;
-  letter-spacing:1px;
+.company-badge{
+  display:inline-flex;
+  margin-top:13px;
+  padding:6px 10px;
+  border-radius:8px;
+  background:#1f2937;
+  color:#d1d5db;
+  font-size:11px;
   font-weight:700;
-  padding:12px 10px 7px;
-  text-transform:uppercase;
 }
 
 .nav{
-  display:flex;
-  flex-direction:column;
-  gap:5px;
+  padding:16px 12px;
+  overflow:auto;
+  flex:1;
+}
+
+.nav-section{
+  color:#6b7280;
+  font-size:10px;
+  text-transform:uppercase;
+  font-weight:800;
+  letter-spacing:1px;
+  padding:14px 10px 7px;
 }
 
 .nav-btn{
   width:100%;
   border:0;
   background:transparent;
-  color:#b9c3cd;
+  color:#9ca3af;
   text-align:left;
-  padding:12px 12px;
-  border-radius:11px;
+  padding:11px 12px;
+  border-radius:10px;
   display:flex;
   align-items:center;
   gap:11px;
-  transition:.2s;
+  margin-bottom:3px;
+  font-weight:600;
+  font-size:13px;
 }
 
 .nav-btn:hover{
-  background:rgba(255,255,255,.07);
+  background:#1f2937;
   color:#fff;
 }
 
 .nav-btn.active{
-  background:var(--accent);
-  color:#fff;
-  font-weight:700;
+  background:#fff;
+  color:#111827;
 }
 
 .nav-icon{
-  width:23px;
+  width:20px;
   text-align:center;
   font-size:16px;
 }
 
 .sidebar-footer{
-  margin-top:25px;
   padding:14px;
-  border-radius:13px;
-  background:rgba(255,255,255,.06);
-  color:#aab5c0;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.manager-card{
+  background:#1f2937;
+  border-radius:12px;
+  padding:12px;
+}
+
+.manager-name{
+  font-size:13px;
+  font-weight:700;
+}
+
+.manager-role{
+  color:#9ca3af;
   font-size:11px;
-  line-height:1.6;
+  margin-top:3px;
 }
 
 /* MAIN */
-
 .main{
-  margin-left:255px;
-  width:calc(100% - 255px);
-  min-height:100vh;
+  margin-left:260px;
+  width:calc(100% - 260px);
+  min-width:0;
 }
 
 .topbar{
   height:70px;
   background:#fff;
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 28px;
   position:sticky;
   top:0;
-  z-index:30;
+  z-index:50;
 }
 
-.page-title{
+.page-heading{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.page-heading h1{
   font-size:20px;
   font-weight:800;
 }
 
-.page-sub{
+.page-heading span{
   font-size:12px;
   color:var(--muted);
-  margin-top:3px;
 }
 
 .top-actions{
   display:flex;
   gap:8px;
-  align-items:center;
-}
-
-.menu-btn{
-  display:none;
-  border:0;
-  background:var(--dark);
-  color:#fff;
-  width:40px;
-  height:40px;
-  border-radius:10px;
-}
-
-.content{
-  padding:25px;
-  max-width:1500px;
-  margin:auto;
-}
-
-/* PAGES */
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-/* DASHBOARD */
-
-.hero{
-  background:linear-gradient(135deg,#17212b,#293847);
-  color:#fff;
-  border-radius:20px;
-  padding:25px;
-  margin-bottom:20px;
-  position:relative;
-  overflow:hidden;
-}
-
-.hero:after{
-  content:"ISUZU";
-  position:absolute;
-  right:25px;
-  bottom:-22px;
-  font-size:90px;
-  font-weight:900;
-  opacity:.035;
-}
-
-.hero h1{
-  font-size:26px;
-  margin-bottom:7px;
-}
-
-.hero p{
-  color:#b8c3ce;
-  font-size:13px;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:14px;
-  margin-bottom:22px;
-}
-
-.stat{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:18px;
-  box-shadow:var(--shadow);
-}
-
-.stat-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.stat-icon{
-  width:35px;
-  height:35px;
-  border-radius:10px;
-  background:var(--gray-bg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.stat-label{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.stat-value{
-  font-size:25px;
-  font-weight:850;
-  margin-top:12px;
-}
-
-.stat-note{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:4px;
-}
-
-.dashboard-grid{
-  display:grid;
-  grid-template-columns:1.3fr .7fr;
-  gap:18px;
-}
-
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-
-.card-head{
-  padding:18px 20px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.card-title{
-  font-weight:800;
-  font-size:15px;
-}
-
-.card-body{
-  padding:20px;
-}
-
-.status-row{
-  display:grid;
-  grid-template-columns:1fr 100px;
-  gap:15px;
-  align-items:center;
-  margin-bottom:15px;
-}
-
-.status-info{
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  margin-bottom:7px;
-}
-
-.progress{
-  width:100%;
-  height:8px;
-  background:#edf0f3;
-  border-radius:100px;
-  overflow:hidden;
-}
-
-.progress-bar{
-  height:100%;
-  border-radius:100px;
-  background:var(--accent);
-}
-
-.quick-actions{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-.quick-btn{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:12px;
-  padding:14px;
-  text-align:left;
-  transition:.2s;
-}
-
-.quick-btn:hover{
-  border-color:#c5ccd3;
-  transform:translateY(-1px);
-}
-
-.quick-btn strong{
-  display:block;
-  font-size:13px;
-}
-
-.quick-btn span{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:4px;
-}
-
-/* TOOLBAR */
-
-.toolbar{
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap;
-  margin-bottom:16px;
-}
-
-.search{
-  flex:1;
-  min-width:220px;
-  position:relative;
-}
-
-.search input{
-  width:100%;
-  height:44px;
-  border:1px solid var(--line);
-  border-radius:11px;
-  padding:0 14px;
-  outline:none;
-  background:#fff;
-}
-
-.search input:focus{
-  border-color:var(--accent);
-}
-
-select,
-.input{
-  height:44px;
-  border:1px solid var(--line);
-  border-radius:11px;
-  padding:0 12px;
-  background:#fff;
-  outline:none;
-  width:100%;
-}
-
-textarea.input{
-  height:100px;
-  padding:12px;
-  resize:vertical;
-}
-
-select:focus,
-.input:focus{
-  border-color:var(--accent);
 }
 
 .btn{
-  border:0;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--text);
   border-radius:10px;
-  height:44px;
-  padding:0 15px;
+  padding:9px 13px;
   font-weight:700;
-  transition:.2s;
+  font-size:12px;
+}
+
+.btn:hover{
+  background:var(--surface-2);
 }
 
 .btn-primary{
-  background:var(--accent);
+  background:var(--dark);
   color:#fff;
+  border-color:var(--dark);
 }
 
 .btn-primary:hover{
-  background:var(--accent2);
-}
-
-.btn-dark{
-  background:var(--dark);
-  color:#fff;
-}
-
-.btn-light{
-  background:#fff;
-  border:1px solid var(--line);
-  color:var(--text);
+  background:#1f2937;
 }
 
 .btn-danger{
-  background:#fee2e2;
-  color:#b91c1c;
+  color:var(--red);
+  background:var(--red-bg);
+  border-color:#fecaca;
 }
 
-/* TABLE */
-
-.table-wrap{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:900px;
-}
-
-th{
-  background:#f7f8fa;
-  color:#687583;
+.btn-small{
+  padding:7px 9px;
   font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.3px;
-  text-align:left;
-  padding:13px 14px;
-  white-space:nowrap;
 }
 
-td{
-  border-top:1px solid var(--line);
-  padding:14px;
-  font-size:12px;
-  vertical-align:middle;
+.mobile-menu{
+  display:none;
+  border:0;
+  background:#fff;
+  font-size:22px;
 }
 
-tr:hover td{
-  background:#fafbfc;
+.content{
+  padding:25px 28px 50px;
+  max-width:1600px;
+  margin:auto;
 }
 
-.chassis{
-  font-family:monospace;
+/* COMMON */
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:13px;
+}
+
+.section-title h2{
+  font-size:16px;
+  font-weight:800;
+}
+
+.section-title span{
+  font-size:11px;
+  color:var(--muted);
+}
+
+.grid{
+  display:grid;
+  gap:14px;
+}
+
+.kpi-grid{
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  margin-bottom:24px;
+}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.kpi{
+  padding:16px;
+}
+
+.kpi-label{
+  font-size:11px;
+  color:var(--muted);
   font-weight:700;
-  color:var(--dark);
-  white-space:nowrap;
 }
 
-.badge{
+.kpi-value{
+  font-size:25px;
+  font-weight:850;
+  margin-top:7px;
+  letter-spacing:-.7px;
+}
+
+.kpi-note{
+  margin-top:6px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+.kpi-icon{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:var(--surface-2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:10px;
+}
+
+.two-col{
+  grid-template-columns:1.3fr .7fr;
+}
+
+.three-col{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.panel{
+  padding:18px;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.empty{
+  padding:35px 15px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* WORKFLOW */
+.workflow{
+  display:flex;
+  overflow-x:auto;
+  gap:0;
+  padding:4px 0 8px;
+}
+
+.workflow-step{
+  min-width:125px;
+  text-align:center;
+  position:relative;
+  padding:0 7px;
+}
+
+.workflow-step:not(:last-child)::after{
+  content:"";
+  position:absolute;
+  top:17px;
+  left:calc(50% + 18px);
+  width:calc(100% - 36px);
+  height:2px;
+  background:#e5e7eb;
+}
+
+.workflow-dot{
+  width:35px;
+  height:35px;
+  margin:auto;
+  border-radius:50%;
+  background:#f3f4f6;
+  border:2px solid #e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  position:relative;
+  z-index:2;
+}
+
+.workflow-step.completed .workflow-dot{
+  background:#dcfce7;
+  border-color:#86efac;
+  color:#15803d;
+}
+
+.workflow-step.current .workflow-dot{
+  background:#111827;
+  border-color:#111827;
+  color:#fff;
+}
+
+.workflow-name{
+  margin-top:7px;
+  font-size:10px;
+  font-weight:700;
+  line-height:1.3;
+}
+
+/* STATUS */
+.status{
   display:inline-flex;
   align-items:center;
   gap:5px;
-  border-radius:100px;
-  padding:6px 9px;
+  padding:5px 8px;
+  border-radius:999px;
   font-size:10px;
   font-weight:800;
   white-space:nowrap;
 }
 
-.badge-pending{
-  background:#fef3c7;
+.status-pending{
   color:#92400e;
+  background:#fef3c7;
 }
 
-.badge-building{
-  background:var(--orange-bg);
-  color:var(--orange);
+.status-progress{
+  color:#1d4ed8;
+  background:#dbeafe;
 }
 
-.badge-completed{
-  background:var(--green-bg);
-  color:var(--green);
-}
-
-.badge-registration{
-  background:var(--blue-bg);
-  color:var(--blue);
-}
-
-.badge-ready{
-  background:#ede9fe;
-  color:#6d28d9;
-}
-
-.badge-delivered{
-  background:#dcfce7;
+.status-completed{
   color:#166534;
+  background:#dcfce7;
 }
 
-.actions{
+.status-danger{
+  color:#991b1b;
+  background:#fee2e2;
+}
+
+.status-neutral{
+  color:#374151;
+  background:#f3f4f6;
+}
+
+/* PRODUCTION */
+.progress-row{
+  margin-bottom:14px;
+}
+
+.progress-head{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.progress-track{
+  height:7px;
+  background:#f1f5f9;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  background:#111827;
+  border-radius:999px;
+}
+
+/* TABLE */
+.table-wrap{
+  overflow:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1050px;
+}
+
+th{
+  background:#f8fafc;
+  color:#6b7280;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+  font-weight:800;
+  text-align:left;
+  padding:11px 12px;
+  border-bottom:1px solid var(--border);
+  white-space:nowrap;
+}
+
+td{
+  padding:12px;
+  font-size:12px;
+  border-bottom:1px solid #f1f5f9;
+  vertical-align:middle;
+}
+
+tr:hover td{
+  background:#fafafa;
+}
+
+.chassis{
+  font-family:monospace;
+  font-weight:700;
+  font-size:11px;
+}
+
+.action-group{
   display:flex;
   gap:5px;
 }
 
-.icon-btn{
-  width:32px;
-  height:32px;
-  border:1px solid var(--line);
-  border-radius:8px;
+/* FILTER */
+.filters{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:13px;
+}
+
+.input,
+.select,
+.textarea{
+  width:100%;
+  border:1px solid var(--border);
   background:#fff;
-}
-
-.icon-btn:hover{
-  background:#f3f5f7;
-}
-
-.empty{
-  padding:45px 20px;
-  text-align:center;
-  color:var(--muted);
-}
-
-.empty strong{
-  display:block;
+  border-radius:10px;
+  padding:10px 11px;
   color:var(--text);
-  margin-bottom:5px;
+  outline:none;
+  font-size:12px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus{
+  border-color:#9ca3af;
+  box-shadow:0 0 0 3px rgba(17,24,39,.05);
+}
+
+.filter-search{
+  flex:1;
+  min-width:220px;
+}
+
+.filter-select{
+  width:180px;
+}
+
+/* FORMS */
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
+
+.form-label{
+  font-size:11px;
+  font-weight:800;
+  color:#374151;
+}
+
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:18px;
 }
 
 /* MODAL */
-
 .modal-backdrop{
   position:fixed;
   inset:0;
-  background:rgba(15,23,42,.55);
+  background:rgba(15,23,42,.58);
+  z-index:300;
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:100;
-  padding:20px;
+  padding:15px;
 }
 
 .modal-backdrop.show{
@@ -617,114 +604,248 @@ tr:hover td{
 }
 
 .modal{
-  width:min(720px,100%);
-  max-height:90vh;
-  overflow-y:auto;
   background:#fff;
-  border-radius:18px;
-  box-shadow:0 25px 80px rgba(0,0,0,.25);
+  width:min(800px,100%);
+  max-height:92vh;
+  overflow:auto;
+  border-radius:20px;
+  box-shadow:0 25px 70px rgba(0,0,0,.2);
 }
 
 .modal-head{
   padding:18px 20px;
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:space-between;
 }
 
-.modal-title{
-  font-size:17px;
-  font-weight:850;
+.modal-head h3{
+  font-size:16px;
 }
 
-.close{
+.modal-close{
   border:0;
-  background:#f1f3f5;
-  width:35px;
-  height:35px;
+  background:#f3f4f6;
+  width:32px;
+  height:32px;
   border-radius:9px;
-  font-size:18px;
 }
 
 .modal-body{
   padding:20px;
 }
 
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
-
-.field label{
-  display:block;
-  font-size:11px;
-  font-weight:800;
-  margin-bottom:6px;
-  color:#4b5563;
-}
-
-.full{
-  grid-column:1/-1;
-}
-
-.modal-foot{
-  padding:15px 20px;
-  border-top:1px solid var(--line);
+/* VEHICLE DETAIL */
+.detail-head{
   display:flex;
-  justify-content:flex-end;
-  gap:8px;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:20px;
 }
 
-/* DETAIL */
+.detail-title{
+  font-size:19px;
+  font-weight:850;
+}
+
+.detail-sub{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
 
 .detail-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+  margin-bottom:20px;
 }
 
-.detail-item{
-  padding:13px;
-  background:#f7f8fa;
+.detail-box{
+  padding:11px;
+  background:#f8fafc;
   border-radius:10px;
 }
 
-.detail-label{
-  font-size:10px;
+.detail-box label{
+  display:block;
+  font-size:9px;
   color:var(--muted);
   margin-bottom:4px;
 }
 
-.detail-value{
-  font-size:13px;
-  font-weight:700;
+.detail-box strong{
+  font-size:12px;
   word-break:break-word;
 }
 
-/* OVERLAY */
+/* TIMELINE */
+.timeline{
+  position:relative;
+  margin-top:10px;
+}
 
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:15px;
+  top:10px;
+  bottom:10px;
+  width:2px;
+  background:#e5e7eb;
+}
+
+.timeline-item{
+  display:flex;
+  gap:13px;
+  position:relative;
+  padding-bottom:18px;
+}
+
+.timeline-dot{
+  width:32px;
+  height:32px;
+  flex:none;
+  border-radius:50%;
+  background:#f3f4f6;
+  border:2px solid #e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:2;
+  font-size:12px;
+}
+
+.timeline-item.done .timeline-dot{
+  background:#dcfce7;
+  border-color:#86efac;
+}
+
+.timeline-item.current .timeline-dot{
+  background:#111827;
+  border-color:#111827;
+  color:#fff;
+}
+
+.timeline-content{
+  padding-top:3px;
+}
+
+.timeline-content h4{
+  font-size:12px;
+  font-weight:800;
+}
+
+.timeline-content p{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+/* TASK */
+.task{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px 0;
+  border-bottom:1px solid #f1f5f9;
+}
+
+.task:last-child{
+  border-bottom:0;
+}
+
+.task-check{
+  width:20px;
+  height:20px;
+  accent-color:#111827;
+}
+
+.task-info{
+  flex:1;
+}
+
+.task-title{
+  font-size:12px;
+  font-weight:700;
+}
+
+.task-meta{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+/* CUSTOMER */
+.customer-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #f1f5f9;
+}
+
+.customer-row:last-child{
+  border-bottom:0;
+}
+
+.customer-name{
+  font-weight:800;
+  font-size:12px;
+}
+
+.customer-count{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:500;
+  background:#111827;
+  color:#fff;
+  padding:12px 15px;
+  border-radius:11px;
+  font-size:12px;
+  font-weight:700;
+  box-shadow:0 12px 30px rgba(0,0,0,.2);
+  transform:translateY(120px);
+  opacity:0;
+  transition:.25s;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* MOBILE OVERLAY */
 .overlay{
   display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:90;
+}
+
+.overlay.show{
+  display:block;
 }
 
 /* RESPONSIVE */
-
-@media(max-width:1100px){
-  .stats{
+@media(max-width:1200px){
+  .kpi-grid{
     grid-template-columns:repeat(3,1fr);
-  }
-
-  .dashboard-grid{
-    grid-template-columns:1fr;
   }
 }
 
-@media(max-width:800px){
+@media(max-width:900px){
   .sidebar{
     transform:translateX(-100%);
-    transition:.25s;
   }
 
   .sidebar.open{
@@ -736,85 +857,73 @@ tr:hover td{
     width:100%;
   }
 
-  .menu-btn{
+  .mobile-menu{
     display:block;
   }
 
   .topbar{
     padding:0 15px;
+    height:62px;
   }
 
-  .topbar-left{
-    display:flex;
-    align-items:center;
-    gap:10px;
+  .page-heading h1{
+    font-size:16px;
+  }
+
+  .page-heading span{
+    display:none;
   }
 
   .content{
-    padding:16px;
+    padding:18px 14px 35px;
   }
 
-  .stats{
+  .two-col,
+  .three-col{
+    grid-template-columns:1fr;
+  }
+
+  .top-actions .export-btn{
+    display:none;
+  }
+}
+
+@media(max-width:600px){
+  .kpi-grid{
     grid-template-columns:repeat(2,1fr);
+    gap:9px;
   }
 
-  .overlay.show{
-    display:block;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.4);
-    z-index:40;
+  .kpi{
+    padding:13px;
+  }
+
+  .kpi-value{
+    font-size:21px;
   }
 
   .form-grid{
     grid-template-columns:1fr;
   }
 
-  .full{
+  .form-group.full{
     grid-column:auto;
   }
 
   .detail-grid{
-    grid-template-columns:1fr 1fr;
-  }
-}
-
-@media(max-width:500px){
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:9px;
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .stat{
-    padding:13px;
+  .workflow-step{
+    min-width:105px;
   }
 
-  .stat-value{
-    font-size:21px;
+  .top-actions .add-btn{
+    display:none;
   }
 
-  .hero{
-    padding:20px;
-  }
-
-  .hero h1{
-    font-size:21px;
-  }
-
-  .quick-actions{
-    grid-template-columns:1fr;
-  }
-
-  .detail-grid{
-    grid-template-columns:1fr;
-  }
-
-  .page-title{
-    font-size:17px;
-  }
-
-  .top-actions .btn{
-    padding:0 10px;
+  .panel{
+    padding:14px;
   }
 }
 </style>
@@ -822,2227 +931,2220 @@ tr:hover td{
 
 <body>
 
-<div class="overlay" id="overlay"></div>
-
 <div class="app">
 
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
 
     <div class="brand">
-      <div class="brand-logo">ISUZU</div>
-      <div>
-        <div class="brand-title">Sales Manager</div>
-        <div class="brand-sub">Workflow System V1.0</div>
-      </div>
+      <div class="brand-title">Sales Manager Workflow Pro</div>
+      <div class="brand-sub">Vehicle Sales & Operations</div>
+      <div class="company-badge">ISUZU WORKSPACE</div>
     </div>
-
-    <div class="nav-label">Management</div>
 
     <nav class="nav">
 
-      <button class="nav-btn active" data-page="dashboard">
-        <span class="nav-icon">▦</span>
-        <span>Dashboard</span>
-      </button>
+      <div class="nav-section">Workspace</div>
 
-      <button class="nav-btn" data-page="production">
-        <span class="nav-icon">🚚</span>
-        <span>Production</span>
+      <button class="nav-btn active" data-page="dashboard">
+        <span class="nav-icon">⌂</span>
+        Dashboard
       </button>
 
       <button class="nav-btn" data-page="vehicles">
-        <span class="nav-icon">▤</span>
-        <span>Vehicles</span>
+        <span class="nav-icon">🚚</span>
+        Vehicles
       </button>
+
+      <button class="nav-btn" data-page="production">
+        <span class="nav-icon">⚙</span>
+        Production
+      </button>
+
+      <button class="nav-btn" data-page="registration">
+        <span class="nav-icon">🪪</span>
+        Registration
+      </button>
+
+      <button class="nav-btn" data-page="delivery">
+        <span class="nav-icon">📦</span>
+        Delivery
+      </button>
+
+      <div class="nav-section">Management</div>
 
       <button class="nav-btn" data-page="customers">
-        <span class="nav-icon">👤</span>
-        <span>Customers</span>
+        <span class="nav-icon">👥</span>
+        Customers
       </button>
 
-    </nav>
-
-    <div class="nav-label">Tools</div>
-
-    <nav class="nav">
-
       <button class="nav-btn" data-page="reports">
-        <span class="nav-icon">▥</span>
-        <span>Reports</span>
+        <span class="nav-icon">▤</span>
+        Reports
+      </button>
+
+      <button class="nav-btn" data-page="manager">
+        <span class="nav-icon">✓</span>
+        Daily Manager
       </button>
 
       <button class="nav-btn" data-page="settings">
         <span class="nav-icon">⚙</span>
-        <span>Settings</span>
+        Settings
       </button>
 
     </nav>
 
     <div class="sidebar-footer">
-      <strong>Sales Manager Workflow</strong><br>
-      Production • Customer • Body • Delivery
+      <div class="manager-card">
+        <div class="manager-name">Sales Manager</div>
+        <div class="manager-role">ISUZU Operations Workspace</div>
+      </div>
     </div>
 
   </aside>
+
+  <div class="overlay" id="overlay"></div>
 
   <!-- MAIN -->
   <main class="main">
 
     <header class="topbar">
 
-      <div class="topbar-left">
-        <button class="menu-btn" id="menuBtn">☰</button>
-
+      <div class="page-heading">
+        <button class="mobile-menu" id="mobileMenu">☰</button>
         <div>
-          <div class="page-title" id="pageTitle">Dashboard</div>
-          <div class="page-sub" id="pageSub">
-            ISUZU Sales Manager Workflow
-          </div>
+          <h1 id="pageTitle">Dashboard</h1>
+          <span id="pageSubtitle">Sales Manager Command Center</span>
         </div>
       </div>
 
       <div class="top-actions">
-        <button class="btn btn-light" id="exportBtn">Export CSV</button>
-        <button class="btn btn-primary" id="topAddBtn">+ Add Vehicle</button>
+        <button class="btn export-btn" id="exportTop">Export CSV</button>
+        <button class="btn btn-primary add-btn" id="addTop">+ Add Vehicle</button>
       </div>
 
     </header>
 
-    <section class="content">
-
-      <!-- DASHBOARD -->
-      <div class="page active" id="page-dashboard">
-
-        <div class="hero">
-          <h1>ISUZU Sales Manager Workflow</h1>
-          <p>Production, Body Building, Customer and Delivery tracking in one place</p>
-        </div>
-
-        <div class="stats">
-
-          <div class="stat">
-            <div class="stat-top">
-              <span class="stat-label">Total Vehicles</span>
-              <span class="stat-icon">🚚</span>
-            </div>
-            <div class="stat-value" id="statTotal">0</div>
-            <div class="stat-note">All production records</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-top">
-              <span class="stat-label">Body Building</span>
-              <span class="stat-icon">🔧</span>
-            </div>
-            <div class="stat-value" id="statBuilding">0</div>
-            <div class="stat-note">Currently in body work</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-top">
-              <span class="stat-label">Completed</span>
-              <span class="stat-icon">✓</span>
-            </div>
-            <div class="stat-value" id="statCompleted">0</div>
-            <div class="stat-note">Body completed</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-top">
-              <span class="stat-label">Ready</span>
-              <span class="stat-icon">⚡</span>
-            </div>
-            <div class="stat-value" id="statReady">0</div>
-            <div class="stat-note">Ready for delivery</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-top">
-              <span class="stat-label">Delivered</span>
-              <span class="stat-icon">✓</span>
-            </div>
-            <div class="stat-value" id="statDelivered">0</div>
-            <div class="stat-note">Delivery completed</div>
-          </div>
-
-        </div>
-
-        <div class="dashboard-grid">
-
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">Production Status</div>
-              <button class="btn btn-light" onclick="showPage('production')">View All</button>
-            </div>
-
-            <div class="card-body">
-
-              <div class="status-row">
-                <div>
-                  <div class="status-info">
-                    <span>Pending</span>
-                    <strong id="pendingCount">0</strong>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" id="pendingBar" style="width:0%"></div>
-                  </div>
-                </div>
-                <span class="badge badge-pending">Pending</span>
-              </div>
-
-              <div class="status-row">
-                <div>
-                  <div class="status-info">
-                    <span>Body Building</span>
-                    <strong id="buildingCount">0</strong>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" id="buildingBar" style="width:0%"></div>
-                  </div>
-                </div>
-                <span class="badge badge-building">Building</span>
-              </div>
-
-              <div class="status-row">
-                <div>
-                  <div class="status-info">
-                    <span>Body Completed</span>
-                    <strong id="completedCount">0</strong>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" id="completedBar" style="width:0%"></div>
-                  </div>
-                </div>
-                <span class="badge badge-completed">Completed</span>
-              </div>
-
-              <div class="status-row">
-                <div>
-                  <div class="status-info">
-                    <span>Ready for Delivery</span>
-                    <strong id="readyCount">0</strong>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" id="readyBar" style="width:0%"></div>
-                  </div>
-                </div>
-                <span class="badge badge-ready">Ready</span>
-              </div>
-
-              <div class="status-row" style="margin-bottom:0">
-                <div>
-                  <div class="status-info">
-                    <span>Delivered</span>
-                    <strong id="deliveredCount">0</strong>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" id="deliveredBar" style="width:0%"></div>
-                  </div>
-                </div>
-                <span class="badge badge-delivered">Delivered</span>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="card">
-
-            <div class="card-head">
-              <div class="card-title">Quick Actions</div>
-            </div>
-
-            <div class="card-body">
-
-              <div class="quick-actions">
-
-                <button class="quick-btn" onclick="openAddModal()">
-                  <strong>➕ Add Vehicle</strong>
-                  <span>Add production / chassis record</span>
-                </button>
-
-                <button class="quick-btn" onclick="showPage('production')">
-                  <strong>🚚 Production</strong>
-                  <span>Track production status</span>
-                </button>
-
-                <button class="quick-btn" onclick="focusSearch()">
-                  <strong>🔎 Find Chassis</strong>
-                  <span>Search any chassis number</span>
-                </button>
-
-                <button class="quick-btn" onclick="exportCSV()">
-                  <strong>📥 Export Report</strong>
-                  <span>Download vehicle data</span>
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="card" style="margin-top:18px">
-
-          <div class="card-head">
-            <div class="card-title">Recent Production</div>
-            <button class="btn btn-light" onclick="showPage('production')">
-              All Production
-            </button>
-          </div>
-
-          <div id="recentTable"></div>
-
-        </div>
-
-      </div>
-
-
-      <!-- PRODUCTION -->
-      <div class="page" id="page-production">
-
-        <div class="toolbar">
-
-          <div class="search">
-            <input
-              id="productionSearch"
-              type="search"
-              placeholder="Search chassis, customer, series, car no..."
-            >
-          </div>
-
-          <select id="productionStatusFilter">
-            <option value="">All Status</option>
-            <option value="Pending">Pending</option>
-            <option value="Body Building">Body Building</option>
-            <option value="Body Completed">Body Completed</option>
-            <option value="Registration">Registration</option>
-            <option value="Ready for Delivery">Ready for Delivery</option>
-            <option value="Delivered">Delivered</option>
-          </select>
-
-          <select id="productionMonthFilter">
-            <option value="">All Months</option>
-          </select>
-
-          <button class="btn btn-primary" onclick="openAddModal()">
-            + Add Production
-          </button>
-
-        </div>
-
-        <div class="card">
-
-          <div class="card-head">
-            <div>
-              <div class="card-title">ISUZU Production Tracking</div>
-              <div class="page-sub">Production → Body → Registration → Delivery</div>
-            </div>
-            <strong id="recordCount">0 records</strong>
-          </div>
-
-          <div id="productionTable"></div>
-
-        </div>
-
-      </div>
-
-
-      <!-- VEHICLES -->
-      <div class="page" id="page-vehicles">
-
-        <div class="hero">
-          <h1>Vehicle Master</h1>
-          <p>Search and manage every chassis from one place</p>
-        </div>
-
-        <div class="card">
-
-          <div class="card-head">
-            <div class="card-title">All Vehicles</div>
-            <button class="btn btn-primary" onclick="openAddModal()">+ Add Vehicle</button>
-          </div>
-
-          <div id="vehicleTable"></div>
-
-        </div>
-
-      </div>
-
-
-      <!-- CUSTOMERS -->
-      <div class="page" id="page-customers">
-
-        <div class="hero">
-          <h1>Customer Overview</h1>
-          <p>Customer and vehicle relationship tracking</p>
-        </div>
-
-        <div class="card">
-
-          <div class="card-head">
-            <div class="card-title">Customers</div>
-          </div>
-
-          <div id="customerTable"></div>
-
-        </div>
-
-      </div>
-
-
-      <!-- REPORTS -->
-      <div class="page" id="page-reports">
-
-        <div class="hero">
-          <h1>Management Reports</h1>
-          <p>Quick operational summary for Sales Manager</p>
-        </div>
-
-        <div class="stats">
-
-          <div class="stat">
-            <div class="stat-label">Total Units</div>
-            <div class="stat-value" id="reportTotal">0</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-label">Customers</div>
-            <div class="stat-value" id="reportCustomers">0</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-label">Body Types</div>
-            <div class="stat-value" id="reportBodyTypes">0</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-label">Delivered</div>
-            <div class="stat-value" id="reportDelivered">0</div>
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <div class="card-head">
-            <div class="card-title">Body Type Summary</div>
-          </div>
-
-          <div id="bodyTypeReport"></div>
-
-        </div>
-
-      </div>
-
-
-      <!-- SETTINGS -->
-      <div class="page" id="page-settings">
-
-        <div class="hero">
-          <h1>Settings</h1>
-          <p>Basic application settings</p>
-        </div>
-
-        <div class="card">
-
-          <div class="card-body">
-
-            <h3 style="margin-bottom:8px">Data Management</h3>
-
-            <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:18px">
-              Data is currently stored locally in this browser using LocalStorage.
-              Clearing browser data may remove records, so export CSV regularly.
-            </p>
-
-            <div style="display:flex;gap:10px;flex-wrap:wrap">
-              <button class="btn btn-primary" onclick="exportCSV()">
-                Export CSV
-              </button>
-
-              <button class="btn btn-danger" onclick="clearAllData()">
-                Clear All Data
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
+    <section class="content" id="content"></section>
 
   </main>
 
 </div>
 
-
-<!-- ADD / EDIT MODAL -->
-
+<!-- VEHICLE MODAL -->
 <div class="modal-backdrop" id="vehicleModal">
-
   <div class="modal">
 
     <div class="modal-head">
-
-      <div class="modal-title" id="modalTitle">
-        Add Vehicle
-      </div>
-
-      <button class="close" onclick="closeModal()">×</button>
-
+      <h3 id="vehicleModalTitle">Add Vehicle</h3>
+      <button class="modal-close" onclick="closeModal('vehicleModal')">✕</button>
     </div>
 
     <div class="modal-body">
 
       <form id="vehicleForm">
 
-        <input type="hidden" id="editId">
+        <input type="hidden" id="vehicleId">
 
         <div class="form-grid">
 
-          <div class="field">
-            <label>Production Month</label>
-            <input class="input" id="productionMonth" placeholder="October 2026">
+          <div class="form-group">
+            <label class="form-label">Production Month</label>
+            <input class="input" id="productionMonth" type="month">
           </div>
 
-          <div class="field">
-            <label>Series</label>
-            <input class="input" id="series" placeholder="e.g. NLR / NPR / NQR">
+          <div class="form-group">
+            <label class="form-label">Series</label>
+            <input class="input" id="series" placeholder="e.g. NLR / NMR / FVR">
           </div>
 
-          <div class="field">
-            <label>Length</label>
-            <input class="input" id="length" placeholder="e.g. 14 ft">
+          <div class="form-group">
+            <label class="form-label">Length</label>
+            <input class="input" id="length" placeholder="e.g. 14 ft / 17 ft">
           </div>
 
-          <div class="field">
-            <label>Chassis No. *</label>
-            <input class="input" id="chassis" required placeholder="JAA1MR77HT7100921">
+          <div class="form-group">
+            <label class="form-label">Chassis No. *</label>
+            <input class="input" id="chassis" required placeholder="Enter chassis number">
           </div>
 
-          <div class="field">
-            <label>Body Type</label>
-            <input class="input" id="bodyType" placeholder="DRY BOX">
+          <div class="form-group">
+            <label class="form-label">Body Type</label>
+            <input class="input" id="bodyType" placeholder="e.g. DRY BOX">
           </div>
 
-          <div class="field">
-            <label>Body Status</label>
-            <select class="input" id="bodyStatus">
-              <option value="Pending">Pending</option>
-              <option value="Body Building">Body Building</option>
-              <option value="Body Completed">Body Completed</option>
-              <option value="Registration">Registration</option>
-              <option value="Ready for Delivery">Ready for Delivery</option>
-              <option value="Delivered">Delivered</option>
-            </select>
+          <div class="form-group">
+            <label class="form-label">Body Builder</label>
+            <input class="input" id="bodyBuilder" placeholder="Body builder / workshop">
           </div>
 
-          <div class="field">
-            <label>Customer Name</label>
-            <input class="input" id="customerName" placeholder="Yoma Fleet">
+          <div class="form-group">
+            <label class="form-label">Customer Name</label>
+            <input class="input" id="customerName" placeholder="Customer / Fleet">
           </div>
 
-          <div class="field">
-            <label>Car No.</label>
-            <input class="input" id="carNo" placeholder="1N-1234">
+          <div class="form-group">
+            <label class="form-label">Car No.</label>
+            <input class="input" id="carNo" placeholder="e.g. 5H/12345">
           </div>
 
-          <div class="field">
-            <label>Order / Required Date</label>
+          <div class="form-group">
+            <label class="form-label">Required Delivery Date</label>
             <input class="input" id="requiredDate" type="date">
           </div>
 
-          <div class="field full">
-            <label>Remark</label>
-            <textarea class="input" id="remark" placeholder="Additional information..."></textarea>
+          <div class="form-group">
+            <label class="form-label">Current Stage</label>
+            <select class="select" id="currentStage">
+              <option value="production">Production</option>
+              <option value="body">Body Building</option>
+              <option value="number">နံပါတ်ယူ</option>
+              <option value="inspection">ယာဉ်စစ်</option>
+              <option value="tax">အခွန်ဆောင်</option>
+              <option value="ownerbook">Owner Book ထုတ်</option>
+              <option value="business">လုပ်ငန်းလုပ်</option>
+              <option value="transfer">ကားလွှဲပြောင်း</option>
+              <option value="delivery">Delivery</option>
+            </select>
           </div>
 
+          <div class="form-group full">
+            <label class="form-label">Remark</label>
+            <textarea class="textarea" id="remark" rows="3" placeholder="Notes / issue / follow-up"></textarea>
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn" onclick="closeModal('vehicleModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Vehicle</button>
         </div>
 
       </form>
 
     </div>
-
-    <div class="modal-foot">
-
-      <button class="btn btn-light" onclick="closeModal()">
-        Cancel
-      </button>
-
-      <button class="btn btn-primary" onclick="saveVehicle()">
-        Save Vehicle
-      </button>
-
-    </div>
-
   </div>
-
 </div>
 
-
 <!-- DETAIL MODAL -->
-
 <div class="modal-backdrop" id="detailModal">
-
   <div class="modal">
 
     <div class="modal-head">
-
-      <div class="modal-title">Vehicle Details</div>
-
-      <button class="close" onclick="closeDetail()">×</button>
-
+      <h3>Vehicle Workflow</h3>
+      <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
     </div>
 
     <div class="modal-body" id="detailBody"></div>
 
-    <div class="modal-foot">
-      <button class="btn btn-light" onclick="closeDetail()">Close</button>
+  </div>
+</div>
+
+<!-- STAGE MODAL -->
+<div class="modal-backdrop" id="stageModal">
+  <div class="modal">
+
+    <div class="modal-head">
+      <h3>Update Workflow Stage</h3>
+      <button class="modal-close" onclick="closeModal('stageModal')">✕</button>
+    </div>
+
+    <div class="modal-body">
+
+      <input type="hidden" id="stageVehicleId">
+
+      <div class="form-group">
+        <label class="form-label">Workflow Stage</label>
+        <select class="select" id="stageSelect">
+          <option value="production">Production</option>
+          <option value="body">Body Building</option>
+          <option value="number">နံပါတ်ယူ</option>
+          <option value="inspection">ယာဉ်စစ်</option>
+          <option value="tax">အခွန်ဆောင်</option>
+          <option value="ownerbook">Owner Book ထုတ်</option>
+          <option value="business">လုပ်ငန်းလုပ်</option>
+          <option value="transfer">ကားလွှဲပြောင်း</option>
+          <option value="delivery">Delivery</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-top:13px">
+        <label class="form-label">Stage Date</label>
+        <input class="input" id="stageDate" type="date">
+      </div>
+
+      <div class="form-group" style="margin-top:13px">
+        <label class="form-label">Note</label>
+        <textarea class="textarea" id="stageNote" rows="3" placeholder="Enter update note"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn" onclick="closeModal('stageModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveStage()">Update Stage</button>
+      </div>
+
     </div>
 
   </div>
-
 </div>
 
+<div class="toast" id="toast"></div>
 
 <script>
-"use strict";
-
 /* =========================================================
-   ISUZU SALES MANAGER WORKFLOW V1
-   ========================================================= */
+   SALES MANAGER WORKFLOW PRO V2
+   LocalStorage / No Firebase
+========================================================= */
 
-const STORAGE_KEY = "isuzu_sales_manager_workflow_v1";
+const STORAGE_KEY = "sales_manager_workflow_pro_v2";
 
-let vehicles = [];
-
-const demoData = [
-  {
-    id: Date.now(),
-    productionMonth: "October 2026",
-    series: "",
-    length: "",
-    chassis: "JAA1MR77HT7100921",
-    bodyType: "DRY BOX",
-    bodyStatus: "Pending",
-    customerName: "Yoma Fleet",
-    carNo: "",
-    requiredDate: "2026-06-29",
-    remark: ""
-  }
+const STAGES = [
+  {id:"production", name:"Production", icon:"⚙"},
+  {id:"body", name:"Body Building", icon:"🔧"},
+  {id:"number", name:"နံပါတ်ယူ", icon:"🪪"},
+  {id:"inspection", name:"ယာဉ်စစ်", icon:"🔍"},
+  {id:"tax", name:"အခွန်ဆောင်", icon:"💰"},
+  {id:"ownerbook", name:"Owner Book ထုတ်", icon:"📕"},
+  {id:"business", name:"လုပ်ငန်းလုပ်", icon:"🏢"},
+  {id:"transfer", name:"ကားလွှဲပြောင်း", icon:"🔄"},
+  {id:"delivery", name:"Delivery", icon:"📦"}
 ];
 
+let vehicles = [];
+let currentPage = "dashboard";
+let searchText = "";
+let statusFilter = "all";
 
-/* =========================================================
-   INITIALIZE
-   ========================================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  loadData();
-
-  setupNavigation();
-  setupSearch();
-
-  renderAll();
-
-});
-
-
-/* =========================================================
-   DATA
-   ========================================================= */
-
-function loadData(){
-
-  try{
-
-    const saved = localStorage.getItem(STORAGE_KEY);
-
-    if(saved){
-
-      vehicles = JSON.parse(saved);
-
-      if(!Array.isArray(vehicles)){
-        vehicles = [];
-      }
-
-    }else{
-
-      vehicles = demoData;
-
-      saveData();
-
-    }
-
-  }catch(error){
-
-    console.error(error);
-
-    vehicles = [];
-
-  }
-
+function uid(){
+  return "v_" + Date.now() + "_" + Math.random().toString(36).slice(2,8);
 }
 
-
-function saveData(){
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(vehicles)
-  );
-
+function today(){
+  return new Date().toISOString().slice(0,10);
 }
 
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-function setupNavigation(){
-
-  document.querySelectorAll(".nav-btn").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      const page = button.dataset.page;
-
-      showPage(page);
-
-      closeMobileMenu();
-
-    });
-
-  });
-
-}
-
-
-function showPage(page){
-
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.remove("active");
-  });
-
-  const target = document.getElementById("page-" + page);
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  document.querySelectorAll(".nav-btn").forEach(btn => {
-
-    btn.classList.toggle(
-      "active",
-      btn.dataset.page === page
-    );
-
-  });
-
-  const titles = {
-
-    dashboard: [
-      "Dashboard",
-      "ISUZU Sales Manager Workflow"
-    ],
-
-    production: [
-      "Production Tracking",
-      "Production → Body → Registration → Delivery"
-    ],
-
-    vehicles: [
-      "Vehicle Master",
-      "Search and manage vehicle records"
-    ],
-
-    customers: [
-      "Customers",
-      "Customer and vehicle overview"
-    ],
-
-    reports: [
-      "Reports",
-      "Management operational summary"
-    ],
-
-    settings: [
-      "Settings",
-      "Application and data management"
-    ]
-
-  };
-
-  if(titles[page]){
-
-    document.getElementById("pageTitle").textContent =
-      titles[page][0];
-
-    document.getElementById("pageSub").textContent =
-      titles[page][1];
-
-  }
-
-  renderAll();
-
-}
-
-
-function closeMobileMenu(){
-
-  document.getElementById("sidebar")
-    .classList.remove("open");
-
-  document.getElementById("overlay")
-    .classList.remove("show");
-
-}
-
-
-/* =========================================================
-   MOBILE MENU
-   ========================================================= */
-
-document.getElementById("menuBtn").addEventListener("click", () => {
-
-  document.getElementById("sidebar")
-    .classList.add("open");
-
-  document.getElementById("overlay")
-    .classList.add("show");
-
-});
-
-
-document.getElementById("overlay").addEventListener("click", () => {
-
-  closeMobileMenu();
-
-});
-
-
-/* =========================================================
-   SEARCH
-   ========================================================= */
-
-function setupSearch(){
-
-  const search = document.getElementById("productionSearch");
-
-  const status = document.getElementById("productionStatusFilter");
-
-  const month = document.getElementById("productionMonthFilter");
-
-  search.addEventListener("input", renderProduction);
-
-  status.addEventListener("change", renderProduction);
-
-  month.addEventListener("change", renderProduction);
-
-}
-
-
-function focusSearch(){
-
-  showPage("production");
-
-  setTimeout(() => {
-
-    document
-      .getElementById("productionSearch")
-      .focus();
-
-  }, 100);
-
-}
-
-
-/* =========================================================
-   FILTER
-   ========================================================= */
-
-function getFilteredVehicles(){
-
-  const search =
-    document
-      .getElementById("productionSearch")
-      ?.value
-      .toLowerCase()
-      .trim() || "";
-
-  const status =
-    document
-      .getElementById("productionStatusFilter")
-      ?.value || "";
-
-  const month =
-    document
-      .getElementById("productionMonthFilter")
-      ?.value || "";
-
-  return vehicles.filter(v => {
-
-    const text = [
-
-      v.productionMonth,
-      v.series,
-      v.length,
-      v.chassis,
-      v.bodyType,
-      v.customerName,
-      v.carNo,
-      v.remark
-
-    ]
-    .join(" ")
-    .toLowerCase();
-
-    const matchesSearch =
-      !search || text.includes(search);
-
-    const matchesStatus =
-      !status || v.bodyStatus === status;
-
-    const matchesMonth =
-      !month || v.productionMonth === month;
-
-    return (
-      matchesSearch &&
-      matchesStatus &&
-      matchesMonth
-    );
-
-  });
-
-}
-
-
-/* =========================================================
-   MODAL
-   ========================================================= */
-
-function openAddModal(){
-
-  document.getElementById("modalTitle")
-    .textContent = "Add Vehicle";
-
-  document.getElementById("vehicleForm")
-    .reset();
-
-  document.getElementById("editId")
-    .value = "";
-
-  document.getElementById("bodyStatus")
-    .value = "Pending";
-
-  document.getElementById("vehicleModal")
-    .classList.add("show");
-
-}
-
-
-function closeModal(){
-
-  document.getElementById("vehicleModal")
-    .classList.remove("show");
-
-}
-
-
-function editVehicle(id){
-
-  const v = vehicles.find(x => x.id === id);
-
-  if(!v) return;
-
-  document.getElementById("modalTitle")
-    .textContent = "Edit Vehicle";
-
-  document.getElementById("editId").value = v.id;
-
-  document.getElementById("productionMonth").value =
-    v.productionMonth || "";
-
-  document.getElementById("series").value =
-    v.series || "";
-
-  document.getElementById("length").value =
-    v.length || "";
-
-  document.getElementById("chassis").value =
-    v.chassis || "";
-
-  document.getElementById("bodyType").value =
-    v.bodyType || "";
-
-  document.getElementById("bodyStatus").value =
-    v.bodyStatus || "Pending";
-
-  document.getElementById("customerName").value =
-    v.customerName || "";
-
-  document.getElementById("carNo").value =
-    v.carNo || "";
-
-  document.getElementById("requiredDate").value =
-    v.requiredDate || "";
-
-  document.getElementById("remark").value =
-    v.remark || "";
-
-  document.getElementById("vehicleModal")
-    .classList.add("show");
-
-}
-
-
-function saveVehicle(){
-
-  const form =
-    document.getElementById("vehicleForm");
-
-  if(!form.reportValidity()){
-    return;
-  }
-
-  const id =
-    document.getElementById("editId").value;
-
-  const data = {
-
-    productionMonth:
-      document.getElementById("productionMonth").value.trim(),
-
-    series:
-      document.getElementById("series").value.trim(),
-
-    length:
-      document.getElementById("length").value.trim(),
-
-    chassis:
-      document.getElementById("chassis").value.trim(),
-
-    bodyType:
-      document.getElementById("bodyType").value.trim(),
-
-    bodyStatus:
-      document.getElementById("bodyStatus").value,
-
-    customerName:
-      document.getElementById("customerName").value.trim(),
-
-    carNo:
-      document.getElementById("carNo").value.trim(),
-
-    requiredDate:
-      document.getElementById("requiredDate").value,
-
-    remark:
-      document.getElementById("remark").value.trim()
-
-  };
-
-
-  /* DUPLICATE CHASSIS CHECK */
-
-  const duplicate = vehicles.find(v =>
-    v.chassis.toLowerCase() === data.chassis.toLowerCase() &&
-    String(v.id) !== String(id)
-  );
-
-  if(duplicate){
-
-    alert(
-      "This chassis number already exists."
-    );
-
-    return;
-
-  }
-
-
-  if(id){
-
-    const index =
-      vehicles.findIndex(
-        v => String(v.id) === String(id)
-      );
-
-    if(index !== -1){
-
-      vehicles[index] = {
-        ...vehicles[index],
-        ...data
-      };
-
-    }
-
-  }else{
-
-    vehicles.unshift({
-
-      id: Date.now(),
-
-      ...data
-
-    });
-
-  }
-
-
-  saveData();
-
-  closeModal();
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   DELETE
-   ========================================================= */
-
-function deleteVehicle(id){
-
-  const v =
-    vehicles.find(x => x.id === id);
-
-  if(!v) return;
-
-  const confirmed =
-    confirm(
-      "Delete this vehicle record?\n\n" +
-      (v.chassis || "Vehicle")
-    );
-
-  if(!confirmed) return;
-
-  vehicles =
-    vehicles.filter(x => x.id !== id);
-
-  saveData();
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   DETAIL
-   ========================================================= */
-
-function viewVehicle(id){
-
-  const v =
-    vehicles.find(x => x.id === id);
-
-  if(!v) return;
-
-  document.getElementById("detailBody").innerHTML = `
-
-    <div class="detail-grid">
-
-      ${detail("Production Month", v.productionMonth)}
-
-      ${detail("Series", v.series)}
-
-      ${detail("Length", v.length)}
-
-      ${detail("Chassis No.", v.chassis)}
-
-      ${detail("Body Type", v.bodyType)}
-
-      ${detail("Body Status", statusBadge(v.bodyStatus))}
-
-      ${detail("Customer Name", v.customerName)}
-
-      ${detail("Car No.", v.carNo)}
-
-      ${detail("Required Date", formatDate(v.requiredDate))}
-
-      ${detail("Remark", v.remark || "—")}
-
-    </div>
-
-  `;
-
-  document.getElementById("detailModal")
-    .classList.add("show");
-
-}
-
-
-function closeDetail(){
-
-  document.getElementById("detailModal")
-    .classList.remove("show");
-
-}
-
-
-function detail(label, value){
-
-  return `
-
-    <div class="detail-item">
-
-      <div class="detail-label">
-        ${escapeHtml(label)}
-      </div>
-
-      <div class="detail-value">
-        ${value || "—"}
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   STATUS
-   ========================================================= */
-
-function statusBadge(status){
-
-  const map = {
-
-    "Pending":"badge-pending",
-
-    "Body Building":"badge-building",
-
-    "Body Completed":"badge-completed",
-
-    "Registration":"badge-registration",
-
-    "Ready for Delivery":"badge-ready",
-
-    "Delivered":"badge-delivered"
-
-  };
-
-  const cls =
-    map[status] || "badge-pending";
-
-  return `
-    <span class="badge ${cls}">
-      ${escapeHtml(status || "Pending")}
-    </span>
-  `;
-
-}
-
-
-/* =========================================================
-   RENDER ALL
-   ========================================================= */
-
-function renderAll(){
-
-  updateStats();
-
-  renderProduction();
-
-  renderRecent();
-
-  renderVehicles();
-
-  renderCustomers();
-
-  renderReports();
-
-  updateMonthFilter();
-
-}
-
-
-/* =========================================================
-   DASHBOARD STATS
-   ========================================================= */
-
-function updateStats(){
-
-  const total = vehicles.length;
-
-  const pending =
-    countStatus("Pending");
-
-  const building =
-    countStatus("Body Building");
-
-  const completed =
-    countStatus("Body Completed");
-
-  const ready =
-    countStatus("Ready for Delivery");
-
-  const delivered =
-    countStatus("Delivered");
-
-  document.getElementById("statTotal").textContent =
-    total;
-
-  document.getElementById("statBuilding").textContent =
-    building;
-
-  document.getElementById("statCompleted").textContent =
-    completed;
-
-  document.getElementById("statReady").textContent =
-    ready;
-
-  document.getElementById("statDelivered").textContent =
-    delivered;
-
-  document.getElementById("pendingCount").textContent =
-    pending;
-
-  document.getElementById("buildingCount").textContent =
-    building;
-
-  document.getElementById("completedCount").textContent =
-    completed;
-
-  document.getElementById("readyCount").textContent =
-    ready;
-
-  document.getElementById("deliveredCount").textContent =
-    delivered;
-
-
-  setBar("pendingBar", pending, total);
-
-  setBar("buildingBar", building, total);
-
-  setBar("completedBar", completed, total);
-
-  setBar("readyBar", ready, total);
-
-  setBar("deliveredBar", delivered, total);
-
-}
-
-
-function countStatus(status){
-
-  return vehicles.filter(
-    v => v.bodyStatus === status
-  ).length;
-
-}
-
-
-function setBar(id, value, total){
-
-  const percent =
-    total
-      ? Math.round((value / total) * 100)
-      : 0;
-
-  const el =
-    document.getElementById(id);
-
-  if(el){
-    el.style.width = percent + "%";
-  }
-
-}
-
-
-/* =========================================================
-   PRODUCTION TABLE
-   ========================================================= */
-
-function renderProduction(){
-
-  const container =
-    document.getElementById("productionTable");
-
-  if(!container) return;
-
-  const list =
-    getFilteredVehicles();
-
-  document.getElementById("recordCount")
-    .textContent =
-      `${list.length} record${list.length === 1 ? "" : "s"}`;
-
-
-  if(!list.length){
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <strong>No production records found</strong>
-
-        Try another search or add a new vehicle
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>Series</th>
-            <th>Length</th>
-            <th>Chassis No.</th>
-            <th>Body Type</th>
-            <th>Body Status</th>
-            <th>Customer Name</th>
-            <th>Car No.</th>
-            <th>Required Date</th>
-            <th>Action</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          ${list.map(vehicleRow).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-function vehicleRow(v){
-
-  return `
-
-    <tr>
-
-      <td>
-        <strong>${escapeHtml(v.series || "—")}</strong>
-      </td>
-
-      <td>
-        ${escapeHtml(v.length || "—")}
-      </td>
-
-      <td>
-        <span class="chassis">
-          ${escapeHtml(v.chassis || "—")}
-        </span>
-      </td>
-
-      <td>
-        ${escapeHtml(v.bodyType || "—")}
-      </td>
-
-      <td>
-        ${statusBadge(v.bodyStatus)}
-      </td>
-
-      <td>
-        <strong>
-          ${escapeHtml(v.customerName || "—")}
-        </strong>
-      </td>
-
-      <td>
-        ${escapeHtml(v.carNo || "—")}
-      </td>
-
-      <td>
-        ${formatDate(v.requiredDate)}
-      </td>
-
-      <td>
-
-        <div class="actions">
-
-          <button
-            class="icon-btn"
-            title="View"
-            onclick="viewVehicle(${v.id})">
-            👁
-          </button>
-
-          <button
-            class="icon-btn"
-            title="Edit"
-            onclick="editVehicle(${v.id})">
-            ✎
-          </button>
-
-          <button
-            class="icon-btn"
-            title="Delete"
-            onclick="deleteVehicle(${v.id})">
-            🗑
-          </button>
-
-        </div>
-
-      </td>
-
-    </tr>
-
-  `;
-
-}
-
-
-/* =========================================================
-   RECENT
-   ========================================================= */
-
-function renderRecent(){
-
-  const container =
-    document.getElementById("recentTable");
-
-  if(!container) return;
-
-  const list =
-    vehicles.slice(0,5);
-
-  if(!list.length){
-
-    container.innerHTML =
-      `<div class="empty">No records yet</div>`;
-
-    return;
-
-  }
-
-  container.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>Chassis No.</th>
-            <th>Body Type</th>
-            <th>Customer</th>
-            <th>Status</th>
-            <th>Required Date</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          ${list.map(v => `
-
-            <tr onclick="viewVehicle(${v.id})" style="cursor:pointer">
-
-              <td>
-                <span class="chassis">
-                  ${escapeHtml(v.chassis)}
-                </span>
-              </td>
-
-              <td>
-                ${escapeHtml(v.bodyType || "—")}
-              </td>
-
-              <td>
-                ${escapeHtml(v.customerName || "—")}
-              </td>
-
-              <td>
-                ${statusBadge(v.bodyStatus)}
-              </td>
-
-              <td>
-                ${formatDate(v.requiredDate)}
-              </td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   VEHICLE MASTER
-   ========================================================= */
-
-function renderVehicles(){
-
-  const container =
-    document.getElementById("vehicleTable");
-
-  if(!container) return;
-
-  if(!vehicles.length){
-
-    container.innerHTML =
-      `<div class="empty">
-        <strong>No vehicles</strong>
-        Add your first vehicle record
-      </div>`;
-
-    return;
-
-  }
-
-  container.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>Production</th>
-            <th>Series</th>
-            <th>Chassis No.</th>
-            <th>Body Type</th>
-            <th>Customer</th>
-            <th>Status</th>
-            <th>Car No.</th>
-            <th>Action</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          ${vehicles.map(v => `
-
-            <tr>
-
-              <td>${escapeHtml(v.productionMonth || "—")}</td>
-
-              <td>${escapeHtml(v.series || "—")}</td>
-
-              <td>
-                <span class="chassis">
-                  ${escapeHtml(v.chassis || "—")}
-                </span>
-              </td>
-
-              <td>${escapeHtml(v.bodyType || "—")}</td>
-
-              <td>${escapeHtml(v.customerName || "—")}</td>
-
-              <td>${statusBadge(v.bodyStatus)}</td>
-
-              <td>${escapeHtml(v.carNo || "—")}</td>
-
-              <td>
-
-                <div class="actions">
-
-                  <button
-                    class="icon-btn"
-                    onclick="viewVehicle(${v.id})">
-                    👁
-                  </button>
-
-                  <button
-                    class="icon-btn"
-                    onclick="editVehicle(${v.id})">
-                    ✎
-                  </button>
-
-                </div>
-
-              </td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   CUSTOMERS
-   ========================================================= */
-
-function renderCustomers(){
-
-  const container =
-    document.getElementById("customerTable");
-
-  if(!container) return;
-
-  const customerMap = {};
-
-  vehicles.forEach(v => {
-
-    const name =
-      v.customerName || "Unassigned";
-
-    if(!customerMap[name]){
-
-      customerMap[name] = {
-
-        name,
-        total:0,
-        delivered:0,
-        pending:0
-
-      };
-
-    }
-
-    customerMap[name].total++;
-
-    if(v.bodyStatus === "Delivered"){
-      customerMap[name].delivered++;
-    }
-
-    if(
-      v.bodyStatus !== "Delivered"
-    ){
-      customerMap[name].pending++;
-    }
-
-  });
-
-  const customers =
-    Object.values(customerMap);
-
-  if(!customers.length){
-
-    container.innerHTML =
-      `<div class="empty">No customer data</div>`;
-
-    return;
-
-  }
-
-  container.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>Customer</th>
-            <th>Total Vehicles</th>
-            <th>Pending</th>
-            <th>Delivered</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          ${customers.map(c => `
-
-            <tr>
-
-              <td>
-                <strong>
-                  ${escapeHtml(c.name)}
-                </strong>
-              </td>
-
-              <td>${c.total}</td>
-
-              <td>${c.pending}</td>
-
-              <td>${c.delivered}</td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   REPORTS
-   ========================================================= */
-
-function renderReports(){
-
-  const customers =
-    new Set(
-      vehicles
-        .map(v => v.customerName)
-        .filter(Boolean)
-    );
-
-  const bodyTypes =
-    new Set(
-      vehicles
-        .map(v => v.bodyType)
-        .filter(Boolean)
-    );
-
-  document.getElementById("reportTotal").textContent =
-    vehicles.length;
-
-  document.getElementById("reportCustomers").textContent =
-    customers.size;
-
-  document.getElementById("reportBodyTypes").textContent =
-    bodyTypes.size;
-
-  document.getElementById("reportDelivered").textContent =
-    countStatus("Delivered");
-
-
-  const container =
-    document.getElementById("bodyTypeReport");
-
-  if(!container) return;
-
-  const map = {};
-
-  vehicles.forEach(v => {
-
-    const type =
-      v.bodyType || "Unspecified";
-
-    map[type] =
-      (map[type] || 0) + 1;
-
-  });
-
-  const rows =
-    Object.entries(map);
-
-  if(!rows.length){
-
-    container.innerHTML =
-      `<div class="empty">No report data</div>`;
-
-    return;
-
-  }
-
-  container.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>Body Type</th>
-            <th>Units</th>
-            <th>Share</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          ${rows.map(([type,count]) => {
-
-            const percent =
-              vehicles.length
-                ? Math.round(
-                    count / vehicles.length * 100
-                  )
-                : 0;
-
-            return `
-
-              <tr>
-
-                <td>
-                  <strong>
-                    ${escapeHtml(type)}
-                  </strong>
-                </td>
-
-                <td>${count}</td>
-
-                <td>
-
-                  <div style="display:flex;align-items:center;gap:10px">
-
-                    <div class="progress" style="max-width:160px">
-
-                      <div
-                        class="progress-bar"
-                        style="width:${percent}%">
-                      </div>
-
-                    </div>
-
-                    <span>${percent}%</span>
-
-                  </div>
-
-                </td>
-
-              </tr>
-
-            `;
-
-          }).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   MONTH FILTER
-   ========================================================= */
-
-function updateMonthFilter(){
-
-  const select =
-    document.getElementById(
-      "productionMonthFilter"
-    );
-
-  if(!select) return;
-
-  const current =
-    select.value;
-
-  const months =
-    [...new Set(
-      vehicles
-        .map(v => v.productionMonth)
-        .filter(Boolean)
-    )]
-    .sort();
-
-  select.innerHTML =
-    `<option value="">All Months</option>` +
-    months
-      .map(m =>
-        `<option value="${escapeAttr(m)}">
-          ${escapeHtml(m)}
-        </option>`
-      )
-      .join("");
-
-  select.value = current;
-
-}
-
-
-/* =========================================================
-   CSV EXPORT
-   ========================================================= */
-
-function exportCSV(){
-
-  if(!vehicles.length){
-
-    alert("No vehicle data to export.");
-
-    return;
-
-  }
-
-  const headers = [
-
-    "Production Month",
-    "Series",
-    "Length",
-    "Chassis No.",
-    "Body Type",
-    "Body Status",
-    "Customer Name",
-    "Car No.",
-    "Required Date",
-    "Remark"
-
-  ];
-
-  const rows =
-    vehicles.map(v => [
-
-      v.productionMonth,
-      v.series,
-      v.length,
-      v.chassis,
-      v.bodyType,
-      v.bodyStatus,
-      v.customerName,
-      v.carNo,
-      v.requiredDate,
-      v.remark
-
-    ]);
-
-
-  const csv = [
-
-    headers,
-
-    ...rows
-
-  ]
-  .map(row =>
-    row
-      .map(csvEscape)
-      .join(",")
-  )
-  .join("\n");
-
-
-  const blob =
-    new Blob(
-      ["\ufeff" + csv],
-      {type:"text/csv;charset=utf-8;"}
-    );
-
-  const url =
-    URL.createObjectURL(blob);
-
-  const link =
-    document.createElement("a");
-
-  link.href = url;
-
-  link.download =
-    "ISUZU_Vehicle_Report.csv";
-
-  document.body.appendChild(link);
-
-  link.click();
-
-  link.remove();
-
-  URL.revokeObjectURL(url);
-
-}
-
-
-function csvEscape(value){
-
-  const text =
-    String(value ?? "");
-
-  return `"${text.replace(/"/g,'""')}"`;
-
-}
-
-
-/* =========================================================
-   CLEAR DATA
-   ========================================================= */
-
-function clearAllData(){
-
-  const confirmed =
-    confirm(
-      "This will permanently remove all vehicle records from this browser.\n\nContinue?"
-    );
-
-  if(!confirmed) return;
-
-  vehicles = [];
-
-  saveData();
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   FORMAT
-   ========================================================= */
-
-function formatDate(date){
-
-  if(!date) return "—";
-
-  const d =
-    new Date(date + "T00:00:00");
-
-  if(Number.isNaN(d.getTime())){
-    return escapeHtml(date);
-  }
-
-  return d.toLocaleDateString(
-    "en-GB",
-    {
-      day:"2-digit",
-      month:"short",
-      year:"numeric"
-    }
-  );
-
-}
-
-
-/* =========================================================
-   SECURITY HELPERS
-   ========================================================= */
-
-function escapeHtml(value){
-
+function escapeHTML(value){
   return String(value ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
-
 }
 
+function loadData(){
 
-function escapeAttr(value){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
 
-  return escapeHtml(value);
-
-}
-
-
-/* =========================================================
-   TOP ADD BUTTON
-   ========================================================= */
-
-document.getElementById("topAddBtn")
-  .addEventListener("click", () => {
-
-    openAddModal();
-
-  });
-
-
-/* =========================================================
-   EXPORT BUTTON
-   ========================================================= */
-
-document.getElementById("exportBtn")
-  .addEventListener("click", () => {
-
-    exportCSV();
-
-  });
-
-
-/* =========================================================
-   MODAL BACKDROP CLOSE
-   ========================================================= */
-
-document.getElementById("vehicleModal")
-  .addEventListener("click", e => {
-
-    if(e.target.id === "vehicleModal"){
-      closeModal();
+    if(raw){
+      vehicles = JSON.parse(raw);
     }
 
-  });
-
-
-document.getElementById("detailModal")
-  .addEventListener("click", e => {
-
-    if(e.target.id === "detailModal"){
-      closeDetail();
-    }
-
-  });
-
-
-/* =========================================================
-   KEYBOARD
-   ========================================================= */
-
-document.addEventListener("keydown", e => {
-
-  if(e.key === "Escape"){
-
-    closeModal();
-
-    closeDetail();
-
-    closeMobileMenu();
-
+  }catch(e){
+    vehicles = [];
   }
+
+  if(!Array.isArray(vehicles)){
+    vehicles = [];
+  }
+
+  if(vehicles.length === 0){
+    vehicles = [
+      createDemoVehicle()
+    ];
+
+    saveData();
+  }
+}
+
+function createDemoVehicle(){
+
+  const v = {
+    id:uid(),
+    productionMonth:"2026-10",
+    series:"NMR",
+    length:"17 ft",
+    chassis:"JAA1MR77HT7100921",
+    bodyType:"DRY BOX",
+    bodyBuilder:"Yoma Body",
+    customerName:"Yoma Fleet",
+    carNo:"",
+    requiredDate:"2026-10-30",
+    currentStage:"number",
+    remark:"Production and body completed. Registration process pending.",
+    createdAt:today(),
+    stages:{}
+  };
+
+  STAGES.forEach((stage,index)=>{
+
+    if(index < 2){
+      v.stages[stage.id] = {
+        status:"completed",
+        date:index === 0 ? "2026-06-29" : "2026-07-15",
+        note:"Completed"
+      };
+    }else if(stage.id === "number"){
+      v.stages[stage.id] = {
+        status:"pending",
+        date:"",
+        note:"Number application pending"
+      };
+    }else{
+      v.stages[stage.id] = {
+        status:"pending",
+        date:"",
+        note:""
+      };
+    }
+
+  });
+
+  return v;
+}
+
+function saveData(){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(vehicles));
+}
+
+function getStageIndex(stageId){
+  return STAGES.findIndex(s=>s.id===stageId);
+}
+
+function stageName(id){
+  const found = STAGES.find(s=>s.id===id);
+  return found ? found.name : id;
+}
+
+function stageIcon(id){
+  const found = STAGES.find(s=>s.id===id);
+  return found ? found.icon : "•";
+}
+
+function statusClass(status){
+
+  if(status === "completed") return "status-completed";
+  if(status === "progress") return "status-progress";
+  if(status === "danger") return "status-danger";
+
+  return "status-pending";
+}
+
+function statusText(status){
+
+  if(status === "completed") return "Completed";
+  if(status === "progress") return "In Progress";
+  if(status === "danger") return "Overdue";
+
+  return "Pending";
+}
+
+function currentStage(v){
+  return v.currentStage || "production";
+}
+
+function getVehicleStage(v,id){
+
+  if(v.stages && v.stages[id]){
+    return v.stages[id];
+  }
+
+  return {
+    status:getStageIndex(id) < getStageIndex(currentStage(v)) ? "completed" : "pending",
+    date:"",
+    note:""
+  };
+}
+
+function calculateStats(){
+
+  const total = vehicles.length;
+
+  const stats = {
+    total,
+    production:0,
+    body:0,
+    number:0,
+    inspection:0,
+    tax:0,
+    ownerbook:0,
+    business:0,
+    transfer:0,
+    delivery:0,
+    delivered:0
+  };
+
+  vehicles.forEach(v=>{
+
+    const index = getStageIndex(currentStage(v));
+
+    if(index >= 0){
+
+      stats[currentStage(v)]++;
+
+      if(currentStage(v) === "delivery"){
+        stats.delivered++;
+      }
+
+    }
+
+  });
+
+  return stats;
+}
+
+function render(){
+
+  const content = document.getElementById("content");
+
+  const pages = {
+    dashboard:renderDashboard,
+    vehicles:renderVehicles,
+    production:renderProduction,
+    registration:renderRegistration,
+    delivery:renderDelivery,
+    customers:renderCustomers,
+    reports:renderReports,
+    manager:renderManager,
+    settings:renderSettings
+  };
+
+  content.innerHTML = pages[currentPage] ? pages[currentPage]() : renderDashboard();
+
+  updateHeader();
+
+  bindDynamicEvents();
+}
+
+function updateHeader(){
+
+  const titles = {
+    dashboard:["Dashboard","Sales Manager Command Center"],
+    vehicles:["Vehicles","Vehicle master & workflow tracking"],
+    production:["Production","Production and body building control"],
+    registration:["Registration","Number, inspection, tax & owner book"],
+    delivery:["Delivery","Business process, transfer & delivery"],
+    customers:["Customers","Customer and fleet overview"],
+    reports:["Reports","Management reports and workflow analysis"],
+    manager:["Daily Manager","Today’s action and follow-up control"],
+    settings:["Settings","System and data settings"]
+  };
+
+  const data = titles[currentPage] || titles.dashboard;
+
+  document.getElementById("pageTitle").textContent = data[0];
+  document.getElementById("pageSubtitle").textContent = data[1];
+
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.page===currentPage);
+  });
+}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard(){
+
+  const s = calculateStats();
+
+  return `
+    <div class="grid kpi-grid">
+
+      ${kpi("🚚","Total Vehicles",s.total,"All tracked vehicles")}
+      ${kpi("⚙","Production",s.production,"Current stage")}
+      ${kpi("🔧","Body Building",s.body,"Current stage")}
+      ${kpi("🪪","Number Pending",s.number,"Registration stage")}
+      ${kpi("📕","Owner Book",s.ownerbook,"Current stage")}
+      ${kpi("📦","Delivery",s.delivery,"Current stage")}
+
+    </div>
+
+    <div class="grid two-col">
+
+      <div class="card panel">
+
+        <div class="section-title">
+          <h2>Vehicle Workflow</h2>
+          <span>${s.total} vehicles</span>
+        </div>
+
+        <div class="workflow">
+          ${STAGES.map((stage,i)=>{
+
+            const count = vehicles.filter(v=>currentStage(v)===stage.id).length;
+
+            return `
+              <div class="workflow-step">
+                <div class="workflow-dot">${stage.icon}</div>
+                <div class="workflow-name">${stage.name}</div>
+                <div style="font-size:10px;color:#6b7280;margin-top:3px">${count} cars</div>
+              </div>
+            `;
+
+          }).join("")}
+        </div>
+
+      </div>
+
+      <div class="card panel">
+
+        <div class="section-title">
+          <h2>Today's Focus</h2>
+          <span>${today()}</span>
+        </div>
+
+        ${renderTodayFocus()}
+
+      </div>
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="grid two-col">
+
+      <div class="card panel">
+
+        <div class="section-title">
+          <h2>Registration Pipeline</h2>
+          <span>Number → Owner Book</span>
+        </div>
+
+        ${renderRegistrationProgress()}
+
+      </div>
+
+      <div class="card panel">
+
+        <div class="section-title">
+          <h2>Customer Overview</h2>
+          <span>Active fleet</span>
+        </div>
+
+        ${renderCustomerMini()}
+
+      </div>
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="card panel">
+
+      <div class="section-title">
+        <h2>Latest Vehicles</h2>
+        <button class="btn btn-small" onclick="goPage('vehicles')">View All</button>
+      </div>
+
+      ${renderVehicleTable(vehicles.slice(-8).reverse())}
+
+    </div>
+  `;
+}
+
+function kpi(icon,label,value,note){
+
+  return `
+    <div class="card kpi">
+      <div class="kpi-icon">${icon}</div>
+      <div class="kpi-label">${label}</div>
+      <div class="kpi-value">${value}</div>
+      <div class="kpi-note">${note}</div>
+    </div>
+  `;
+}
+
+function renderTodayFocus(){
+
+  const items = [];
+
+  vehicles.forEach(v=>{
+
+    const index = getStageIndex(currentStage(v));
+
+    if(index >= 0 && index < STAGES.length-1){
+
+      items.push({
+        v,
+        text:`Follow up: ${stageName(currentStage(v))}`,
+        stage:currentStage(v)
+      });
+
+    }
+
+  });
+
+  if(items.length === 0){
+    return `<div class="empty">No pending action today</div>`;
+  }
+
+  return items.slice(0,6).map(item=>`
+
+    <div class="task">
+
+      <div class="task-check" style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#f3f4f6;
+        border-radius:6px;
+        font-size:10px;
+      ">${stageIcon(item.stage)}</div>
+
+      <div class="task-info">
+        <div class="task-title">${escapeHTML(item.v.chassis)}</div>
+        <div class="task-meta">${escapeHTML(item.text)} • ${escapeHTML(item.v.customerName || "No customer")}</div>
+      </div>
+
+      <button class="btn btn-small" onclick="openDetail('${item.v.id}')">Open</button>
+
+    </div>
+
+  `).join("");
+}
+
+function renderRegistrationProgress(){
+
+  const registrationStages = ["number","inspection","tax","ownerbook"];
+
+  return registrationStages.map(id=>{
+
+    const count = vehicles.filter(v=>currentStage(v)===id).length;
+    const percentage = vehicles.length ? Math.round((count/vehicles.length)*100) : 0;
+
+    return `
+      <div class="progress-row">
+
+        <div class="progress-head">
+          <span>${stageIcon(id)} ${stageName(id)}</span>
+          <span>${count}</span>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" style="width:${percentage}%"></div>
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+function renderCustomerMini(){
+
+  const map = {};
+
+  vehicles.forEach(v=>{
+    const name = v.customerName || "No Customer";
+    map[name] = (map[name] || 0) + 1;
+  });
+
+  const entries = Object.entries(map).sort((a,b)=>b[1]-a[1]).slice(0,7);
+
+  if(entries.length===0){
+    return `<div class="empty">No customer data</div>`;
+  }
+
+  return entries.map(([name,count])=>`
+
+    <div class="customer-row">
+      <div>
+        <div class="customer-name">${escapeHTML(name)}</div>
+        <div class="customer-count">Vehicle fleet</div>
+      </div>
+      <strong>${count}</strong>
+    </div>
+
+  `).join("");
+}
+
+/* =========================================================
+   VEHICLES
+========================================================= */
+
+function renderVehicles(){
+
+  let filtered = vehicles.filter(v=>{
+
+    const search = searchText.toLowerCase();
+
+    const matchesSearch =
+      !search ||
+      [
+        v.chassis,
+        v.customerName,
+        v.carNo,
+        v.series,
+        v.bodyType,
+        v.bodyBuilder
+      ].join(" ").toLowerCase().includes(search);
+
+    const matchesStatus =
+      statusFilter==="all" ||
+      currentStage(v)===statusFilter;
+
+    return matchesSearch && matchesStatus;
+
+  });
+
+  return `
+
+    <div class="card panel">
+
+      <div class="section-title">
+        <div>
+          <h2>Vehicle Master</h2>
+          <span>${filtered.length} of ${vehicles.length} vehicles</span>
+        </div>
+
+        <button class="btn btn-primary" onclick="openAddVehicle()">+ Add Vehicle</button>
+      </div>
+
+      <div class="filters">
+
+        <div class="filter-search">
+          <input
+            class="input"
+            id="vehicleSearch"
+            value="${escapeHTML(searchText)}"
+            placeholder="Search chassis, customer, car no, series..."
+          >
+        </div>
+
+        <select class="select filter-select" id="stageFilter">
+
+          <option value="all">All Stages</option>
+
+          ${STAGES.map(s=>`
+            <option value="${s.id}" ${statusFilter===s.id?"selected":""}>
+              ${s.name}
+            </option>
+          `).join("")}
+
+        </select>
+
+      </div>
+
+      ${renderVehicleTable(filtered)}
+
+    </div>
+  `;
+}
+
+function renderVehicleTable(list){
+
+  if(!list.length){
+    return `<div class="empty">No vehicles found</div>`;
+  }
+
+  return `
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Series</th>
+            <th>Chassis No.</th>
+            <th>Body</th>
+            <th>Customer</th>
+            <th>Car No.</th>
+            <th>Current Stage</th>
+            <th>Required Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${list.map(v=>`
+
+            <tr>
+
+              <td>
+                <strong>${escapeHTML(v.series || "-")}</strong>
+                <div style="font-size:10px;color:#6b7280">${escapeHTML(v.length || "")}</div>
+              </td>
+
+              <td class="chassis">${escapeHTML(v.chassis)}</td>
+
+              <td>
+                ${escapeHTML(v.bodyType || "-")}
+                <div style="font-size:10px;color:#6b7280">${escapeHTML(v.bodyBuilder || "")}</div>
+              </td>
+
+              <td>${escapeHTML(v.customerName || "-")}</td>
+
+              <td>${escapeHTML(v.carNo || "-")}</td>
+
+              <td>
+                <span class="status status-progress">
+                  ${stageIcon(currentStage(v))} ${escapeHTML(stageName(currentStage(v)))}
+                </span>
+              </td>
+
+              <td>${formatDate(v.requiredDate)}</td>
+
+              <td>
+                <div class="action-group">
+                  <button class="btn btn-small" onclick="openDetail('${v.id}')">View</button>
+                  <button class="btn btn-small" onclick="openStage('${v.id}')">Update</button>
+                  <button class="btn btn-small" onclick="editVehicle('${v.id}')">Edit</button>
+                  <button class="btn btn-small btn-danger" onclick="deleteVehicle('${v.id}')">Delete</button>
+                </div>
+              </td>
+
+            </tr>
+
+          `).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   PRODUCTION
+========================================================= */
+
+function renderProduction(){
+
+  const production = vehicles.filter(v=>
+    ["production","body"].includes(currentStage(v))
+  );
+
+  const bodyCompleted = vehicles.filter(v=>{
+    const index = getStageIndex(currentStage(v));
+    return index >= getStageIndex("number");
+  }).length;
+
+  return `
+
+    <div class="grid three-col">
+
+      ${kpi("⚙","Production",vehicles.filter(v=>currentStage(v)==="production").length,"Production stage")}
+      ${kpi("🔧","Body Building",vehicles.filter(v=>currentStage(v)==="body").length,"Body stage")}
+      ${kpi("✓","Body Completed",bodyCompleted,"Moved to registration")}
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="card panel">
+
+      <div class="section-title">
+        <div>
+          <h2>Production & Body Building</h2>
+          <span>Production → Body Completed</span>
+        </div>
+
+        <button class="btn btn-primary" onclick="openAddVehicle()">+ Add Vehicle</button>
+      </div>
+
+      ${renderVehicleTable(production)}
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   REGISTRATION
+========================================================= */
+
+function renderRegistration(){
+
+  const groups = {
+    number:vehicles.filter(v=>currentStage(v)==="number"),
+    inspection:vehicles.filter(v=>currentStage(v)==="inspection"),
+    tax:vehicles.filter(v=>currentStage(v)==="tax"),
+    ownerbook:vehicles.filter(v=>currentStage(v)==="ownerbook")
+  };
+
+  return `
+
+    <div class="grid kpi-grid">
+
+      ${kpi("🪪","နံပါတ်ယူ",groups.number.length,"Number process")}
+      ${kpi("🔍","ယာဉ်စစ်",groups.inspection.length,"Inspection")}
+      ${kpi("💰","အခွန်ဆောင်",groups.tax.length,"Tax process")}
+      ${kpi("📕","Owner Book",groups.ownerbook.length,"Owner book")}
+      ${kpi("🏢","လုပ်ငန်း",vehicles.filter(v=>currentStage(v)==="business").length,"Business process")}
+      ${kpi("🔄","ကားလွှဲပြောင်း",vehicles.filter(v=>currentStage(v)==="transfer").length,"Transfer")}
+
+    </div>
+
+    <div class="card panel">
+
+      <div class="section-title">
+        <div>
+          <h2>Registration Pipeline</h2>
+          <span>Number → Inspection → Tax → Owner Book</span>
+        </div>
+      </div>
+
+      <div class="workflow" style="margin-bottom:18px">
+
+        ${["number","inspection","tax","ownerbook"].map((id,i)=>{
+
+          const count = groups[id].length;
+
+          return `
+            <div class="workflow-step">
+              <div class="workflow-dot">${stageIcon(id)}</div>
+              <div class="workflow-name">${stageName(id)}</div>
+              <div style="font-size:10px;color:#6b7280;margin-top:3px">${count} pending</div>
+            </div>
+          `;
+
+        }).join("")}
+
+      </div>
+
+      ${renderVehicleTable(
+        vehicles.filter(v=>
+          ["number","inspection","tax","ownerbook"].includes(currentStage(v))
+        )
+      )}
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   DELIVERY
+========================================================= */
+
+function renderDelivery(){
+
+  const list = vehicles.filter(v=>
+    ["business","transfer","delivery"].includes(currentStage(v))
+  );
+
+  return `
+
+    <div class="grid three-col">
+
+      ${kpi("🏢","လုပ်ငန်းလုပ်",vehicles.filter(v=>currentStage(v)==="business").length,"Business process")}
+
+      ${kpi("🔄","ကားလွှဲပြောင်း",vehicles.filter(v=>currentStage(v)==="transfer").length,"Transfer pending")}
+
+      ${kpi("📦","Delivery",vehicles.filter(v=>currentStage(v)==="delivery").length,"Delivery stage")}
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="card panel">
+
+      <div class="section-title">
+        <div>
+          <h2>Business → Transfer → Delivery</h2>
+          <span>Final vehicle handover process</span>
+        </div>
+      </div>
+
+      ${renderVehicleTable(list)}
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   CUSTOMERS
+========================================================= */
+
+function renderCustomers(){
+
+  const map = {};
+
+  vehicles.forEach(v=>{
+
+    const name = v.customerName || "No Customer";
+
+    if(!map[name]){
+      map[name] = {
+        total:0,
+        stages:{}
+      };
+    }
+
+    map[name].total++;
+
+    const stage = currentStage(v);
+
+    map[name].stages[stage] =
+      (map[name].stages[stage] || 0) + 1;
+
+  });
+
+  const entries = Object.entries(map);
+
+  return `
+
+    <div class="grid three-col">
+
+      ${kpi("👥","Customers",entries.length,"Unique customers")}
+      ${kpi("🚚","Fleet Vehicles",vehicles.length,"Total vehicles")}
+      ${kpi("📦","Delivered",vehicles.filter(v=>currentStage(v)==="delivery").length,"Current delivery stage")}
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="card panel">
+
+      <div class="section-title">
+        <h2>Customer / Fleet Overview</h2>
+        <span>${entries.length} customers</span>
+      </div>
+
+      ${entries.length ? entries.map(([name,data])=>`
+
+        <div class="customer-row">
+
+          <div>
+            <div class="customer-name">${escapeHTML(name)}</div>
+            <div class="customer-count">
+
+              ${Object.entries(data.stages).map(([stage,count])=>
+                `${stageName(stage)}: ${count}`
+              ).join(" • ")}
+
+            </div>
+          </div>
+
+          <strong>${data.total}</strong>
+
+        </div>
+
+      `).join("") : `<div class="empty">No customers</div>`}
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   REPORTS
+========================================================= */
+
+function renderReports(){
+
+  const s = calculateStats();
+
+  return `
+
+    <div class="grid three-col">
+
+      ${kpi("🚚","Total",s.total,"All vehicles")}
+      ${kpi("✓","Delivered",s.delivered,"Delivery stage")}
+      ${kpi("⏳","Pending",vehicles.filter(v=>currentStage(v)!=="delivery").length,"Not yet delivered")}
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="grid two-col">
+
+      <div class="card panel">
+
+        <div class="section-title">
+          <h2>Workflow Distribution</h2>
+          <span>Current stage</span>
+        </div>
+
+        ${STAGES.map(stage=>{
+
+          const count = vehicles.filter(v=>currentStage(v)===stage.id).length;
+          const pct = vehicles.length ? Math.round(count/vehicles.length*100) : 0;
+
+          return `
+            <div class="progress-row">
+
+              <div class="progress-head">
+                <span>${stage.icon} ${stage.name}</span>
+                <span>${count} (${pct}%)</span>
+              </div>
+
+              <div class="progress-track">
+                <div class="progress-fill" style="width:${pct}%"></div>
+              </div>
+
+            </div>
+          `;
+
+        }).join("")}
+
+      </div>
+
+      <div class="card panel">
+
+        <div class="section-title">
+          <h2>Body Type Report</h2>
+          <span>Vehicle count</span>
+        </div>
+
+        ${renderBodyTypeReport()}
+
+      </div>
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="card panel">
+
+      <div class="section-title">
+        <h2>Management Report</h2>
+        <button class="btn btn-primary btn-small" onclick="exportCSV()">Export CSV</button>
+      </div>
+
+      ${renderVehicleTable(vehicles)}
+
+    </div>
+  `;
+}
+
+function renderBodyTypeReport(){
+
+  const map = {};
+
+  vehicles.forEach(v=>{
+    const body = v.bodyType || "Unknown";
+    map[body] = (map[body] || 0) + 1;
+  });
+
+  const entries = Object.entries(map);
+
+  if(!entries.length){
+    return `<div class="empty">No body data</div>`;
+  }
+
+  return entries.map(([name,count])=>{
+
+    const pct = vehicles.length ? Math.round(count/vehicles.length*100) : 0;
+
+    return `
+      <div class="progress-row">
+
+        <div class="progress-head">
+          <span>${escapeHTML(name)}</span>
+          <span>${count}</span>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" style="width:${pct}%"></div>
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+/* =========================================================
+   DAILY MANAGER
+========================================================= */
+
+function renderManager(){
+
+  const pending = vehicles.filter(v=>currentStage(v)!=="delivery");
+
+  const overdue = vehicles.filter(v=>{
+    if(!v.requiredDate) return false;
+    if(currentStage(v)==="delivery") return false;
+    return v.requiredDate < today();
+  });
+
+  return `
+
+    <div class="grid three-col">
+
+      ${kpi("📅","Today",new Date().toLocaleDateString(),"Manager review")}
+      ${kpi("⏳","Pending",pending.length,"Not delivered")}
+      ${kpi("⚠","Overdue",overdue.length,"Required date passed")}
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="grid two-col">
+
+      <div class="card panel">
+
+        <div class="section-title">
+          <h2>Manager Action List</h2>
+          <span>Follow-up required</span>
+        </div>
+
+        ${pending.slice(0,10).map(v=>`
+
+          <div class="task">
+
+            <div style="
+              width:30px;
+              height:30px;
+              background:#f3f4f6;
+              border-radius:8px;
+              display:flex;
+              align-items:center;
+              justify-content:center
+            ">${stageIcon(currentStage(v))}</div>
+
+            <div class="task-info">
+
+              <div class="task-title">
+                ${escapeHTML(v.chassis)}
+              </div>
+
+              <div class="task-meta">
+                ${stageName(currentStage(v))}
+                • ${escapeHTML(v.customerName || "No customer")}
+              </div>
+
+            </div>
+
+            <button class="btn btn-small" onclick="openStage('${v.id}')">
+              Update
+            </button>
+
+          </div>
+
+        `).join("") || `<div class="empty">No action required</div>`}
+
+      </div>
+
+      <div class="card panel">
+
+        <div class="section-title">
+          <h2>Overdue Vehicles</h2>
+          <span>Required date</span>
+        </div>
+
+        ${overdue.length ? overdue.map(v=>`
+
+          <div class="task">
+
+            <div style="
+              width:30px;
+              height:30px;
+              background:#fee2e2;
+              color:#b91c1c;
+              border-radius:8px;
+              display:flex;
+              align-items:center;
+              justify-content:center
+            ">!</div>
+
+            <div class="task-info">
+
+              <div class="task-title">
+                ${escapeHTML(v.customerName || "No Customer")}
+              </div>
+
+              <div class="task-meta">
+                ${escapeHTML(v.chassis)}
+                • ${formatDate(v.requiredDate)}
+              </div>
+
+            </div>
+
+            <button class="btn btn-small" onclick="openDetail('${v.id}')">
+              Open
+            </button>
+
+          </div>
+
+        `).join("") : `<div class="empty">No overdue vehicles</div>`}
+
+      </div>
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function renderSettings(){
+
+  return `
+
+    <div class="grid two-col">
+
+      <div class="card panel">
+
+        <div class="section-title">
+          <h2>System</h2>
+          <span>Local workspace</span>
+        </div>
+
+        <div class="detail-box" style="margin-bottom:10px">
+          <label>Application</label>
+          <strong>Sales Manager Workflow Pro V2</strong>
+        </div>
+
+        <div class="detail-box" style="margin-bottom:10px">
+          <label>Workspace</label>
+          <strong>ISUZU</strong>
+        </div>
+
+        <div class="detail-box">
+          <label>Storage</label>
+          <strong>Browser LocalStorage</strong>
+        </div>
+
+      </div>
+
+      <div class="card panel">
+
+        <div class="section-title">
+          <h2>Data Management</h2>
+          <span>${vehicles.length} vehicles</span>
+        </div>
+
+        <button class="btn" style="width:100%;margin-bottom:9px" onclick="exportCSV()">
+          Export Vehicle CSV
+        </button>
+
+        <button class="btn" style="width:100%;margin-bottom:9px" onclick="backupJSON()">
+          Backup JSON
+        </button>
+
+        <button class="btn" style="width:100%;margin-bottom:9px" onclick="document.getElementById('restoreFile').click()">
+          Restore JSON
+        </button>
+
+        <input
+          type="file"
+          id="restoreFile"
+          accept=".json"
+          style="display:none"
+          onchange="restoreJSON(event)"
+        >
+
+        <button class="btn btn-danger" style="width:100%" onclick="clearAllData()">
+          Clear All Data
+        </button>
+
+      </div>
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="card panel">
+
+      <div class="section-title">
+        <h2>Workflow Stages</h2>
+        <span>V2 process</span>
+      </div>
+
+      <div class="workflow">
+
+        ${STAGES.map(stage=>`
+
+          <div class="workflow-step">
+
+            <div class="workflow-dot">
+              ${stage.icon}
+            </div>
+
+            <div class="workflow-name">
+              ${stage.name}
+            </div>
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   DETAIL
+========================================================= */
+
+function openDetail(id){
+
+  const v = vehicles.find(x=>x.id===id);
+
+  if(!v) return;
+
+  const index = getStageIndex(currentStage(v));
+
+  document.getElementById("detailBody").innerHTML = `
+
+    <div class="detail-head">
+
+      <div>
+        <div class="detail-title">
+          ${escapeHTML(v.series || "Vehicle")} • ${escapeHTML(v.chassis)}
+        </div>
+
+        <div class="detail-sub">
+          ${escapeHTML(v.customerName || "No Customer")}
+        </div>
+      </div>
+
+      <span class="status status-progress">
+        ${stageIcon(currentStage(v))}
+        ${escapeHTML(stageName(currentStage(v)))}
+      </span>
+
+    </div>
+
+    <div class="detail-grid">
+
+      ${detailBox("Series",v.series)}
+      ${detailBox("Length",v.length)}
+      ${detailBox("Chassis No.",v.chassis)}
+      ${detailBox("Body Type",v.bodyType)}
+      ${detailBox("Body Builder",v.bodyBuilder)}
+      ${detailBox("Customer",v.customerName)}
+      ${detailBox("Car No.",v.carNo)}
+      ${detailBox("Required Date",formatDate(v.requiredDate))}
+
+    </div>
+
+    <div class="section-title">
+      <h2>Vehicle Workflow Timeline</h2>
+      <button class="btn btn-small btn-primary" onclick="closeModal('detailModal');openStage('${v.id}')">
+        Update Stage
+      </button>
+    </div>
+
+    <div class="timeline">
+
+      ${STAGES.map((stage,i)=>{
+
+        const data = getVehicleStage(v,stage.id);
+
+        let cls = "";
+
+        if(i < index) cls = "done";
+        if(i === index) cls = "current";
+
+        if(data.status==="completed") cls="done";
+
+        return `
+
+          <div class="timeline-item ${cls}">
+
+            <div class="timeline-dot">
+              ${data.status==="completed" ? "✓" : stage.icon}
+            </div>
+
+            <div class="timeline-content">
+
+              <h4>${stage.name}</h4>
+
+              <p>
+                ${data.status==="completed"
+                  ? `Completed${data.date ? " • "+formatDate(data.date):""}`
+                  : i===index
+                    ? "Current stage"
+                    : "Pending"
+                }
+              </p>
+
+              ${data.note ? `
+                <p>${escapeHTML(data.note)}</p>
+              ` : ""}
+
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("")}
+
+    </div>
+
+    ${v.remark ? `
+      <div class="detail-box" style="margin-top:8px">
+        <label>Remark</label>
+        <strong>${escapeHTML(v.remark)}</strong>
+      </div>
+    ` : ""}
+
+  `;
+
+  openModal("detailModal");
+}
+
+function detailBox(label,value){
+
+  return `
+    <div class="detail-box">
+      <label>${label}</label>
+      <strong>${escapeHTML(value || "-")}</strong>
+    </div>
+  `;
+}
+
+/* =========================================================
+   ADD / EDIT
+========================================================= */
+
+function openAddVehicle(){
+
+  document.getElementById("vehicleModalTitle").textContent = "Add Vehicle";
+
+  document.getElementById("vehicleForm").reset();
+
+  document.getElementById("vehicleId").value = "";
+
+  document.getElementById("productionMonth").value =
+    new Date().toISOString().slice(0,7);
+
+  document.getElementById("currentStage").value = "production";
+
+  openModal("vehicleModal");
+}
+
+function editVehicle(id){
+
+  const v = vehicles.find(x=>x.id===id);
+
+  if(!v) return;
+
+  document.getElementById("vehicleModalTitle").textContent = "Edit Vehicle";
+
+  document.getElementById("vehicleId").value = v.id;
+  document.getElementById("productionMonth").value = v.productionMonth || "";
+  document.getElementById("series").value = v.series || "";
+  document.getElementById("length").value = v.length || "";
+  document.getElementById("chassis").value = v.chassis || "";
+  document.getElementById("bodyType").value = v.bodyType || "";
+  document.getElementById("bodyBuilder").value = v.bodyBuilder || "";
+  document.getElementById("customerName").value = v.customerName || "";
+  document.getElementById("carNo").value = v.carNo || "";
+  document.getElementById("requiredDate").value = v.requiredDate || "";
+  document.getElementById("currentStage").value = v.currentStage || "production";
+  document.getElementById("remark").value = v.remark || "";
+
+  openModal("vehicleModal");
+}
+
+document.getElementById("vehicleForm").addEventListener("submit",function(e){
+
+  e.preventDefault();
+
+  const id = document.getElementById("vehicleId").value;
+
+  const chassis =
+    document.getElementById("chassis").value.trim();
+
+  if(!chassis){
+    showToast("Chassis No. is required");
+    return;
+  }
+
+  const duplicate = vehicles.find(v=>
+    v.chassis.toLowerCase()===chassis.toLowerCase() &&
+    v.id!==id
+  );
+
+  if(duplicate){
+    showToast("This chassis number already exists");
+    return;
+  }
+
+  const stage =
+    document.getElementById("currentStage").value;
+
+  if(id){
+
+    const v = vehicles.find(x=>x.id===id);
+
+    if(!v) return;
+
+    v.productionMonth =
+      document.getElementById("productionMonth").value;
+
+    v.series =
+      document.getElementById("series").value.trim();
+
+    v.length =
+      document.getElementById("length").value.trim();
+
+    v.chassis = chassis;
+
+    v.bodyType =
+      document.getElementById("bodyType").value.trim();
+
+    v.bodyBuilder =
+      document.getElementById("bodyBuilder").value.trim();
+
+    v.customerName =
+      document.getElementById("customerName").value.trim();
+
+    v.carNo =
+      document.getElementById("carNo").value.trim();
+
+    v.requiredDate =
+      document.getElementById("requiredDate").value;
+
+    v.currentStage = stage;
+
+    v.remark =
+      document.getElementById("remark").value.trim();
+
+    if(!v.stages) v.stages={};
+
+  }else{
+
+    const v = {
+      id:uid(),
+
+      productionMonth:
+        document.getElementById("productionMonth").value,
+
+      series:
+        document.getElementById("series").value.trim(),
+
+      length:
+        document.getElementById("length").value.trim(),
+
+      chassis,
+
+      bodyType:
+        document.getElementById("bodyType").value.trim(),
+
+      bodyBuilder:
+        document.getElementById("bodyBuilder").value.trim(),
+
+      customerName:
+        document.getElementById("customerName").value.trim(),
+
+      carNo:
+        document.getElementById("carNo").value.trim(),
+
+      requiredDate:
+        document.getElementById("requiredDate").value,
+
+      currentStage:stage,
+
+      remark:
+        document.getElementById("remark").value.trim(),
+
+      createdAt:today(),
+
+      stages:{}
+
+    };
+
+    STAGES.forEach((s,i)=>{
+
+      const current = getStageIndex(stage);
+
+      v.stages[s.id] = {
+        status:i < current ? "completed" : "pending",
+        date:"",
+        note:""
+      };
+
+    });
+
+    v.stages[stage] = {
+      status:"progress",
+      date:"",
+      note:"Current stage"
+    };
+
+    vehicles.push(v);
+  }
+
+  saveData();
+
+  closeModal("vehicleModal");
+
+  render();
+
+  showToast(id ? "Vehicle updated" : "Vehicle added");
 
 });
 
+/* =========================================================
+   STAGE UPDATE
+========================================================= */
+
+function openStage(id){
+
+  const v = vehicles.find(x=>x.id===id);
+
+  if(!v) return;
+
+  document.getElementById("stageVehicleId").value=id;
+  document.getElementById("stageSelect").value=currentStage(v);
+  document.getElementById("stageDate").value=today();
+  document.getElementById("stageNote").value="";
+
+  openModal("stageModal");
+}
+
+function saveStage(){
+
+  const id =
+    document.getElementById("stageVehicleId").value;
+
+  const stage =
+    document.getElementById("stageSelect").value;
+
+  const date =
+    document.getElementById("stageDate").value;
+
+  const note =
+    document.getElementById("stageNote").value.trim();
+
+  const v = vehicles.find(x=>x.id===id);
+
+  if(!v) return;
+
+  if(!v.stages) v.stages={};
+
+  const newIndex = getStageIndex(stage);
+
+  STAGES.forEach((s,i)=>{
+
+    if(i < newIndex){
+
+      v.stages[s.id] = {
+        status:"completed",
+        date:v.stages[s.id]?.date || date || today(),
+        note:v.stages[s.id]?.note || "Completed"
+      };
+
+    }else if(i===newIndex){
+
+      v.stages[s.id] = {
+        status:"progress",
+        date:date || "",
+        note:note || "Current stage"
+      };
+
+    }else{
+
+      v.stages[s.id] = {
+        status:"pending",
+        date:"",
+        note:""
+      };
+
+    }
+
+  });
+
+  v.currentStage=stage;
+
+  if(stage==="delivery" && date){
+    v.deliveryDate=date;
+  }
+
+  saveData();
+
+  closeModal("stageModal");
+
+  render();
+
+  showToast("Workflow stage updated");
+
+}
 
 /* =========================================================
-   GLOBAL EXPORTS
-   ========================================================= */
+   DELETE
+========================================================= */
 
-window.showPage = showPage;
-window.openAddModal = openAddModal;
-window.closeModal = closeModal;
-window.saveVehicle = saveVehicle;
-window.editVehicle = editVehicle;
-window.deleteVehicle = deleteVehicle;
-window.viewVehicle = viewVehicle;
-window.closeDetail = closeDetail;
-window.focusSearch = focusSearch;
-window.exportCSV = exportCSV;
-window.clearAllData = clearAllData;
+function deleteVehicle(id){
+
+  const v = vehicles.find(x=>x.id===id);
+
+  if(!v) return;
+
+  if(!confirm(`Delete vehicle ${v.chassis}?`)){
+    return;
+  }
+
+  vehicles = vehicles.filter(x=>x.id!==id);
+
+  saveData();
+
+  render();
+
+  showToast("Vehicle deleted");
+}
+
+/* =========================================================
+   SEARCH / FILTER
+========================================================= */
+
+function bindDynamicEvents(){
+
+  const search = document.getElementById("vehicleSearch");
+
+  if(search){
+
+    search.addEventListener("input",function(){
+
+      searchText=this.value;
+
+      render();
+
+      const input=document.getElementById("vehicleSearch");
+
+      if(input){
+        input.focus();
+        input.setSelectionRange(
+          input.value.length,
+          input.value.length
+        );
+      }
+
+    });
+
+  }
+
+  const filter=document.getElementById("stageFilter");
+
+  if(filter){
+
+    filter.addEventListener("change",function(){
+
+      statusFilter=this.value;
+
+      render();
+
+    });
+
+  }
+
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function goPage(page){
+
+  currentPage=page;
+
+  searchText="";
+  statusFilter="all";
+
+  render();
+
+  closeSidebar();
+}
+
+document.querySelectorAll(".nav-btn").forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+
+    goPage(btn.dataset.page);
+
+  });
+
+});
+
+document.getElementById("addTop").addEventListener("click",openAddVehicle);
+
+document.getElementById("exportTop").addEventListener("click",exportCSV);
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+document.getElementById("mobileMenu").addEventListener("click",()=>{
+
+  document.getElementById("sidebar").classList.add("open");
+  document.getElementById("overlay").classList.add("show");
+
+});
+
+document.getElementById("overlay").addEventListener("click",closeSidebar);
+
+function closeSidebar(){
+
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openModal(id){
+  document.getElementById(id).classList.add("show");
+}
+
+function closeModal(id){
+  document.getElementById(id).classList.remove("show");
+}
+
+document.querySelectorAll(".modal-backdrop").forEach(backdrop=>{
+
+  backdrop.addEventListener("click",function(e){
+
+    if(e.target===backdrop){
+      backdrop.classList.remove("show");
+    }
+
+  });
+
+});
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function formatDate(date){
+
+  if(!date) return "-";
+
+  const d = new Date(date + "T00:00:00");
+
+  if(Number.isNaN(d.getTime())) return date;
+
+  return d.toLocaleDateString("en-GB",{
+    day:"2-digit",
+    month:"short",
+    year:"numeric"
+  });
+}
+
+/* =========================================================
+   CSV EXPORT
+========================================================= */
+
+function csvEscape(value){
+
+  const str=String(value ?? "");
+
+  return `"${str.replace(/"/g,'""')}"`;
+}
+
+function exportCSV(){
+
+  const headers = [
+    "Production Month",
+    "Series",
+    "Length",
+    "Chassis No",
+    "Body Type",
+    "Body Builder",
+    "Customer Name",
+    "Car No",
+    "Current Stage",
+    "Required Delivery Date",
+    "Number Status",
+    "Inspection Status",
+    "Tax Status",
+    "Owner Book Status",
+    "Business Status",
+    "Transfer Status",
+    "Delivery Status",
+    "Remark"
+  ];
+
+  const rows=vehicles.map(v=>{
+
+    const getStatus=id=>{
+      const s=getVehicleStage(v,id);
+      return s.status==="completed"
+        ? `Completed ${s.date || ""}`
+        : s.status==="progress"
+          ? "In Progress"
+          : "Pending";
+    };
+
+    return [
+      v.productionMonth,
+      v.series,
+      v.length,
+      v.chassis,
+      v.bodyType,
+      v.bodyBuilder,
+      v.customerName,
+      v.carNo,
+      stageName(currentStage(v)),
+      v.requiredDate,
+      getStatus("number"),
+      getStatus("inspection"),
+      getStatus("tax"),
+      getStatus("ownerbook"),
+      getStatus("business"),
+      getStatus("transfer"),
+      getStatus("delivery"),
+      v.remark
+    ].map(csvEscape).join(",");
+
+  });
+
+  const csv =
+    "\ufeff" +
+    headers.map(csvEscape).join(",") +
+    "\n" +
+    rows.join("\n");
+
+  const blob=new Blob([csv],{
+    type:"text/csv;charset=utf-8;"
+  });
+
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download="sales-manager-workflow-vehicles.csv";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+  showToast("CSV exported");
+}
+
+/* =========================================================
+   JSON BACKUP
+========================================================= */
+
+function backupJSON(){
+
+  const data={
+    app:"Sales Manager Workflow Pro",
+    version:"2.0",
+    exportedAt:new Date().toISOString(),
+    vehicles
+  };
+
+  const blob=new Blob(
+    [JSON.stringify(data,null,2)],
+    {type:"application/json"}
+  );
+
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download="sales-manager-workflow-backup.json";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+  showToast("Backup created");
+}
+
+function restoreJSON(event){
+
+  const file=event.target.files[0];
+
+  if(!file) return;
+
+  const reader=new FileReader();
+
+  reader.onload=function(){
+
+    try{
+
+      const data=JSON.parse(reader.result);
+
+      if(!Array.isArray(data.vehicles)){
+        throw new Error("Invalid backup");
+      }
+
+      if(!confirm("Restore this backup? Current data will be replaced.")){
+        return;
+      }
+
+      vehicles=data.vehicles;
+
+      saveData();
+
+      render();
+
+      showToast("Backup restored");
+
+    }catch(e){
+
+      showToast("Invalid backup file");
+
+    }
+
+  };
+
+  reader.readAsText(file);
+
+  event.target.value="";
+}
+
+/* =========================================================
+   CLEAR DATA
+========================================================= */
+
+function clearAllData(){
+
+  if(!confirm("Clear ALL vehicle data? This cannot be undone.")){
+    return;
+  }
+
+  if(!confirm("Please confirm again. All vehicles will be deleted.")){
+    return;
+  }
+
+  vehicles=[];
+
+  saveData();
+
+  render();
+
+  showToast("All data cleared");
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast=document.getElementById("toast");
+
+  toast.textContent=message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },2400);
+}
+
+/* =========================================================
+   INIT
+========================================================= */
+
+loadData();
+render();
 
 </script>
 
